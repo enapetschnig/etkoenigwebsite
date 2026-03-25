@@ -59,6 +59,7 @@ export function ScrollVideo() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [activeCard, setActiveCard] = useState(-1);
+  const [isMobile, setIsMobile] = useState(false);
   const currentFrameRef = useRef(0);
 
   const { scrollYProgress } = useScroll({
@@ -66,11 +67,18 @@ export function ScrollVideo() {
     offset: ["start start", "end end"],
   });
 
+  // Detect mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   // Preload all frames
   useEffect(() => {
     let loaded = 0;
     const images: HTMLImageElement[] = [];
-
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
       const img = new Image();
       img.src = getFrameSrc(i);
@@ -83,11 +91,10 @@ export function ScrollVideo() {
     imagesRef.current = images;
   }, []);
 
-  // Resize canvas to viewport
+  // Resize canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
@@ -96,14 +103,13 @@ export function ScrollVideo() {
       canvas.style.height = `${window.innerHeight}px`;
       if (imagesLoaded) drawFrame(currentFrameRef.current);
     };
-
     resize();
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagesLoaded]);
 
-  // Draw frame – object-cover
+  // Draw frame – contain on mobile (show full video), cover on desktop
   const drawFrame = useCallback((frameIndex: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
@@ -114,17 +120,26 @@ export function ScrollVideo() {
     const ch = canvas.height;
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
+    const isPortrait = cw < ch;
 
     ctx.fillStyle = "#FAFAFA";
     ctx.fillRect(0, 0, cw, ch);
 
-    const scale = Math.max(cw / iw, ch / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    const dx = (cw - dw) / 2;
-    const dy = (ch - dh) / 2;
-
-    ctx.drawImage(img, 0, 0, iw, ih, dx, dy, dw, dh);
+    if (isPortrait) {
+      // Mobile: contain – show full video in upper portion
+      const scale = Math.min(cw / iw, (ch * 0.55) / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      const dx = (cw - dw) / 2;
+      const dy = cw * 0.05; // small top padding
+      ctx.drawImage(img, 0, 0, iw, ih, dx, dy, dw, dh);
+    } else {
+      // Desktop: cover
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
   }, []);
 
   // Update on scroll
@@ -145,21 +160,19 @@ export function ScrollVideo() {
   return (
     <div ref={containerRef} className="relative bg-[#FAFAFA]" style={{ height: `${TOTAL_FRAMES * 55}px` }}>
       <div className="sticky top-0 h-dvh w-full overflow-hidden">
-        {/* Canvas */}
         <canvas ref={canvasRef} className="absolute inset-0" />
 
-        {/* Loading */}
         {!imagesLoaded && (
           <div className="absolute inset-0 flex items-center justify-center bg-[#FAFAFA]">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Minimal overlay – small pill indicators at the bottom */}
-        <div className="absolute inset-x-0 bottom-0 pb-6 sm:pb-8">
-          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-            {/* Service pills – horizontal on desktop, vertical on mobile */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 sm:gap-3">
+        {/* Pills at the bottom */}
+        <div className="absolute inset-x-0 bottom-0 pb-4 sm:pb-8">
+          <div className="mx-auto max-w-[1400px] px-3 sm:px-6 lg:px-8">
+            {/* Mobile: vertical compact list. Desktop: horizontal */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-1.5 sm:gap-3">
               {services.map((service, i) => {
                 const Icon = service.icon;
                 const isActive = activeCard === i;
@@ -172,21 +185,21 @@ export function ScrollVideo() {
                       scale: isActive ? 1 : 0.96,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`flex-1 rounded-xl px-4 py-3 backdrop-blur-lg transition-all duration-300 ${
+                    className={`flex-1 rounded-lg sm:rounded-xl px-3 py-2 sm:px-4 sm:py-3 backdrop-blur-lg transition-all duration-300 ${
                       isActive
                         ? "bg-white/90 shadow-lg shadow-black/5 border border-primary/20"
                         : "bg-white/50 border border-white/60"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md sm:rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
                         isActive ? "bg-primary/15" : "bg-black/[0.04]"
                       }`}>
-                        <Icon size={16} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
+                        <Icon size={isMobile ? 14 : 16} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
                           isActive ? "text-primary" : "text-muted/60"
                         }`} />
                       </div>
-                      <span className={`text-sm font-semibold transition-colors duration-300 ${
+                      <span className={`text-xs sm:text-sm font-semibold transition-colors duration-300 ${
                         isActive ? "text-foreground" : "text-muted/70"
                       }`}>
                         {service.title}
@@ -199,10 +212,10 @@ export function ScrollVideo() {
                         >
                           <Link
                             href={service.ctaHref}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-[11px] font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
+                            className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-[11px] font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
                           >
                             Anfragen
-                            <ArrowRight size={10} weight="bold" />
+                            <ArrowRight size={9} weight="bold" />
                           </Link>
                         </motion.div>
                       )}
@@ -214,9 +227,9 @@ export function ScrollVideo() {
           </div>
         </div>
 
-        {/* Scroll indicator – only before first card */}
+        {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
           animate={{ opacity: activeCard === -1 ? 0.6 : 0, y: activeCard === -1 ? 0 : 10 }}
           transition={{ duration: 0.3 }}
         >
