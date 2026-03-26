@@ -408,12 +408,12 @@ export default function PhotovoltaikPage() {
 
       {/* Über uns */}
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <FadeIn>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
-                alt="ET König Team"
+                src="/etk-firma.jpeg"
+                alt="ET König Firmengebäude"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -422,30 +422,36 @@ export default function PhotovoltaikPage() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Über uns</p>
-            <h2 className="text-3xl font-bold tracking-tight mb-6">13 Jahre ET König</h2>
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              <div className="flex items-start gap-3">
-                <Users size={20} weight="light" className="text-primary mt-0.5" />
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">12 Jahre ET König</h2>
+
+            <div className="space-y-6 mb-8">
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Users size={22} weight="light" className="text-primary" />
+                </div>
                 <div>
-                  <p className="font-semibold">95+ Mitarbeiter</p>
-                  <p className="text-xs text-muted">hochqualifiziertes Team</p>
+                  <p className="text-lg font-bold mb-1">Hochqualifizierte Mitarbeiter</p>
+                  <p className="text-base text-muted leading-relaxed">
+                    Wir können auf über 95 Mitarbeiter zurückgreifen und gewährleisten so einen
+                    reibungslosen Ablauf bei der Installation Ihrer PV-Anlage.
+                  </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Truck size={20} weight="light" className="text-primary mt-0.5" />
+
+              <div className="flex items-start gap-4">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Truck size={22} weight="light" className="text-primary" />
+                </div>
                 <div>
-                  <p className="font-semibold">62 Firmenfahrzeuge</p>
-                  <p className="text-xs text-muted">5 Steiger, 2 LKW</p>
+                  <p className="text-lg font-bold mb-1">Außergewöhnlicher Fuhrpark</p>
+                  <p className="text-base text-muted leading-relaxed">
+                    Wir besitzen 62 Firmenfahrzeuge, davon 5 Steiger und 2 Lastwägen.
+                    Damit gibt es für uns kaum ein Projekt, das nicht umsetzbar ist.
+                    Bestimmt haben auch Sie schon einmal ein Fahrzeug von uns auf der Straße gesehen.
+                  </p>
                 </div>
               </div>
             </div>
-            <Link
-              href="/ueber-uns"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary"
-            >
-              Mehr über uns
-              <ArrowRight size={14} weight="bold" />
-            </Link>
           </FadeIn>
         </div>
       </Section>
