@@ -304,8 +304,8 @@ export default function Home() {
           <FadeIn delay={0.15}>
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
               <Image
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
-                alt="ET König Team bei der Arbeit"
+                src="/ueber-uns-hero.jpeg"
+                alt="ET König – Elektroinstallationen in der Steiermark"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"

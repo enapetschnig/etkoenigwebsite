@@ -43,9 +43,9 @@ const leistungen = [
 
 const unternehmen = [
   { href: "/projekte", label: "Projekte & Referenzen" },
-  { href: "/ueber-uns", label: "Über uns" },
   { href: "/kontakt", label: "Kontakt" },
   { href: "/anfrage", label: "Anfrage stellen" },
+  { href: "/karriere", label: "Karriere" },
 ];
 
 const rechtliches = [

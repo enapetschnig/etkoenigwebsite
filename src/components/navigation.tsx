@@ -14,8 +14,6 @@ const navLinks = [
   { href: "/fachhandel", label: "Fachhandel" },
   { href: "/mietpark", label: "Mietpark" },
   { href: "/projekte", label: "Projekte" },
-  { href: "/ueber-uns", label: "Über uns" },
-  { href: "/kontakt", label: "Kontakt" },
 ];
 
 function checkIfNavOverDark(): boolean {
