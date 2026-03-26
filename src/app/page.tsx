@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Stats Banner */}
-      <Section className="!py-12 bg-white border-y border-border/40">
+      <Section className="!py-10 !pb-6 md:!pb-10 bg-[#FAFAFA]">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
           {stats.map((stat, i) => {
             const icons = [CalendarCheck, Checks, MapPin, UsersThree];
