@@ -302,14 +302,17 @@ export default function Home() {
             </Link>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
-              <Image
-                src="/ueber-uns-hero.jpeg"
-                alt="ET König – Elektroinstallationen in der Steiermark"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+            <div className="rounded-2xl overflow-hidden">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                className="w-full h-auto rounded-2xl"
+              >
+                <source src="/ueber-uns-video.mp4" type="video/mp4" />
+              </video>
             </div>
           </FadeIn>
         </div>
