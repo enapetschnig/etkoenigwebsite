@@ -9,8 +9,8 @@ export default function SatAnlagenPage() {
       breadcrumb={{ label: "Elektroinstallation", href: "/elektroinstallation" }}
       title="SAT-Anlagen"
       subtitle="SAT-Installation in der Steiermark & Kärnten"
-      description="Guter Empfang und gestochen klares Bild in der Steiermark und Kärnten. Wir installieren Satellitenanlagen mit präziser Ausrichtung und stabiler Montage – für optimale Empfangsqualität bei Astra, Eurosat und individuellen Wünschen."
-      image="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80"
+      description="Guter Empfang und gestochen klares Bild. Wir stellen Ihre Satelliten-Anlagen präzise ein und montieren sie absolut stabil – für optimale Empfangsqualität bei Astra und Eurosat. Bei ET König erhalten Sie Analog- und Digitalreceiver und eine Vielzahl an Zubehörteilen."
+      image="/satanlagen.jpg"
       features={[
         { icon: Broadcast, title: "Präzise Ausrichtung", description: "Optimale Empfangsqualität durch professionelle Montage und exakte Ausrichtung." },
         { icon: Television, title: "Digital & Analog", description: "Komplettes Sortiment an Receivern und Parabolantennen für jeden Bedarf." },

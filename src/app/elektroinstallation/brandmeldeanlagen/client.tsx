@@ -9,8 +9,8 @@ export default function BrandmeldePage() {
       breadcrumb={{ label: "Elektroinstallation", href: "/elektroinstallation" }}
       title="Brandmeldeanlagen"
       subtitle="Brandschutz für die Steiermark & Kärnten"
-      description="ET König plant und installiert Brandmeldeanlagen in der Steiermark und Kärnten. Unsere Gefahrenmeldeanlagen sind für vorbeugenden Brandschutz konzipiert – von der Alarmierung der Feuerwehr bis zur automatischen Steuerung von Aufzügen und Brandschutztüren."
-      image="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80"
+      description="Österreichweit Brände stoppen, bevor Schaden entsteht. Unsere Gefahrenmeldeanlagen sind für vorbeugenden Brandschutz konzipiert – von der Alarmierung der Feuerwehr über Rauchableitung bis zur automatischen Steuerung von Aufzügen und Löschanlagen."
+      image="/brandmeldeanlagen.jpg"
       features={[
         { icon: FireSimple, title: "Flexible Detektion", description: "Rauch, Temperatur, Flammen – wählen Sie die passenden Auslöseparameter für Ihr Objekt." },
         { icon: Bell, title: "Automatische Alarmierung", description: "Direkte Verbindung zur Feuerwehrleitstelle und interne Alarmierung zur Gebäuderäumung." },

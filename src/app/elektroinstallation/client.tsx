@@ -24,49 +24,49 @@ const services = [
     description: "Äußerer und innerer Blitzschutz für umfassenden Gebäude- und Geräteschutz in der Steiermark.",
     icon: Lightning,
     href: "/elektroinstallation/blitzschutz",
-    image: "https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?w=600&q=80",
+    image: "/blitzschutz.jpg",
   },
   {
     title: "SAT-Anlagen",
     description: "Störungsfreier Empfang mit professioneller Installation und präziser Ausrichtung.",
     icon: Broadcast,
     href: "/elektroinstallation/sat-anlagen",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80",
+    image: "/satanlagen.jpg",
   },
   {
     title: "Alarmanlagen",
     description: "Moderne Sicherheitstechnik für Objekt- und Personenschutz – Prävention im Vordergrund.",
     icon: ShieldCheck,
     href: "/elektroinstallation/alarmanlagen",
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80",
+    image: "/alarmanlagen.jpg",
   },
   {
     title: "Brandmeldeanlagen",
     description: "Vorbeugender Brandschutz mit professionellen Gefahrenmeldeanlagen nach Ihren Anforderungen.",
     icon: FireSimple,
     href: "/elektroinstallation/brandmeldeanlagen",
-    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80",
+    image: "/brandmeldeanlagen.jpg",
   },
   {
     title: "Energieberatung",
     description: "Optimieren Sie Ihren Energieverbrauch und senken Sie Kosten mit unserer Fachberatung vor Ort.",
     icon: Lightbulb,
     href: "/elektroinstallation/energieberatung",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+    image: "/energieberatung.jpg",
   },
   {
     title: "Überprüfung & Atteste",
     description: "Regelmäßige Prüfung Ihrer Elektroanlagen – Atteste für Ämter und Gemeinden in der Steiermark.",
     icon: Certificate,
     href: "/elektroinstallation/ueberpruefung",
-    image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=600&q=80",
+    image: "/atteste.jpg",
   },
   {
     title: "KNX / Smart Home",
     description: "Intelligente Gebäudesteuerung – Licht, Heizung, Jalousien und Sicherheit per App. Zertifizierter KNX-Partner.",
     icon: Cpu,
     href: "/elektroinstallation/knx",
-    image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80",
+    image: "/smart.jpg",
   },
 ];
 
@@ -104,9 +104,7 @@ export default function ElektroOverviewClient() {
 
               <FadeIn delay={0.2}>
                 <p className="text-muted leading-relaxed mb-6 max-w-lg">
-                  Von der Planung bis zur Montage elektrischer Anlagen – unser Team aus erfahrenen
-                  Elektroinstallateuren setzt Ihr Projekt fachgerecht und normkonform um.
-                  Sicher, zukunftsfähig und auf dem neuesten Stand der Technik.
+                  ET König plant und installiert Ihre elektrischen Leitungen, Heizungsanlagen und EDV-Anlagen. Als Ihr kompetenter Partner für alle Elektroinstallationen übernehmen wir sowohl kleine als auch große Aufträge – in der Steiermark und Kärnten.
                 </p>
               </FadeIn>
 
@@ -145,7 +143,7 @@ export default function ElektroOverviewClient() {
               <div className="relative">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
                   <Image
-                    src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80"
+                    src="/elektro-hero.jpeg"
                     alt="Elektroinstallation in der Steiermark – ET König"
                     fill
                     className="object-cover"
@@ -186,6 +184,38 @@ export default function ElektroOverviewClient() {
           </div>
         </div>
       </section>
+
+      {/* Rund um die Stromversorgung */}
+      <Section className="bg-[#fff6e7]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <FadeIn>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Rund um die Stromversorgung
+            </h2>
+            <p className="text-muted leading-relaxed max-w-lg">
+              Gemeinsam mit Ihnen planen wir Ihre Elektroinstallationen, damit Sie alle Anschlüsse erhalten, die Sie im täglichen Leben oder im Arbeitsumfeld benötigen.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
+            <ul className="space-y-3">
+              {[
+                "Elektrische Komponenten für Neubauten und Umbauten",
+                "Platzsparende Verteileranlagen für Innen- und Außenbereich",
+                "Erdungsanlagen für Ihre Sicherheit",
+                "Baustromanschlüsse für flexible Stromversorgung",
+                "EDV-Anlagen und Beleuchtungstechnik",
+                "Rasche Fehlerbehebung vor Ort",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-sm">
+                  <CheckCircle size={20} weight="fill" className="text-primary flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </FadeIn>
+        </div>
+      </Section>
 
       {/* Service Cards */}
       <Section>

@@ -9,8 +9,8 @@ export default function EnergieberatungPage() {
       breadcrumb={{ label: "Elektroinstallation", href: "/elektroinstallation" }}
       title="Energieberatung"
       subtitle="Energieberatung in der Steiermark & Kärnten"
-      description="Ein österreichischer Haushalt verbraucht durchschnittlich 4.000 Kilowattstunden jährlich. Durch verbesserte Energieeffizienz und unsere Beratung in der Steiermark und Kärnten können Sie Ihre Ausgaben deutlich senken. Wir beraten Sie vor Ort – von Murau bis Feldkirchen."
-      image="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
+      description="Im Durchschnitt verbraucht ein österreichischer Haushalt 4.000 Kilowattstunden im Jahr. Durch erhöhte Energieeffizienz bleibt mehr auf dem Konto. Wir beraten Sie vor Ort – vom optimalen Leuchtmittel bis zur eigenen Photovoltaikanlage."
+      image="/energieberatung.jpg"
       features={[
         { icon: ChartLineUp, title: "Verbrauchsanalyse", description: "Wir prüfen Ihre Heizungsanlage und den gesamten Energieverbrauch vor Ort." },
         { icon: Lightbulb, title: "Optimale Ausstattung", description: "Empfehlungen für energiesparende Leuchtmittel und moderne Haushaltsgeräte." },

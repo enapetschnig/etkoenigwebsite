@@ -8,9 +8,9 @@ export default function BlitzschutzPage() {
     <ServicePage
       breadcrumb={{ label: "Elektroinstallation", href: "/elektroinstallation" }}
       title="Blitzschutzanlagen"
-      subtitle="Blitzschutz vom Profi in der Steiermark & Kärnten"
-      description="Wir leiten Blitze sicher ab und schützen Ihre baulichen Anlagen in der Steiermark und Kärnten. Ein einzelner Blitzeinschlag kann erhebliche Gebäudeschäden verursachen – unsere Blitzschutzsysteme bieten umfassenden äußeren und inneren Schutz nach aktuellen Normen."
-      image="https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?w=800&q=80"
+      subtitle="Blitzschutz vom Profi in der Steiermark"
+      description="Wir leiten Blitze ab und schützen Ihre baulichen Anlagen. Beim Blitzschutz geht es nicht nur darum, die elektrische Spannung abzuleiten – auch der Schutz empfindlicher EDV-Anlagen ist besonders wichtig. Ganze Gebäudeteile können durch einen einzigen Blitz zerstört werden."
+      image="/blitzschutz.jpg"
       features={[
         { icon: Lightning, title: "Äußerer Blitzschutz", description: "Professionelle Ableitsysteme zum Schutz der Gebäudesubstanz vor direkten Einschlägen." },
         { icon: Desktop, title: "Innerer Blitzschutz", description: "Überspannungsschutz für elektronische Geräte, EDV-Anlagen und sensible Technik." },
