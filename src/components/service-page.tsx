@@ -13,6 +13,7 @@ interface ServicePageProps {
   subtitle: string;
   description: string;
   image?: string;
+  imagePosition?: string;
   features: { icon: ComponentType<IconProps>; title: string; description: string }[];
   ctaText: string;
   ctaHref: string;
@@ -24,6 +25,7 @@ export function ServicePage({
   subtitle,
   description,
   image,
+  imagePosition,
   features,
   ctaText,
   ctaHref,
@@ -60,7 +62,8 @@ export function ServicePage({
                   src={image}
                   alt={title}
                   fill
-                  className="object-cover"
+                  className={`object-cover ${imagePosition ? "" : ""}`}
+                  style={imagePosition ? { objectPosition: imagePosition } : undefined}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

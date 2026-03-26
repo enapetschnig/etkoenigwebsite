@@ -11,6 +11,7 @@ export default function AlarmPage() {
       subtitle="Sicherheitstechnik für die Steiermark & Kärnten"
       description="Sicherheit für Ihr Zuhause und Ihre Betriebsanlagen. Wir planen und montieren moderne Alarmanlagen mit Fokus auf Vorbeugung. Durch sichtbare und hörbare Alarmsignale informieren unsere Anlagen Personen in der Umgebung und senden Informationen an Polizei oder Sicherheitsdienste."
       image="/alarmanlagen.jpg"
+      imagePosition="70% center"
       features={[
         { icon: ShieldCheck, title: "Präventiver Schutz", description: "Sichtbare Sicherheitstechnik schreckt potenzielle Einbrecher bereits im Vorfeld ab." },
         { icon: Bell, title: "Zuverlässige Alarmierung", description: "Deutlich sichtbare und hörbare Signale plus automatische Benachrichtigung von Sicherheitsdiensten." },
