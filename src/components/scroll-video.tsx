@@ -59,13 +59,20 @@ export function ScrollVideo() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [activeCard, setActiveCard] = useState(-1);
+  const [isMobile, setIsMobile] = useState(false);
   const currentFrameRef = useRef(0);
-  const isMobileRef = useRef(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   // Preload all frames
   useEffect(() => {
@@ -83,7 +90,7 @@ export function ScrollVideo() {
     imagesRef.current = images;
   }, []);
 
-  // Draw frame
+  // Draw frame – always cover, video fills the whole screen
   const drawFrame = useCallback((frameIndex: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
@@ -95,26 +102,10 @@ export function ScrollVideo() {
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    // Clear
-    ctx.fillStyle = "#FAFAFA";
-    ctx.fillRect(0, 0, cw, ch);
-
-    if (isMobileRef.current) {
-      // Mobile: show full video frame in top portion, no cropping
-      const maxH = ch * 0.52;
-      const scale = Math.min(cw / iw, maxH / ih);
-      const dw = iw * scale;
-      const dh = ih * scale;
-      const dx = (cw - dw) / 2;
-      const dy = ch * 0.06;
-      ctx.drawImage(img, 0, 0, iw, ih, dx, dy, dw, dh);
-    } else {
-      // Desktop: cover entire canvas
-      const scale = Math.max(cw / iw, ch / ih);
-      const dw = iw * scale;
-      const dh = ih * scale;
-      ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
-    }
+    const scale = Math.max(cw / iw, ch / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
   }, []);
 
   // Resize canvas
@@ -122,7 +113,6 @@ export function ScrollVideo() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const resize = () => {
-      isMobileRef.current = window.innerWidth < 768;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
@@ -150,8 +140,11 @@ export function ScrollVideo() {
     if (imagesLoaded) drawFrame(0);
   }, [imagesLoaded, drawFrame]);
 
+  // Less scroll distance on mobile
+  const scrollHeight = isMobile ? TOTAL_FRAMES * 40 : TOTAL_FRAMES * 55;
+
   return (
-    <div ref={containerRef} className="relative bg-[#FAFAFA]" style={{ height: `${TOTAL_FRAMES * 55}px` }}>
+    <div ref={containerRef} className="relative" style={{ height: `${scrollHeight}px` }}>
       <div className="sticky top-0 h-dvh w-full overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0" />
 
