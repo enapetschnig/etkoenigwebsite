@@ -211,6 +211,46 @@ export default function PhotovoltaikPage() {
         </div>
       </Section>
 
+      {/* Video Kundenstimmen – nach Förderung */}
+      <Section>
+        <FadeIn>
+          <div className="text-center mb-8">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
+              Das sagen unsere Kunden
+            </h2>
+          </div>
+        </FadeIn>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <FadeIn>
+            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://fast.wistia.net/embed/iframe/gjjahcjpnu?seo=true&videoFoam=true"
+                  title="Kundenstimme Video 1"
+                  allow="autoplay; fullscreen"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://fast.wistia.net/embed/iframe/dzed1k7mw6?seo=true&videoFoam=true"
+                  title="Kundenstimme Video 2"
+                  allow="autoplay; fullscreen"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </Section>
+
       {/* PV-Anlagen & Speicher */}
       <Section className="bg-[#fff6e7]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
@@ -360,47 +400,6 @@ export default function PhotovoltaikPage() {
               Jetzt PV-Anlage anfragen
               <ArrowRight size={16} weight="bold" />
             </Link>
-          </FadeIn>
-        </div>
-      </Section>
-
-      {/* Video Kundenstimmen */}
-      <Section>
-        <FadeIn>
-          <div className="text-center mb-8">
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
-              Das sagen unsere Kunden
-            </h2>
-          </div>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FadeIn>
-            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://fast.wistia.net/embed/iframe/gjjahcjpnu?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 1"
-                  allow="autoplay; fullscreen"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://fast.wistia.net/embed/iframe/dzed1k7mw6?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 2"
-                  allow="autoplay; fullscreen"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
           </FadeIn>
         </div>
       </Section>
