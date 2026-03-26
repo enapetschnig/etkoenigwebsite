@@ -58,8 +58,8 @@ export function OverviewPage({
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                       <Icon size={24} weight="light" className="text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold tracking-tight mb-2">{service.title}</h3>
-                    <p className="text-sm text-muted leading-relaxed mb-4">{service.description}</p>
+                    <h3 className="text-xl font-bold tracking-tight mb-2">{service.title}</h3>
+                    <p className="text-base text-muted leading-relaxed mb-4">{service.description}</p>
                     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary">
                       Mehr erfahren
                       <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5" />

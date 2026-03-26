@@ -107,7 +107,7 @@ export function ScrollVideo() {
     const ih = img.naturalHeight;
 
     // White background – matches video bg so bus looks seamless
-    ctx.fillStyle = "#FAFAFA";
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, cw, ch);
 
     if (isMobileRef.current) {
@@ -160,12 +160,12 @@ export function ScrollVideo() {
   const scrollHeight = isMobile ? TOTAL_FRAMES * 35 : TOTAL_FRAMES * 55;
 
   return (
-    <div ref={containerRef} className="relative bg-[#FAFAFA]" style={{ height: `${scrollHeight}px` }}>
-      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-[#FAFAFA]">
+    <div ref={containerRef} className="relative bg-[#ffffff]" style={{ height: `${scrollHeight}px` }}>
+      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-[#ffffff]">
         <canvas ref={canvasRef} className="absolute inset-0" />
 
         {!imagesLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#FAFAFA]">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#ffffff]">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
         )}

@@ -119,7 +119,7 @@ export default function PhotovoltaikPage() {
                   <p className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight mb-0.5">
                     <CountUp end={stat.value} suffix={stat.suffix} />
                   </p>
-                  <p className="text-sm font-medium text-foreground">{stat.label}</p>
+                  <p className="text-base font-medium text-foreground">{stat.label}</p>
                   <p className="text-[11px] text-muted">{stat.sublabel}</p>
                 </div>
               </FadeIn>
@@ -144,7 +144,7 @@ export default function PhotovoltaikPage() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Praxisbeispiel</p>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               Sehen Sie hier ein Beispiel aus einer Anlage unseres Kunden
             </h2>
             <p className="text-muted leading-relaxed mb-4">
@@ -189,7 +189,7 @@ export default function PhotovoltaikPage() {
               <CheckCircle size={14} weight="fill" />
               Förderung verfügbar
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               PV-Anlagen Förderung ist zurück!
             </h2>
             <p className="text-muted leading-relaxed mb-4">
@@ -216,7 +216,7 @@ export default function PhotovoltaikPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
           <FadeIn>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Ihre Vorteile</p>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               PV-Anlagen & Speicher
             </h2>
             <p className="text-muted leading-relaxed mb-6">
@@ -232,7 +232,7 @@ export default function PhotovoltaikPage() {
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle size={20} weight="fill" className="text-primary flex-shrink-0" />
-                  <span className="text-sm font-semibold">{item}</span>
+                  <span className="text-base font-semibold">{item}</span>
                 </div>
               ))}
             </div>
@@ -265,7 +265,7 @@ export default function PhotovoltaikPage() {
         <FadeIn>
           <div className="text-center mb-8">
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
               Das sagen unsere Kunden
             </h2>
             <p className="text-muted">Mehr als 6.000 zufriedene Kunden</p>
@@ -306,7 +306,7 @@ export default function PhotovoltaikPage() {
       <Section className="bg-[#fff6e7]">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Google Bewertungen</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
             Was unsere Kunden auf Google sagen
           </h2>
         </FadeIn>
@@ -337,7 +337,7 @@ export default function PhotovoltaikPage() {
                     <Icon size={20} weight="light" className="text-primary" />
                   </div>
                   <h3 className="text-xl font-bold tracking-tight mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{item.description}</p>
+                  <p className="text-base text-muted leading-relaxed">{item.description}</p>
                 </div>
               </FadeIn>
             );
@@ -392,7 +392,7 @@ export default function PhotovoltaikPage() {
                     <Star key={j} size={14} weight="fill" className="text-primary" />
                   ))}
                 </div>
-                <p className="text-sm text-muted leading-relaxed flex-1 mb-4">&ldquo;{t.text}&rdquo;</p>
+                <p className="text-base text-muted leading-relaxed flex-1 mb-4">&ldquo;{t.text}&rdquo;</p>
                 <div>
                   <p className="text-sm font-medium">{t.name}</p>
                   <p className="text-xs text-muted">{t.location}</p>

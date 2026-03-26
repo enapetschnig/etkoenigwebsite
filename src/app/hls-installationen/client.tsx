@@ -177,7 +177,7 @@ export default function HLSOverviewClient() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Unsere Bereiche</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
             Wählen Sie Ihren Bereich
           </h2>
         </FadeIn>
@@ -226,7 +226,7 @@ export default function HLSOverviewClient() {
       <Section dark>
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
               Sie wissen schon, was Sie brauchen?
             </h2>
             <p className="text-white/60 mb-6">

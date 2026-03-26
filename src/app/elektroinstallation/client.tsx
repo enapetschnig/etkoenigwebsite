@@ -191,7 +191,7 @@ export default function ElektroOverviewClient() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Unsere Bereiche</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
             7 Fachbereiche – ein Ansprechpartner
           </h2>
         </FadeIn>
@@ -217,7 +217,7 @@ export default function ElektroOverviewClient() {
                       <div className="w-10 h-10 rounded-xl bg-white border border-border/60 shadow-sm flex items-center justify-center mb-3">
                         <Icon size={20} weight="light" className="text-primary" />
                       </div>
-                      <h3 className="text-base font-bold tracking-tight mb-1.5">{service.title}</h3>
+                      <h3 className="text-lg font-bold tracking-tight mb-1.5">{service.title}</h3>
                       <p className="text-sm text-muted leading-relaxed mb-3">{service.description}</p>
                       <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                         Mehr erfahren
@@ -236,7 +236,7 @@ export default function ElektroOverviewClient() {
       <Section dark>
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
               Elektroprojekt in der Steiermark planen?
             </h2>
             <p className="text-white/60 mb-6">

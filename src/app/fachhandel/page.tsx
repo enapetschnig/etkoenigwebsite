@@ -191,7 +191,7 @@ export default function FachhandelPage() {
       <Section id="sortiment">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Unser Sortiment</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
             Von Waschmaschine bis Smart-TV
           </h2>
           <p className="text-muted max-w-2xl mb-8">
@@ -211,7 +211,7 @@ export default function FachhandelPage() {
                     </div>
                     <div>
                       <h3 className="font-bold mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted leading-relaxed">{item.description}</p>
+                      <p className="text-base text-muted leading-relaxed">{item.description}</p>
                     </div>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ export default function FachhandelPage() {
       <Section className="bg-background-alt">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Einblicke</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
             Unser Geschäft in Murau
           </h2>
         </FadeIn>
@@ -256,7 +256,7 @@ export default function FachhandelPage() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Warum zu uns?</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
             Mehr als nur ein Geschäft
           </h2>
         </FadeIn>
@@ -283,7 +283,7 @@ export default function FachhandelPage() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Bewertungen</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
             Das sagen unsere Kunden
           </h2>
         </FadeIn>
@@ -297,7 +297,7 @@ export default function FachhandelPage() {
       <Section className="bg-background-alt">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Standort</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
             So finden Sie uns
           </h2>
         </FadeIn>
@@ -387,7 +387,7 @@ export default function FachhandelPage() {
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
             <Heart size={32} weight="light" className="text-primary mx-auto mb-4" />
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">
               Kommen Sie vorbei!
             </h2>
             <p className="text-white/60 mb-6">

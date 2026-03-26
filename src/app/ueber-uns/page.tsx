@@ -80,7 +80,7 @@ export default function UeberUnsPage() {
       {/* Team */}
       <Section>
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">Unser Team</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Unser Team</h2>
         </FadeIn>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member, i) => (
@@ -103,7 +103,7 @@ export default function UeberUnsPage() {
       {/* Partner */}
       <Section className="bg-background-alt">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">Unsere Partner</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">Unsere Partner</h2>
           <div className="flex flex-wrap gap-x-12 gap-y-6 opacity-40 grayscale">
             {["Fronius", "Huawei", "Hager", "KNX Austria", "Stiebel Eltron"].map((p) => (
               <span key={p} className="text-xl font-bold tracking-tight text-foreground">{p}</span>

@@ -152,7 +152,7 @@ export default function ProjektePage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.filter((c) => c.key !== "alle").map((cat, i) => (
             <FadeIn key={cat.key} delay={i * 0.1} className="text-center">
-              <p className="text-2xl sm:text-3xl font-bold">
+              <p className="text-3xl sm:text-4xl font-bold">
                 <CountUp end={cat.count} suffix="" />
               </p>
               <p className="text-sm text-muted">{cat.label}</p>

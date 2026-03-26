@@ -72,7 +72,7 @@ export function ServicePage({
       {/* Features / USPs */}
       <Section className="bg-background-alt">
         <FadeIn>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
             Warum ET König?
           </h2>
         </FadeIn>
@@ -87,7 +87,7 @@ export function ServicePage({
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">{feature.title}</h3>
-                    <p className="text-sm text-muted leading-relaxed">{feature.description}</p>
+                    <p className="text-base text-muted leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -100,7 +100,7 @@ export function ServicePage({
       <Section dark>
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
               Interesse an {title}?
             </h2>
             <p className="text-white/60 mb-6">

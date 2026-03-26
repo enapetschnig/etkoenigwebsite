@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Stats Banner */}
-      <Section className="!py-10 !pb-6 md:!pb-10 bg-[#FAFAFA]">
+      <Section className="!py-8 !pb-2 md:!pb-8 bg-white">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
           {stats.map((stat, i) => {
             const icons = [CalendarCheck, Checks, MapPin, UsersThree];
@@ -162,10 +162,10 @@ export default function Home() {
       <Section id="leistungen">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Unsere Leistungen</p>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-3 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-center">
             Fünf Fachbereiche, <span className="text-primary">ein Partner</span>
           </h2>
-          <p className="text-muted text-center max-w-xl mx-auto mb-10">
+          <p className="text-base text-muted text-center max-w-xl mx-auto mb-10">
             Von der PV-Anlage über Heizung und Sanitär bis zum Maschinenverleih – alles aus einer Hand.
           </p>
         </FadeIn>
@@ -245,11 +245,11 @@ export default function Home() {
                       <div className="w-9 h-9 rounded-lg bg-white border border-border/60 shadow-sm flex items-center justify-center mb-3">
                         <Icon size={18} weight="light" className="text-primary" />
                       </div>
-                      <h3 className="text-sm font-bold tracking-tight mb-1">{service.title}</h3>
-                      <p className="text-xs text-muted leading-relaxed mb-3">{service.desc}</p>
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
+                      <h3 className="text-base font-bold tracking-tight mb-1">{service.title}</h3>
+                      <p className="text-sm text-muted leading-relaxed mb-3">{service.desc}</p>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                         {service.cta}
-                        <ArrowRight size={11} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
+                        <ArrowRight size={13} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
                       </span>
                     </div>
                   </div>
@@ -264,7 +264,7 @@ export default function Home() {
       <Section className="!py-10 bg-background-alt">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Kundenstimmen</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
             Das sagen unsere Kunden
           </h2>
         </FadeIn>
@@ -280,7 +280,7 @@ export default function Home() {
           <div className="flex items-end justify-between mb-8">
             <div>
               <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Unsere Projekte</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Unsere Projekte</h2>
             </div>
             <Link
               href="/projekte"
