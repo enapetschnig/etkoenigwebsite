@@ -342,7 +342,7 @@ export default function Home() {
       </Section>
 
       {/* Partner/Trust Section */}
-      <Section className="bg-background-alt !py-10">
+      <Section className="bg-white md:bg-background-alt !py-10">
         <FadeIn>
           <p className="text-center text-sm text-muted mb-6">Wir arbeiten mit führenden Herstellern</p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-40 grayscale">
