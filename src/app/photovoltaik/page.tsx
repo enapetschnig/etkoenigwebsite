@@ -363,11 +363,14 @@ export default function PhotovoltaikPage() {
             </div>
           </FadeIn>
           <FadeIn delay={0.15}>
-            <div className="relative aspect-square max-w-sm mx-auto bg-background-alt rounded-3xl flex items-center justify-center">
-              <div className="text-center p-8">
-                <DeviceMobile size={80} weight="light" className="text-primary/30 mx-auto mb-4" />
-                <p className="text-sm text-muted">App-Mockup Platzhalter</p>
-              </div>
+            <div className="relative max-w-xs mx-auto">
+              <Image
+                src="/pv-app-mockup.png"
+                alt="Live-Anzeige der PV-Anlage per Smartphone-App"
+                width={400}
+                height={800}
+                className="w-full h-auto"
+              />
             </div>
           </FadeIn>
         </div>
