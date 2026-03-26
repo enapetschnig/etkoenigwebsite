@@ -38,7 +38,7 @@ const services = [
     description: "Effiziente Heizsysteme für behagliche Wärme – von Gas und Pellets bis zu modernen Flächenheizungen.",
     icon: Flame,
     href: "/hls-installationen/heizung",
-    image: "https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80",
+    image: "/heizung.jpg",
     color: "from-orange-500/20",
   },
   {
@@ -46,7 +46,7 @@ const services = [
     description: "Umweltfreundlich heizen mit Luft-, Wasser- oder Erdwärmepumpen. Nachhaltig, effizient und zukunftssicher.",
     icon: Thermometer,
     href: "/hls-installationen/waermepumpen",
-    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80",
+    image: "/waermepumpe.jpg",
     color: "from-green-500/20",
   },
 ];

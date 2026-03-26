@@ -10,7 +10,7 @@ export default function WaermepumpenPage() {
       title="Wärmepumpen"
       subtitle="Wärmepumpen-Spezialist in der Steiermark & Kärnten"
       description="Moderne Wärmepumpensysteme für die Steiermark und Kärnten. Unsere Experten planen und installieren Luft-, Wasser- und Erdwärmepumpen – maßgeschneidert für Ihr Gebäude. Umweltfreundlich heizen und Kosten senken mit ET König."
-      image="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&q=80"
+      image="/waermepumpe.jpg"
       features={[
         { icon: Leaf, title: "Umweltfreundlich", description: "Nutzen Sie erneuerbare Energie aus Luft, Wasser oder Erde für Heizung und Warmwasser." },
         { icon: Lightning, title: "Hohe Effizienz", description: "Moderne Wärmepumpen liefern ein Vielfaches an Wärme im Verhältnis zum eingesetzten Strom." },

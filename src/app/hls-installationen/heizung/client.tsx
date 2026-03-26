@@ -10,7 +10,7 @@ export default function HeizungPage() {
       title="Heizungsinstallationen"
       subtitle="Ihr Heizungsinstallateur in der Steiermark"
       description="ET König GmbH ist Ihr erfahrener Heizungsinstallateur in der Steiermark und Kärnten. Wir bieten maßgeschneiderte Lösungen für komfortable und effiziente Wärmeversorgung – von modernen Gasheizungen über Pellets- und Hackschnitzelheizungen bis zu umweltfreundlichen Wärmepumpen."
-      image="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80"
+      image="/heizung.jpg"
       features={[
         { icon: Flame, title: "Vielfältige Systeme", description: "Gas, Pellets, Hackschnitzel oder Wärmepumpe – wir installieren das System, das zu Ihnen passt." },
         { icon: Leaf, title: "Umweltfreundlich", description: "Moderne, effiziente Heizsysteme, die Kosten sparen und die Umwelt schonen." },
