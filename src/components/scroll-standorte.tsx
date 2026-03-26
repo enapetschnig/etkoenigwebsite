@@ -81,7 +81,15 @@ export function ScrollStandorte() {
     imagesRef.current = images;
   }, []);
 
-  // Always cover – video fills entire screen
+  const isMobileRef = useRef(false);
+
+  useEffect(() => {
+    const check = () => { isMobileRef.current = window.innerWidth < 768; };
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const drawFrame = useCallback((frameIndex: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
@@ -93,10 +101,22 @@ export function ScrollStandorte() {
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    const scale = Math.max(cw / iw, ch / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    ctx.fillStyle = "#FAFAFA";
+    ctx.fillRect(0, 0, cw, ch);
+
+    if (isMobileRef.current) {
+      // Mobile: contain, centered
+      const scale = cw / iw;
+      const dw = cw;
+      const dh = ih * scale;
+      const dy = (ch - dh) / 2;
+      ctx.drawImage(img, 0, 0, iw, ih, 0, Math.max(dy, 0), dw, dh);
+    } else {
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
   }, []);
 
   useEffect(() => {
@@ -131,8 +151,8 @@ export function ScrollStandorte() {
   const scrollHeight = isMobile ? TOTAL_FRAMES * 35 : TOTAL_FRAMES * 50;
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: `${scrollHeight}px` }}>
-      <div className="sticky top-0 h-dvh w-full overflow-hidden">
+    <div ref={containerRef} className="relative bg-[#FAFAFA]" style={{ height: `${scrollHeight}px` }}>
+      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-[#FAFAFA]">
         <canvas ref={canvasRef} className="absolute inset-0" />
 
         {!imagesLoaded && (

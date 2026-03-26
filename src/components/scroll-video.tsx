@@ -61,6 +61,7 @@ export function ScrollVideo() {
   const [activeCard, setActiveCard] = useState(-1);
   const [isMobile, setIsMobile] = useState(false);
   const currentFrameRef = useRef(0);
+  const isMobileRef = useRef(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -68,13 +69,17 @@ export function ScrollVideo() {
   });
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const m = window.innerWidth < 768;
+      setIsMobile(m);
+      isMobileRef.current = m;
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  // Preload all frames
+  // Preload
   useEffect(() => {
     let loaded = 0;
     const images: HTMLImageElement[] = [];
@@ -90,7 +95,6 @@ export function ScrollVideo() {
     imagesRef.current = images;
   }, []);
 
-  // Draw frame – always cover, video fills the whole screen
   const drawFrame = useCallback((frameIndex: number) => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
@@ -102,13 +106,28 @@ export function ScrollVideo() {
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
 
-    const scale = Math.max(cw / iw, ch / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    // White background – matches video bg so bus looks seamless
+    ctx.fillStyle = "#FAFAFA";
+    ctx.fillRect(0, 0, cw, ch);
+
+    if (isMobileRef.current) {
+      // Mobile: contain – show full video, centered, no crop
+      // Video fills width, height adjusts proportionally
+      const scale = cw / iw;
+      const dw = cw;
+      const dh = ih * scale;
+      // Center vertically in the viewport
+      const dy = (ch - dh) / 2;
+      ctx.drawImage(img, 0, 0, iw, ih, 0, Math.max(dy, 0), dw, dh);
+    } else {
+      // Desktop: cover
+      const scale = Math.max(cw / iw, ch / ih);
+      const dw = iw * scale;
+      const dh = ih * scale;
+      ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
+    }
   }, []);
 
-  // Resize canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -125,7 +144,6 @@ export function ScrollVideo() {
     return () => window.removeEventListener("resize", resize);
   }, [imagesLoaded, drawFrame]);
 
-  // Update on scroll
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const frameIndex = Math.min(Math.floor(latest * (TOTAL_FRAMES - 1)), TOTAL_FRAMES - 1);
     if (frameIndex !== currentFrameRef.current) {
@@ -135,17 +153,15 @@ export function ScrollVideo() {
     setActiveCard(services.findIndex((s) => latest >= s.range[0] && latest <= s.range[1]));
   });
 
-  // Draw first frame
   useEffect(() => {
     if (imagesLoaded) drawFrame(0);
   }, [imagesLoaded, drawFrame]);
 
-  // Less scroll distance on mobile
-  const scrollHeight = isMobile ? TOTAL_FRAMES * 40 : TOTAL_FRAMES * 55;
+  const scrollHeight = isMobile ? TOTAL_FRAMES * 35 : TOTAL_FRAMES * 55;
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: `${scrollHeight}px` }}>
-      <div className="sticky top-0 h-dvh w-full overflow-hidden">
+    <div ref={containerRef} className="relative bg-[#FAFAFA]" style={{ height: `${scrollHeight}px` }}>
+      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-[#FAFAFA]">
         <canvas ref={canvasRef} className="absolute inset-0" />
 
         {!imagesLoaded && (
@@ -154,10 +170,10 @@ export function ScrollVideo() {
           </div>
         )}
 
-        {/* Service pills */}
-        <div className="absolute inset-x-0 bottom-0 pb-3 md:pb-8">
+        {/* Service pills – right under the video area on mobile */}
+        <div className={`absolute inset-x-0 bottom-0 ${isMobile ? "pb-2" : "pb-8"}`}>
           <div className="mx-auto max-w-[1400px] px-3 md:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-stretch md:items-end gap-1.5 md:gap-3">
+            <div className="flex flex-col md:flex-row items-stretch md:items-end gap-1 md:gap-3">
               {services.map((service, i) => {
                 const Icon = service.icon;
                 const isActive = activeCard === i;
@@ -169,22 +185,22 @@ export function ScrollVideo() {
                       scale: isActive ? 1 : 0.97,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`flex-1 rounded-lg md:rounded-xl px-3 py-2 md:px-4 md:py-3 backdrop-blur-lg transition-all duration-300 ${
+                    className={`flex-1 rounded-lg md:rounded-xl px-2.5 py-1.5 md:px-4 md:py-3 backdrop-blur-lg transition-all duration-300 ${
                       isActive
-                        ? "bg-white/90 shadow-lg shadow-black/5 border border-primary/20"
-                        : "bg-white/50 border border-white/60"
+                        ? "bg-white/95 shadow-lg shadow-black/5 border border-primary/20"
+                        : "bg-white/70 border border-border/30"
                     }`}
                   >
                     <div className="flex items-center gap-2 md:gap-3">
                       <div className={`w-6 h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
-                        isActive ? "bg-primary/15" : "bg-black/[0.04]"
+                        isActive ? "bg-primary/15" : "bg-black/[0.03]"
                       }`}>
-                        <Icon size={14} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
-                          isActive ? "text-primary" : "text-muted/60"
+                        <Icon size={isMobile ? 12 : 16} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
+                          isActive ? "text-primary" : "text-muted/50"
                         }`} />
                       </div>
-                      <span className={`text-[11px] md:text-sm font-semibold transition-colors duration-300 ${
-                        isActive ? "text-foreground" : "text-muted/70"
+                      <span className={`text-[10px] md:text-sm font-semibold transition-colors duration-300 ${
+                        isActive ? "text-foreground" : "text-muted/60"
                       }`}>
                         {service.title}
                       </span>
@@ -196,10 +212,10 @@ export function ScrollVideo() {
                         >
                           <Link
                             href={service.ctaHref}
-                            className="inline-flex items-center gap-1 px-2 py-1 md:px-3 md:py-1.5 text-[9px] md:text-[11px] font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
+                            className="inline-flex items-center gap-0.5 px-2 py-0.5 md:px-3 md:py-1.5 text-[8px] md:text-[11px] font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
                           >
                             Anfragen
-                            <ArrowRight size={8} weight="bold" />
+                            <ArrowRight size={isMobile ? 7 : 10} weight="bold" />
                           </Link>
                         </motion.div>
                       )}
