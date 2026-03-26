@@ -134,28 +134,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Banner */}
-      <Section className="!py-8 !pb-2 md:!pb-8 bg-white">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
-          {stats.map((stat, i) => {
-            const icons = [CalendarCheck, Checks, MapPin, UsersThree];
-            const Icon = icons[i];
-            return (
-              <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-4">
-                <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 mb-4">
-                  <Icon size={22} weight="light" className="text-primary" />
-                </div>
-                <p className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-1">
-                  <CountUp end={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="text-xs sm:text-sm text-muted font-medium">{stat.label}</p>
-              </FadeIn>
-            );
-          })}
+      {/* Stats Banner – direkt vor ScrollStop, kein Abstand */}
+      <div className="bg-white py-8 md:py-10">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
+            {stats.map((stat, i) => {
+              const icons = [CalendarCheck, Checks, MapPin, UsersThree];
+              const Icon = icons[i];
+              return (
+                <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-4">
+                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 mb-4">
+                    <Icon size={22} weight="light" className="text-primary" />
+                  </div>
+                  <p className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-1">
+                    <CountUp end={stat.value} suffix={stat.suffix} />
+                  </p>
+                  <p className="text-xs sm:text-sm text-muted font-medium">{stat.label}</p>
+                </FadeIn>
+              );
+            })}
+          </div>
         </div>
-      </Section>
+      </div>
 
-      {/* Scroll-driven Video + Services */}
+      {/* Scroll-driven Video + Services – direkt anschließend */}
       <ScrollVideo />
 
       {/* 5 Fachbereiche */}

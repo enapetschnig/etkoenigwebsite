@@ -170,10 +170,10 @@ export function ScrollVideo() {
           </div>
         )}
 
-        {/* Service pills – right under the video area on mobile */}
-        <div className={`absolute inset-x-0 bottom-0 ${isMobile ? "pb-2" : "pb-8"}`}>
+        {/* Service pills */}
+        <div className="absolute inset-x-0 bottom-0 pb-3 md:pb-8">
           <div className="mx-auto max-w-[1400px] px-3 md:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-stretch md:items-end gap-1 md:gap-3">
+            <div className="flex flex-col md:flex-row items-stretch md:items-end gap-1.5 md:gap-3">
               {services.map((service, i) => {
                 const Icon = service.icon;
                 const isActive = activeCard === i;
@@ -185,21 +185,21 @@ export function ScrollVideo() {
                       scale: isActive ? 1 : 0.97,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`flex-1 rounded-lg md:rounded-xl px-2.5 py-1.5 md:px-4 md:py-3 backdrop-blur-lg transition-all duration-300 ${
+                    className={`flex-1 rounded-xl px-4 py-2.5 md:px-5 md:py-3.5 backdrop-blur-lg transition-all duration-300 ${
                       isActive
                         ? "bg-white/95 shadow-lg shadow-black/5 border border-primary/20"
                         : "bg-white/70 border border-border/30"
                     }`}
                   >
-                    <div className="flex items-center gap-2 md:gap-3">
-                      <div className={`w-6 h-6 md:w-8 md:h-8 rounded-md flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-300 ${
                         isActive ? "bg-primary/15" : "bg-black/[0.03]"
                       }`}>
-                        <Icon size={isMobile ? 12 : 16} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
+                        <Icon size={18} weight={isActive ? "fill" : "light"} className={`transition-colors duration-300 ${
                           isActive ? "text-primary" : "text-muted/50"
                         }`} />
                       </div>
-                      <span className={`text-[10px] md:text-sm font-semibold transition-colors duration-300 ${
+                      <span className={`text-sm md:text-base font-semibold transition-colors duration-300 ${
                         isActive ? "text-foreground" : "text-muted/60"
                       }`}>
                         {service.title}
@@ -212,10 +212,10 @@ export function ScrollVideo() {
                         >
                           <Link
                             href={service.ctaHref}
-                            className="inline-flex items-center gap-0.5 px-2 py-0.5 md:px-3 md:py-1.5 text-[8px] md:text-[11px] font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-all"
                           >
                             Anfragen
-                            <ArrowRight size={isMobile ? 7 : 10} weight="bold" />
+                            <ArrowRight size={12} weight="bold" />
                           </Link>
                         </motion.div>
                       )}
