@@ -134,8 +134,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Banner – direkt vor ScrollStop, kein Abstand */}
-      <div className="bg-white py-8 md:py-10">
+      {/* Stats Banner – direkt vor ScrollStop */}
+      <div className="bg-white pt-6 pb-2 md:py-10">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
             {stats.map((stat, i) => {
