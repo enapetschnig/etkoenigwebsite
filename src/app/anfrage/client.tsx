@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SolarPanel,
@@ -331,19 +332,23 @@ export default function AnfrageClient() {
                   Für welchen Bereich möchten Sie eine Anfrage stellen?
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {categoryOptions.map((opt) => {
+                  {[
+                    { label: "Photovoltaik", icon: SolarPanel, href: "/anfrage/photovoltaik" },
+                    { label: "HLS-Installationen", icon: Drop, href: "/anfrage/hls" },
+                    { label: "Elektroinstallation", icon: Lightning, href: "/anfrage/elektro" },
+                  ].map((opt) => {
                     const Icon = opt.icon;
                     return (
-                      <button
-                        key={opt.value}
-                        onClick={() => selectCategory(opt.value as Category)}
+                      <Link
+                        key={opt.href}
+                        href={opt.href}
                         className="group relative flex flex-col items-center gap-3 p-6 rounded-xl border-2 border-border text-center transition-all duration-200 hover:border-primary/40 hover:bg-primary/[0.02] hover:-translate-y-0.5"
                       >
                         <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                           <Icon size={24} weight="light" className="text-primary" />
                         </div>
                         <span className="text-sm font-semibold">{opt.label}</span>
-                      </button>
+                      </Link>
                     );
                   })}
                 </div>
