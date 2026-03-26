@@ -157,7 +157,7 @@ export function ScrollVideo() {
     if (imagesLoaded) drawFrame(0);
   }, [imagesLoaded, drawFrame]);
 
-  const scrollHeight = isMobile ? TOTAL_FRAMES * 35 : TOTAL_FRAMES * 55;
+  const scrollHeight = isMobile ? TOTAL_FRAMES * 22 : TOTAL_FRAMES * 55;
 
   return (
     <div ref={containerRef} className="relative bg-[#ffffff]" style={{ height: `${scrollHeight}px` }}>

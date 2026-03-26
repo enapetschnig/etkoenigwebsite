@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section data-nav-dark className="relative min-h-[85vh] flex items-center pt-20 overflow-hidden">
+      <section data-nav-dark className="relative min-h-[60vh] md:min-h-[85vh] flex items-center pt-20 overflow-hidden">
         {/* Background Video */}
         <div className="absolute inset-0 z-0">
           <video
