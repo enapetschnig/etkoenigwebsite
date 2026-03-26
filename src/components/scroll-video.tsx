@@ -53,47 +53,57 @@ function getFrameSrc(index: number): string {
   return `${FRAME_PATH}${num}.jpg`;
 }
 
-// Mobile: simple autoplay video + static pills
+// ─── MOBILE: Überschrift + Autoplay Video (einmal, bei Scroll) ───
 function MobileScrollVideo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const hasPlayed = useRef(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPlayed.current) {
+          hasPlayed.current = true;
+          video.play().catch(() => {});
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="bg-white">
-      {/* Video */}
-      <div className="relative w-full">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-auto"
-        >
-          <source src="/scrollstop-video.mp4" type="video/mp4" />
-        </video>
+    <div ref={containerRef} className="bg-white">
+      {/* Überschrift über dem Video */}
+      <div className="px-4 pt-6 pb-4 text-center">
+        <p className="text-xs font-semibold text-primary uppercase tracking-[0.15em] mb-2">Unsere Leistungen</p>
+        <h2 className="text-2xl font-bold tracking-tight">
+          Fünf Fachbereiche, <span className="text-primary">ein Partner</span>
+        </h2>
       </div>
 
-      {/* Pills directly under video */}
-      <div className="px-3 py-4 bg-white space-y-1.5">
-        {services.map((service) => {
-          const Icon = service.icon;
-          return (
-            <Link
-              key={service.title}
-              href={service.ctaHref}
-              className="flex items-center gap-3 rounded-xl px-4 py-3 bg-white border border-border/40 hover:border-primary/20 hover:shadow-sm transition-all"
-            >
-              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Icon size={18} weight="light" className="text-primary" />
-              </div>
-              <span className="text-sm font-semibold text-foreground flex-1">{service.title}</span>
-              <ArrowRight size={14} weight="bold" className="text-primary" />
-            </Link>
-          );
-        })}
-      </div>
+      {/* Video – spielt einmal ab beim Reincsrollen */}
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        preload="auto"
+        className="w-full h-auto"
+        poster={getFrameSrc(1)}
+      >
+        <source src="/scrollstop-video.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
 
-// Desktop: full scroll-stop experience
+// ─── DESKTOP: Voller Scroll-Stop mit Canvas ───
 function DesktopScrollVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -128,17 +138,14 @@ function DesktopScrollVideo() {
     const img = imagesRef.current[frameIndex];
     if (!canvas || !ctx || !img) return;
 
-    const cw = canvas.width;
-    const ch = canvas.height;
-    const iw = img.naturalWidth;
-    const ih = img.naturalHeight;
+    const cw = canvas.width, ch = canvas.height;
+    const iw = img.naturalWidth, ih = img.naturalHeight;
 
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, cw, ch);
 
     const scale = Math.max(cw / iw, ch / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
+    const dw = iw * scale, dh = ih * scale;
     ctx.drawImage(img, 0, 0, iw, ih, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
   }, []);
 
@@ -182,7 +189,6 @@ function DesktopScrollVideo() {
           </div>
         )}
 
-        {/* Service pills */}
         <div className="absolute inset-x-0 bottom-0 pb-8">
           <div className="mx-auto max-w-[1400px] px-6 lg:px-8">
             <div className="flex flex-row items-end gap-3">
@@ -192,10 +198,7 @@ function DesktopScrollVideo() {
                 return (
                   <motion.div
                     key={service.title}
-                    animate={{
-                      opacity: isActive ? 1 : 0.5,
-                      scale: isActive ? 1 : 0.97,
-                    }}
+                    animate={{ opacity: isActive ? 1 : 0.5, scale: isActive ? 1 : 0.97 }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     className={`flex-1 rounded-xl px-5 py-3.5 backdrop-blur-lg transition-all duration-300 ${
                       isActive
@@ -239,7 +242,6 @@ function DesktopScrollVideo() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
           animate={{ opacity: activeCard === -1 ? 0.6 : 0 }}
@@ -258,6 +260,7 @@ function DesktopScrollVideo() {
   );
 }
 
+// ─── EXPORT: Mobile vs Desktop ───
 export function ScrollVideo() {
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -271,6 +274,5 @@ export function ScrollVideo() {
   }, []);
 
   if (!mounted) return null;
-
   return isMobile ? <MobileScrollVideo /> : <DesktopScrollVideo />;
 }
