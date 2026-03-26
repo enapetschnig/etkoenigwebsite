@@ -260,102 +260,7 @@ export default function PhotovoltaikPage() {
         </div>
       </Section>
 
-      {/* Strompreis-Warnung + Video */}
-      <Section className="bg-[#fff6e7]">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
-          <FadeIn>
-            <div className="rounded-2xl overflow-hidden">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                className="w-full h-auto rounded-2xl"
-              >
-                <source src="/pv-speicher-video.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Jetzt handeln</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Die Ölpreise steigen. Der Strompreis wird folgen.
-            </h2>
-            <p className="text-base text-muted leading-relaxed mb-4">
-              Es ist nur eine Frage der Zeit, bis auch die Stromkosten deutlich anziehen.
-              Mit einer eigenen PV-Anlage machen Sie sich unabhängig von steigenden Energiepreisen –
-              und produzieren Ihren eigenen, sauberen Strom.
-            </p>
-            <p className="text-base text-muted leading-relaxed mb-6">
-              Wer jetzt investiert, profitiert doppelt: von der aktuellen Förderung und von langfristig
-              niedrigeren Energiekosten.
-            </p>
-            <Link
-              href="/anfrage/photovoltaik"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
-            >
-              Jetzt PV-Anlage anfragen
-              <ArrowRight size={16} weight="bold" />
-            </Link>
-          </FadeIn>
-        </div>
-      </Section>
-
-      {/* Video Testimonials */}
-      <Section>
-        <FadeIn>
-          <div className="text-center mb-8">
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Video-Kundenstimmen</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
-              Echte Kunden, echte Meinungen
-            </h2>
-          </div>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FadeIn>
-            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://fast.wistia.net/embed/iframe/gjjahcjpnu?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 1"
-                  allow="autoplay; fullscreen"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://fast.wistia.net/embed/iframe/dzed1k7mw6?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 2"
-                  allow="autoplay; fullscreen"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </Section>
-
-      {/* Google Reviews */}
-      <Section className="bg-background-alt">
-        <FadeIn>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Kundenstimmen</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
-            Das sagen unsere Kunden auf Google
-          </h2>
-        </FadeIn>
-        <div
-          className="elfsight-app-1becb9a5-60a7-4c9b-b123-89b632125e9e"
-          data-elfsight-app-lazy
-        />
-      </Section>
+      {/* (Strompreis, Kundenstimmen, Google Reviews verschoben nach unten – nach Monitoring) */}
 
       {/* Why Us */}
       <Section className="bg-background-alt">
@@ -417,34 +322,101 @@ export default function PhotovoltaikPage() {
         </div>
       </Section>
 
-      {/* Testimonials */}
-      <Section className="bg-background-alt">
+      {/* Strompreis-Warnung + Video */}
+      <Section className="bg-[#fff6e7]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+          <FadeIn>
+            <div className="rounded-2xl overflow-hidden">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                className="w-full h-auto rounded-2xl"
+              >
+                <source src="/pv-speicher-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Jetzt handeln</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Die Ölpreise steigen. Der Strompreis wird folgen.
+            </h2>
+            <p className="text-base text-muted leading-relaxed mb-4">
+              Es ist nur eine Frage der Zeit, bis auch die Stromkosten deutlich anziehen.
+              Mit einer eigenen PV-Anlage machen Sie sich unabhängig von steigenden Energiepreisen –
+              und produzieren Ihren eigenen, sauberen Strom.
+            </p>
+            <p className="text-base text-muted leading-relaxed mb-6">
+              Wer jetzt investiert, profitiert doppelt: von der aktuellen Förderung und von langfristig
+              niedrigeren Energiekosten.
+            </p>
+            <Link
+              href="/anfrage/photovoltaik"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+            >
+              Jetzt PV-Anlage anfragen
+              <ArrowRight size={16} weight="bold" />
+            </Link>
+          </FadeIn>
+        </div>
+      </Section>
+
+      {/* Video Kundenstimmen */}
+      <Section>
         <FadeIn>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
-            Das sagen unsere Kunden
-          </h2>
-          <p className="text-muted mb-8">Mehr als 6.000 zufriedene Kunden</p>
+          <div className="text-center mb-8">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
+              Das sagen unsere Kunden
+            </h2>
+          </div>
         </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((t, i) => (
-            <FadeIn key={t.name} delay={i * 0.08}>
-              <div className="rounded-2xl border border-border/60 bg-white p-6 h-full flex flex-col">
-                <div className="flex gap-0.5 mb-3">
-                  {[...Array(t.rating)].map((_, j) => (
-                    <Star key={j} size={14} weight="fill" className="text-primary" />
-                  ))}
-                </div>
-                <p className="text-base text-muted leading-relaxed flex-1 mb-4">&ldquo;{t.text}&rdquo;</p>
-                <div>
-                  <p className="text-sm font-medium">{t.name}</p>
-                  <p className="text-xs text-muted">{t.location}</p>
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <FadeIn>
+            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://fast.wistia.net/embed/iframe/gjjahcjpnu?seo=true&videoFoam=true"
+                  title="Kundenstimme Video 1"
+                  allow="autoplay; fullscreen"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                />
               </div>
-            </FadeIn>
-          ))}
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.1}>
+            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
+              <div className="relative aspect-video">
+                <iframe
+                  src="https://fast.wistia.net/embed/iframe/dzed1k7mw6?seo=true&videoFoam=true"
+                  title="Kundenstimme Video 2"
+                  allow="autoplay; fullscreen"
+                  className="absolute inset-0 w-full h-full"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </FadeIn>
         </div>
+      </Section>
+
+      {/* Google Reviews */}
+      <Section className="bg-background-alt">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Google Bewertungen</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
+            Das sagen unsere Kunden auf Google
+          </h2>
+        </FadeIn>
+        <div
+          className="elfsight-app-1becb9a5-60a7-4c9b-b123-89b632125e9e"
+          data-elfsight-app-lazy
+        />
       </Section>
 
       {/* Über uns */}
