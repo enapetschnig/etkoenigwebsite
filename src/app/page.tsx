@@ -135,21 +135,21 @@ export default function Home() {
       </section>
 
       {/* Stats Banner */}
-      <div className="bg-white py-4 md:py-10">
+      <div className="bg-white py-6 md:py-10">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-4 gap-2 md:gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
             {stats.map((stat, i) => {
               const icons = [CalendarCheck, Checks, MapPin, UsersThree];
               const Icon = icons[i];
               return (
-                <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-1 md:px-4">
-                  <div className="hidden md:inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 mb-4">
-                    <Icon size={22} weight="light" className="text-primary" />
+                <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-2 md:px-4">
+                  <div className="inline-flex items-center justify-center w-9 h-9 md:w-11 md:h-11 rounded-xl bg-primary/10 mb-2 md:mb-4">
+                    <Icon size={18} weight="light" className="text-primary" />
                   </div>
-                  <p className="text-xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight mb-0 md:mb-1">
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight mb-0.5">
                     <CountUp end={stat.value} suffix={stat.suffix} />
                   </p>
-                  <p className="text-[10px] md:text-sm text-muted font-medium leading-tight">{stat.label}</p>
+                  <p className="text-xs md:text-sm text-muted font-medium">{stat.label}</p>
                 </FadeIn>
               );
             })}
@@ -157,7 +157,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Scroll-driven Video + Services – direkt anschließend */}
+      {/* Scroll-driven Video + Services */}
       <ScrollVideo />
 
       {/* 5 Fachbereiche */}

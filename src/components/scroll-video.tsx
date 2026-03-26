@@ -160,8 +160,8 @@ export function ScrollVideo() {
   const scrollHeight = isMobile ? TOTAL_FRAMES * 22 : TOTAL_FRAMES * 55;
 
   return (
-    <div ref={containerRef} className="relative bg-[#ffffff]" style={{ height: `${scrollHeight}px` }}>
-      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-[#ffffff]">
+    <div ref={containerRef} className="relative bg-white -mt-16 md:mt-0" style={{ height: `${scrollHeight}px` }}>
+      <div className="sticky top-0 h-dvh w-full overflow-hidden bg-white">
         <canvas ref={canvasRef} className="absolute inset-0" />
 
         {!imagesLoaded && (
