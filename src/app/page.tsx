@@ -181,7 +181,7 @@ export default function Home() {
               href: "/photovoltaik",
               cta: "PV-Anlage anfragen",
               ctaHref: "/anfrage/photovoltaik",
-              image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&q=80",
+              image: "/pv-hero.webp",
               featured: true,
             },
             {
@@ -200,7 +200,7 @@ export default function Home() {
               href: "/elektroinstallation",
               cta: "Elektro-Anfrage",
               ctaHref: "/anfrage/elektro",
-              image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80",
+              image: "/elektro-hero.jpeg",
             },
             {
               title: "Fachhandel",
@@ -209,7 +209,7 @@ export default function Home() {
               href: "/fachhandel",
               cta: "Mehr erfahren",
               ctaHref: "/fachhandel",
-              image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80",
+              image: "/fachhandel-hero.png",
             },
             {
               title: "Mietpark",
@@ -218,7 +218,7 @@ export default function Home() {
               href: "/kontakt",
               cta: "Anfragen",
               ctaHref: "/kontakt",
-              image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80",
+              image: "/mietpark-hero.jpg",
             },
           ].map((service, i) => {
             const Icon = service.icon;
