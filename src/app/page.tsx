@@ -276,83 +276,92 @@ export default function Home() {
         />
       </Section>
 
-      {/* Projekte Teaser */}
-      <Section>
-        <FadeIn>
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">Unsere Projekte</h2>
-            </div>
+      {/* Über uns / Willkommen */}
+      <Section className="bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <FadeIn>
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Über uns</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
+              Elektroinstallationen & mehr vom Elektriker im Bezirk Murau
+            </h2>
+            <p className="text-base text-muted leading-relaxed mb-4">
+              Willkommen bei ET König GmbH – Ihrem Elektroinstallationsunternehmen in Scheifling, Steiermark!
+              Als führender Experte für Elektroinstallationen und innovative Technik stehen wir für höchste
+              Qualität und erstklassigen Service.
+            </p>
+            <p className="text-base text-muted leading-relaxed mb-6">
+              Unser eingespieltes Team aus erfahrenen Elektroinstallateuren und Technikern sorgt dafür,
+              dass Ihre Visionen von einem modernen, sicheren und effizienten Zuhause Wirklichkeit werden.
+            </p>
             <Link
-              href="/projekte"
-              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors"
+              href="/ueber-uns"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-hover transition-colors"
             >
-              Alle Projekte ansehen
+              Mehr über uns erfahren
               <ArrowRight size={14} weight="bold" />
             </Link>
-          </div>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              src: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=600&q=80",
-              alt: "Photovoltaikanlage auf Einfamilienhaus",
-              label: "PV-Anlage – Einfamilienhaus",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80",
-              alt: "Elektroinstallation",
-              label: "Elektroinstallation – Neubau",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80",
-              alt: "Modernes Badezimmer",
-              label: "Badplanung – Komplettsanierung",
-            },
-          ].map((project, i) => (
-            <FadeIn key={project.alt} delay={i * 0.1}>
-              <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
-                <Image
-                  src={project.src}
-                  alt={project.alt}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <p className="absolute bottom-4 left-4 right-4 text-sm font-medium text-white">
-                  {project.label}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-
-        <div className="mt-6 sm:hidden">
-          <Link
-            href="/projekte"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors"
-          >
-            Alle Projekte ansehen
-            <ArrowRight size={14} weight="bold" />
-          </Link>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-background-alt">
+              <Image
+                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
+                alt="ET König Team bei der Arbeit"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          </FadeIn>
         </div>
       </Section>
 
-      {/* Partner/Trust Section */}
-      <Section className="bg-white md:bg-background-alt !py-10">
-        <FadeIn>
-          <p className="text-center text-sm text-muted mb-6">Wir arbeiten mit führenden Herstellern</p>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-40 grayscale">
-            {["Fronius", "Huawei", "Hager", "KNX", "Stiebel Eltron"].map((partner) => (
-              <span key={partner} className="text-lg font-bold tracking-tight text-foreground">
-                {partner}
-              </span>
-            ))}
-          </div>
-        </FadeIn>
+      {/* PV-Anlagen & Speicher – Video + Text */}
+      <Section className="bg-[#fff6e7]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+          <FadeIn>
+            <div className="rounded-2xl overflow-hidden">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-auto"
+              >
+                <source src="/pv-speicher-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Photovoltaik</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Unsere PV-Anlagen & Speicher zahlen sich von selbst ab
+            </h2>
+            <p className="text-base text-muted leading-relaxed mb-6">
+              Bei uns gibt es PV-Anlagen und Speicher von höchster Qualität zu einem leistbaren Preis.
+              Mit einer PV-Anlage werden Sie unabhängig von Ihrem Netzbetreiber und sparen noch dazu viel Geld.
+            </p>
+            <div className="space-y-3 mb-8">
+              {[
+                "Starke Kostenersparnis durch Förderung",
+                "Schnelle Lieferung und professionelle Montage",
+                "Live-Anzeige der PV-Anlage per Handy-App",
+                "20 Jahre Garantie auf Module",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <CheckCircle size={20} weight="fill" className="text-primary flex-shrink-0" />
+                  <span className="text-base font-medium">{item}</span>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/anfrage/photovoltaik"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+            >
+              PV-Anlage anfragen
+              <ArrowRight size={16} weight="bold" />
+            </Link>
+          </FadeIn>
+        </div>
       </Section>
 
       {/* Standorte Scroll-Stop */}
