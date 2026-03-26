@@ -162,7 +162,7 @@ export default function Home() {
 
       {/* 5 Fachbereiche */}
       <Section id="leistungen">
-        <FadeIn>
+        <FadeIn className="hidden md:block">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Unsere Leistungen</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-center">
             Fünf Fachbereiche, <span className="text-primary">ein Partner</span>
