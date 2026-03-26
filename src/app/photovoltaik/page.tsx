@@ -260,15 +260,56 @@ export default function PhotovoltaikPage() {
         </div>
       </Section>
 
+      {/* Strompreis-Warnung + Video */}
+      <Section className="bg-[#fff6e7]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+          <FadeIn>
+            <div className="rounded-2xl overflow-hidden">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                className="w-full h-auto rounded-2xl"
+              >
+                <source src="/pv-speicher-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Jetzt handeln</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Die Ölpreise steigen. Der Strompreis wird folgen.
+            </h2>
+            <p className="text-base text-muted leading-relaxed mb-4">
+              Es ist nur eine Frage der Zeit, bis auch die Stromkosten deutlich anziehen.
+              Mit einer eigenen PV-Anlage machen Sie sich unabhängig von steigenden Energiepreisen –
+              und produzieren Ihren eigenen, sauberen Strom.
+            </p>
+            <p className="text-base text-muted leading-relaxed mb-6">
+              Wer jetzt investiert, profitiert doppelt: von der aktuellen Förderung und von langfristig
+              niedrigeren Energiekosten.
+            </p>
+            <Link
+              href="/anfrage/photovoltaik"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+            >
+              Jetzt PV-Anlage anfragen
+              <ArrowRight size={16} weight="bold" />
+            </Link>
+          </FadeIn>
+        </div>
+      </Section>
+
       {/* Video Testimonials */}
       <Section>
         <FadeIn>
           <div className="text-center mb-8">
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Kundenstimmen</p>
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Video-Kundenstimmen</p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
-              Das sagen unsere Kunden
+              Echte Kunden, echte Meinungen
             </h2>
-            <p className="text-muted">Mehr als 6.000 zufriedene Kunden</p>
           </div>
         </FadeIn>
 
@@ -303,11 +344,11 @@ export default function PhotovoltaikPage() {
       </Section>
 
       {/* Google Reviews */}
-      <Section className="bg-[#fff6e7]">
+      <Section className="bg-background-alt">
         <FadeIn>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Google Bewertungen</p>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Kundenstimmen</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8 text-center">
-            Was unsere Kunden auf Google sagen
+            Das sagen unsere Kunden auf Google
           </h2>
         </FadeIn>
         <div
