@@ -134,22 +134,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Banner – direkt vor ScrollStop */}
-      <div className="bg-white pt-6 pb-2 md:py-10">
+      {/* Stats Banner */}
+      <div className="bg-white py-4 md:py-10">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
+          <div className="grid grid-cols-4 gap-2 md:gap-6 lg:gap-0 lg:divide-x lg:divide-border/40">
             {stats.map((stat, i) => {
               const icons = [CalendarCheck, Checks, MapPin, UsersThree];
               const Icon = icons[i];
               return (
-                <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-4">
-                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 mb-4">
+                <FadeIn key={stat.label} delay={i * 0.1} className="text-center px-1 md:px-4">
+                  <div className="hidden md:inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 mb-4">
                     <Icon size={22} weight="light" className="text-primary" />
                   </div>
-                  <p className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-1">
+                  <p className="text-xl md:text-3xl lg:text-4xl font-bold text-foreground tracking-tight mb-0 md:mb-1">
                     <CountUp end={stat.value} suffix={stat.suffix} />
                   </p>
-                  <p className="text-xs sm:text-sm text-muted font-medium">{stat.label}</p>
+                  <p className="text-[10px] md:text-sm text-muted font-medium leading-tight">{stat.label}</p>
                 </FadeIn>
               );
             })}
