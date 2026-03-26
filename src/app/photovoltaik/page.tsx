@@ -332,7 +332,7 @@ export default function PhotovoltaikPage() {
       </Section>
 
       {/* Monitoring */}
-      <Section>
+      <Section className="bg-[#fff6e7]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeIn>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">App-Monitoring</p>
@@ -363,7 +363,7 @@ export default function PhotovoltaikPage() {
       </Section>
 
       {/* Strompreis-Warnung + Video */}
-      <Section className="bg-[#fff6e7]">
+      <Section className="bg-white">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center">
           <FadeIn>
             <div className="rounded-2xl overflow-hidden">
