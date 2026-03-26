@@ -113,7 +113,7 @@ export default function FachhandelPage() {
           <FadeIn delay={0.3}>
             <div className="flex flex-wrap items-center gap-4">
               <a
-                href="tel:+4335322005"
+                href="tel:+436608648605"
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
               >
                 <Phone size={16} weight="bold" />
@@ -137,15 +137,15 @@ export default function FachhandelPage() {
             {
               icon: MapPin,
               label: "Adresse",
-              value: "Schillerplatz 5, 8850 Murau",
-              href: "https://maps.google.com/?q=Schillerplatz+5+8850+Murau",
+              value: "Bundesstraße 14, 8850 Murau",
+              href: "https://maps.google.com/?q=Bundesstraße+14+8850+Murau",
               linkLabel: "Route planen",
             },
             {
               icon: Phone,
               label: "Telefon",
-              value: "+43 3532 200 53",
-              href: "tel:+4335322005",
+              value: "+43 660 864 86 05",
+              href: "tel:+436608648605",
               linkLabel: "Jetzt anrufen",
             },
             {
@@ -313,10 +313,10 @@ export default function FachhandelPage() {
                 </div>
                 <div>
                   <p className="font-semibold mb-0.5">ET König Fachhandel</p>
-                  <p className="text-sm text-muted">Schillerplatz 5</p>
+                  <p className="text-sm text-muted">Bundesstraße 14</p>
                   <p className="text-sm text-muted mb-2">8850 Murau</p>
                   <a
-                    href="https://maps.google.com/?q=Schillerplatz+5+8850+Murau"
+                    href="https://maps.google.com/?q=Bundesstraße+14+8850+Murau"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
@@ -334,8 +334,8 @@ export default function FachhandelPage() {
                 </div>
                 <div>
                   <p className="text-[11px] text-muted uppercase tracking-wider font-medium">Telefon</p>
-                  <a href="tel:+4335322005" className="text-lg font-bold text-foreground hover:text-primary transition-colors">
-                    +43 3532 200 53
+                  <a href="tel:+436608648605" className="text-lg font-bold text-foreground hover:text-primary transition-colors">
+                    +43 660 864 86 05
                   </a>
                 </div>
               </div>
@@ -395,11 +395,11 @@ export default function FachhandelPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="tel:+4335322005"
+                href="tel:+436608648605"
                 className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
               >
                 <Phone size={16} weight="bold" />
-                +43 3532 200 53
+                +43 660 864 86 05
               </a>
               <Link
                 href="/kontakt"

@@ -16,10 +16,10 @@ const standorte = [
   {
     name: "Murau",
     tag: "Fachhandel",
-    phone: "+43 3532 200 53",
+    phone: "+43 660 864 86 05",
     hours: "Mo–Fr: 08–18 | Sa: 08:30–12",
     description: "Elektrofachgeschäft im Herzen von Murau – persönliche Beratung und Top-Marken.",
-    mapUrl: "https://maps.google.com/?q=Schillerplatz+5+8850+Murau",
+    mapUrl: "https://maps.google.com/?q=Bundesstraße+14+8850+Murau",
     range: [0.05, 0.33] as [number, number],
   },
   {
@@ -27,15 +27,15 @@ const standorte = [
     tag: "Hauptsitz",
     phone: "+43 664 531 90 79",
     description: "Unsere Zentrale – von hier koordinieren wir alle Projekte in der Steiermark.",
-    mapUrl: "https://maps.google.com/?q=Baierdorf-Umgebung+103+8811+Scheifling",
+    mapUrl: "https://maps.google.com/?q=Lindbergstraße+5+8811+Scheifling",
     range: [0.34, 0.64] as [number, number],
   },
   {
     name: "Feldkirchen",
     tag: "Kärnten",
-    phone: "+43 4276 385 79",
+    phone: "+43 660 941 90 81",
     description: "Unsere Filiale in Kärnten – schnell vor Ort, südlich der Alpen.",
-    mapUrl: "https://maps.google.com/?q=10.-Oktober-Straße+21+9560+Feldkirchen",
+    mapUrl: "https://maps.google.com/?q=Glan+8+9560+Feldkirchen",
     range: [0.65, 0.95] as [number, number],
   },
 ];

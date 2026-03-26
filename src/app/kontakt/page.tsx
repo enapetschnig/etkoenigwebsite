@@ -16,21 +16,21 @@ import { Section, FadeIn } from "@/components/section";
 const standorte = [
   {
     name: "Scheifling (Hauptsitz)",
-    address: "Baierdorf-Umgebung 103, 8811 Scheifling",
+    address: "Lindbergstraße 5, 8811 Scheifling",
     phone: "+43 664 531 90 79",
     email: "info@et-koenig.at",
   },
   {
     name: "Murau",
-    address: "Schillerplatz 5, 8850 Murau",
-    phone: "+43 3532 200 53",
-    email: "murau@et-koenig.at",
+    address: "Bundesstraße 14, 8850 Murau",
+    phone: "+43 660 864 86 05",
+    email: "info@et-koenig.at",
     hours: "Mo–Fr: 08:00–12:00 & 13:30–18:00 | Sa: 08:30–12:00",
   },
   {
     name: "Feldkirchen",
-    address: "10.-Oktober-Straße 21, 9560 Feldkirchen",
-    phone: "+43 4276 385 79",
+    address: "Glan 8, 9560 Feldkirchen",
+    phone: "+43 660 941 90 81",
     email: "klaus.grangler@et-koenig.at",
   },
 ];

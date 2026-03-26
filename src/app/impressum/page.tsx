@@ -17,7 +17,7 @@ export default function ImpressumPage() {
             <h2 className="text-lg font-semibold text-foreground mb-2">Angaben gemäß § 5 ECG</h2>
             <p>
               ET König GmbH<br />
-              Baierdorf-Umgebung 103<br />
+              Lindbergstraße 5<br />
               8811 Scheifling<br />
               Österreich
             </p>
@@ -40,8 +40,8 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-lg font-semibold text-foreground mb-2">Weitere Standorte</h2>
             <p>
-              <strong>Filiale Murau:</strong> Schillerplatz 5, 8850 Murau – Tel: +43 3532 200 53<br />
-              <strong>Filiale Feldkirchen:</strong> 10.-Oktober-Straße 21, 9560 Feldkirchen – Tel: +43 4276 385 79
+              <strong>Filiale Murau:</strong> Bundesstraße 14, 8850 Murau – Tel: +43 660 864 86 05<br />
+              <strong>Filiale Feldkirchen:</strong> Glan 8, 9560 Feldkirchen – Tel: +43 660 941 90 81
             </p>
           </div>
 

@@ -16,7 +16,7 @@ export default function DatenschutzPage() {
           <div>
             <h2 className="text-lg font-semibold text-foreground mb-2">1. Verantwortlicher</h2>
             <p>
-              ET König GmbH, Baierdorf-Umgebung 103, 8811 Scheifling, Österreich<br />
+              ET König GmbH, Lindbergstraße 5, 8811 Scheifling, Österreich<br />
               E-Mail: info@et-koenig.at | Tel: +43 664 531 90 79
             </p>
           </div>
