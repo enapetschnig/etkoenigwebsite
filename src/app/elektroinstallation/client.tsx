@@ -263,18 +263,18 @@ export default function ElektroOverviewClient() {
       </Section>
 
       {/* CTA */}
-      <Section dark>
+      <Section className="bg-[#fff6e7]">
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
               Elektroprojekt in der Steiermark planen?
             </h2>
-            <p className="text-white/60 mb-6">
+            <p className="text-muted mb-6">
               Starten Sie jetzt Ihre unverbindliche Anfrage – wir finden die beste Lösung für Ihr Projekt.
             </p>
             <Link
               href="/anfrage/elektro"
-              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
             >
               Elektro-Anfrage starten
               <ArrowRight size={16} weight="bold" />

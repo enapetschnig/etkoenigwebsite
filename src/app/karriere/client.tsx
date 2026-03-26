@@ -463,22 +463,22 @@ export default function KarriereClient() {
       </Section>
 
       {/* Standort CTA */}
-      <Section dark>
+      <Section className="bg-[#fff6e7]">
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">Dein zukünftiger Arbeitsplatz</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">Dein zukünftiger Arbeitsplatz</h2>
             <div className="flex items-center justify-center gap-2 mb-4">
               <MapPin size={16} weight="fill" className="text-primary" />
-              <span className="text-white/70">Feldkirchen in Kärnten</span>
+              <span className="text-muted">Feldkirchen in Kärnten</span>
             </div>
-            <p className="text-white/60 mb-6">
+            <p className="text-muted mb-6">
               Mitten im Herzen Kärntens – mit kurzen Wegen zu unseren Kunden in der gesamten Region. Keine wochenlangen Montagen!
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#bewerbung" className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all">
+              <a href="#bewerbung" className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all">
                 Jetzt bewerben <ArrowRight size={16} weight="bold" />
               </a>
-              <a href="tel:+436645319079" className="inline-flex items-center gap-2 text-sm font-medium text-white/60 hover:text-white transition-colors">
+              <a href="tel:+436645319079" className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors">
                 <Phone size={16} weight="light" /> +43 664 531 90 79
               </a>
             </div>

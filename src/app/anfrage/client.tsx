@@ -210,6 +210,17 @@ export default function AnfrageClient() {
 
   const selectOption = (value: string) => {
     setAnswers({ ...answers, [currentStep]: value });
+    // Auto-advance after selection
+    setTimeout(() => {
+      if (currentStep < steps.length - 1) {
+        setDirection(1);
+        setCurrentStep(currentStep + 1);
+      } else if (currentStep === steps.length - 1) {
+        // Go to contact form
+        setDirection(1);
+        setCurrentStep(steps.length);
+      }
+    }, 400);
   };
 
   const goNext = () => {

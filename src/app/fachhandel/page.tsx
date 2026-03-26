@@ -383,27 +383,27 @@ export default function FachhandelPage() {
       </Section>
 
       {/* CTA */}
-      <Section dark>
+      <Section className="bg-[#fff6e7]">
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
             <Heart size={32} weight="light" className="text-primary mx-auto mb-4" />
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">
               Kommen Sie vorbei!
             </h2>
-            <p className="text-white/60 mb-6">
+            <p className="text-muted mb-6">
               Wir freuen uns auf Ihren Besuch – persönliche Beratung, faire Preise und alles zum Anfassen.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="tel:+4335322005"
-                className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+                className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
               >
                 <Phone size={16} weight="bold" />
                 +43 3532 200 53
               </a>
               <Link
                 href="/kontakt"
-                className="inline-flex items-center gap-2 text-sm font-medium text-white/60 hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors"
               >
                 Kontaktformular
                 <ArrowRight size={14} weight="bold" />

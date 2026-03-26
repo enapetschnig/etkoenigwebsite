@@ -79,21 +79,21 @@ function MobileStandorte() {
               </span>
             </div>
             <p className="text-sm text-muted mb-2">{s.description}</p>
-            <div className="flex items-center gap-4 text-xs text-muted">
-              <div className="flex items-center gap-1">
-                <Phone size={11} weight="light" className="text-primary" />
+            <div className="flex items-center gap-4 text-sm text-muted">
+              <div className="flex items-center gap-1.5">
+                <Phone size={13} weight="light" className="text-primary" />
                 <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="font-medium hover:text-primary">{s.phone}</a>
               </div>
               {s.hours && (
-                <div className="flex items-center gap-1">
-                  <Clock size={11} weight="light" className="text-primary" />
+                <div className="flex items-center gap-1.5">
+                  <Clock size={13} weight="light" className="text-primary" />
                   <span>{s.hours}</span>
                 </div>
               )}
             </div>
             <a href={s.mapUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary mt-2">
-              <NavigationArrow size={10} weight="bold" />Route planen
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary mt-2">
+              <NavigationArrow size={12} weight="bold" />Route planen
             </a>
           </div>
         ))}
@@ -203,16 +203,16 @@ function DesktopStandorte() {
                     key={s.name}
                     animate={{ opacity: isActive ? 1 : 0.4, scale: isActive ? 1 : 0.97 }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`rounded-xl px-5 py-4 backdrop-blur-lg transition-all duration-300 ${
+                    className={`rounded-xl px-6 py-5 backdrop-blur-lg transition-all duration-300 ${
                       isActive
                         ? "bg-white/90 border border-primary/20 shadow-lg shadow-black/5"
                         : "bg-white/50 border border-border/40"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-1.5">
-                        <MapPin size={15} weight={isActive ? "fill" : "light"} className={isActive ? "text-primary" : "text-muted/40"} />
-                        <h3 className={`text-sm font-bold transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted"}`}>{s.name}</h3>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <MapPin size={17} weight={isActive ? "fill" : "light"} className={isActive ? "text-primary" : "text-muted/40"} />
+                        <h3 className={`text-base font-bold transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted"}`}>{s.name}</h3>
                       </div>
                       <span className={`text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full ${
                         isActive ? "bg-primary/10 text-primary" : "bg-background-alt text-muted/40"
@@ -224,22 +224,22 @@ function DesktopStandorte() {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-sm text-muted leading-relaxed mt-1 mb-2">{s.description}</p>
-                      <div className="flex items-center gap-3 mb-1.5">
-                        <div className="flex items-center gap-1.5 text-xs text-muted">
-                          <Phone size={11} weight="light" className="text-primary" />
+                      <p className="text-sm text-muted leading-relaxed mt-1 mb-3">{s.description}</p>
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center gap-1.5 text-sm text-muted">
+                          <Phone size={13} weight="light" className="text-primary" />
                           <a href={`tel:${s.phone.replace(/\s/g, "")}`} className="font-medium hover:text-primary">{s.phone}</a>
                         </div>
                         {s.hours && (
-                          <div className="flex items-center gap-1.5 text-xs text-muted/70">
-                            <Clock size={11} weight="light" className="text-primary" />
+                          <div className="flex items-center gap-1.5 text-sm text-muted/70">
+                            <Clock size={13} weight="light" className="text-primary" />
                             <span>{s.hours}</span>
                           </div>
                         )}
                       </div>
                       <a href={s.mapUrl} target="_blank" rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary">
-                        <NavigationArrow size={10} weight="bold" />Route planen
+                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                        <NavigationArrow size={12} weight="bold" />Route planen
                       </a>
                     </motion.div>
                   </motion.div>

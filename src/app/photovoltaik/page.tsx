@@ -448,21 +448,21 @@ export default function PhotovoltaikPage() {
       </Section>
 
       {/* CTA */}
-      <Section dark className="!py-20">
+      <Section className="bg-[#fff6e7] !py-20">
         <FadeIn>
           <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
               Erhalten Sie noch heute ein Angebot.
             </h2>
-            <p className="text-white/60 mb-2">
+            <p className="text-muted mb-2">
               Die beste Zeit für eine PV-Anlage ist jetzt.
             </p>
-            <p className="text-white/60 mb-8">
+            <p className="text-muted mb-8">
               Hohe Förderung und niedrige Preise – das gibt es nur für kurze Zeit.
             </p>
             <Link
               href="/anfrage/photovoltaik"
-              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
             >
               Zur kostenlosen Beratung
               <ArrowRight size={16} weight="bold" />
@@ -473,7 +473,7 @@ export default function PhotovoltaikPage() {
                   <Star key={i} size={14} weight="fill" className="text-primary" />
                 ))}
               </div>
-              <span className="text-sm text-white/50">4,9/5 auf 400+ Bewertungen</span>
+              <span className="text-sm text-muted">4,9/5 auf 400+ Bewertungen</span>
             </div>
           </div>
         </FadeIn>
