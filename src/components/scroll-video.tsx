@@ -84,7 +84,7 @@ function MobileScrollVideo() {
       <div className="px-4 pt-6 pb-4 text-center">
         <p className="text-xs font-semibold text-primary uppercase tracking-[0.15em] mb-2">Unsere Leistungen</p>
         <h2 className="text-2xl font-bold tracking-tight">
-          Fünf Fachbereiche, <span className="text-primary">ein Partner</span>
+          Sechs Fachbereiche, <span className="text-primary">ein Partner</span>
         </h2>
       </div>
 

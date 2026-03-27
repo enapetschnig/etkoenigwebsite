@@ -12,6 +12,7 @@ const navLinks = [
   { href: "/photovoltaik", label: "Photovoltaik" },
   { href: "/elektroinstallation", label: "Elektroinstallation" },
   { href: "/fachhandel", label: "Fachhandel" },
+  { href: "/dachdeckerei", label: "Dachdeckerei" },
   { href: "/mietpark", label: "Mietpark" },
   { href: "/projekte", label: "Projekte" },
 ];

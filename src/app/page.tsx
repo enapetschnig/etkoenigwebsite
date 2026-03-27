@@ -16,6 +16,7 @@ import {
   Lightning,
   Storefront,
   Crane,
+  HardHat,
 } from "@phosphor-icons/react";
 import { Section, FadeIn, CountUp } from "@/components/section";
 import { ScrollVideo } from "@/components/scroll-video";
@@ -160,19 +161,19 @@ export default function Home() {
       {/* Scroll-driven Video + Services */}
       <ScrollVideo />
 
-      {/* 5 Fachbereiche */}
+      {/* 6 Fachbereiche */}
       <Section id="leistungen">
         <FadeIn className="hidden md:block">
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Unsere Leistungen</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4 text-center">
-            Fünf Fachbereiche, <span className="text-primary">ein Partner</span>
+            Sechs Fachbereiche, <span className="text-primary">ein Partner</span>
           </h2>
           <p className="text-base text-muted text-center max-w-xl mx-auto mb-10">
-            Von der PV-Anlage über Heizung und Sanitär bis zum Maschinenverleih – alles aus einer Hand.
+            Von der PV-Anlage über Heizung und Sanitär bis zur Dachdeckerei – alles aus einer Hand.
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
               title: "Photovoltaik",
@@ -212,12 +213,21 @@ export default function Home() {
               image: "/fachhandel-hero.png",
             },
             {
+              title: "Dachdeckerei & Spenglerei",
+              desc: "Dachsanierungen, Neueindeckungen, Foliendächer und Sturmschaden-Reparaturen.",
+              icon: HardHat,
+              href: "/dachdeckerei",
+              cta: "Dach-Anfrage",
+              ctaHref: "/anfrage/dachdeckerei",
+              image: "/dachdeckerei.png",
+            },
+            {
               title: "Mietpark",
               desc: "Steiger, Bagger und Spezialgeräte – flexibel mieten für Ihr Projekt.",
               icon: Crane,
-              href: "/kontakt",
-              cta: "Anfragen",
-              ctaHref: "/kontakt",
+              href: "/mietpark",
+              cta: "Geräte ansehen",
+              ctaHref: "/mietpark",
               image: "/mietpark-hero.jpg",
             },
           ].map((service, i) => {
