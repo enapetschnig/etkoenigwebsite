@@ -403,9 +403,10 @@ function InquiryModal({ equipment, onClose }: { equipment: Equipment; onClose: (
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Telefon</label>
+                <label className="block text-sm font-medium mb-1">Telefon *</label>
                 <input
                   type="tel"
+                  required
                   value={formData.phone}
                   onChange={(e) => setFormData((p) => ({ ...p, phone: e.target.value }))}
                   placeholder="+43 ..."

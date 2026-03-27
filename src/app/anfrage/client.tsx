@@ -438,8 +438,8 @@ export default function AnfrageClient() {
                         placeholder="ihre@email.at" />
                     </div>
                     <div>
-                      <label htmlFor="q-phone" className="block text-sm font-medium mb-1.5">Telefon</label>
-                      <input id="q-phone" type="tel" value={contactData.phone}
+                      <label htmlFor="q-phone" className="block text-sm font-medium mb-1.5">Telefon *</label>
+                      <input id="q-phone" type="tel" required value={contactData.phone}
                         onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                         placeholder="+43 ..." />
@@ -488,7 +488,7 @@ export default function AnfrageClient() {
 
             {isContactStep && (
               <button onClick={handleSubmit}
-                disabled={!contactData.name || !contactData.email || !contactData.dsgvo || isSubmitting}
+                disabled={!contactData.name || !contactData.email || !contactData.phone || !contactData.dsgvo || isSubmitting}
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all disabled:opacity-30 disabled:pointer-events-none">
                 {isSubmitting ? (
                   <><Spinner size={16} className="animate-spin" /> Wird gesendet...</>

@@ -1,0 +1,710 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "ET König – Startseite" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "ET König GmbH – Einen Herzschlag voraus" [ref=e7]
+          - img "ET König GmbH – Einen Herzschlag voraus" [ref=e9]
+        - generic [ref=e10]:
+          - link "Home" [ref=e11] [cursor=pointer]:
+            - /url: /
+          - link "Photovoltaik" [ref=e12] [cursor=pointer]:
+            - /url: /photovoltaik
+          - link "Elektroinstallation" [ref=e13] [cursor=pointer]:
+            - /url: /elektroinstallation
+          - link "Fachhandel" [ref=e14] [cursor=pointer]:
+            - /url: /fachhandel
+          - link "HLS-Installationen" [ref=e15] [cursor=pointer]:
+            - /url: /hls-installationen
+          - link "Dachdeckerei" [ref=e16] [cursor=pointer]:
+            - /url: /dachdeckerei
+          - link "Mietpark" [ref=e17] [cursor=pointer]:
+            - /url: /mietpark
+          - link "Projekte" [ref=e18] [cursor=pointer]:
+            - /url: /projekte
+        - link "Anfrage stellen" [ref=e20] [cursor=pointer]:
+          - /url: /anfrage
+  - main [ref=e21]:
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e30]: Einen Herzschlag voraus
+        - heading "Ihr Partner für Elektro, Photovoltaik & Haustechnik" [level=1] [ref=e32]
+        - paragraph [ref=e33]: Von der Planung bis zur Montage – Ihre regionalen Experten in der Steiermark und Kärnten. Über 15.000 erfolgreich abgeschlossene Projekte seit 2013.
+        - link "Projekt anfragen" [ref=e35] [cursor=pointer]:
+          - /url: /anfrage
+          - text: Projekt anfragen
+          - img [ref=e36]
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - paragraph [ref=e40]: 15.000+
+          - paragraph [ref=e41]: abgeschlossene Projekte
+        - generic [ref=e42]:
+          - paragraph [ref=e43]: 95+
+          - paragraph [ref=e44]: Mitarbeiter im Team
+        - generic [ref=e45]:
+          - paragraph [ref=e46]: 13+
+          - paragraph [ref=e47]: Jahre Erfahrung
+        - generic [ref=e48]:
+          - paragraph [ref=e49]: "3"
+          - paragraph [ref=e50]: Standorte
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - img [ref=e56]
+        - paragraph [ref=e58]:
+          - generic [ref=e59]: 0+
+        - paragraph [ref=e60]: Jahre Erfahrung
+      - generic [ref=e61]:
+        - img [ref=e63]
+        - paragraph [ref=e65]:
+          - generic [ref=e66]: 0+
+        - paragraph [ref=e67]: abgeschlossene Projekte
+      - generic [ref=e68]:
+        - img [ref=e70]
+        - paragraph [ref=e72]: "0"
+        - paragraph [ref=e73]: Standorte
+      - generic [ref=e74]:
+        - img [ref=e76]
+        - paragraph [ref=e78]:
+          - generic [ref=e79]: 0+
+        - paragraph [ref=e80]: Mitarbeiter im Team
+    - generic [ref=e86]:
+      - generic [ref=e88]:
+        - img [ref=e90]
+        - generic [ref=e92]: Photovoltaik
+      - generic [ref=e94]:
+        - img [ref=e96]
+        - generic [ref=e98]: HLS-Installationen
+      - generic [ref=e100]:
+        - img [ref=e102]
+        - generic [ref=e104]: Elektroinstallation
+      - generic [ref=e106]:
+        - img [ref=e108]
+        - generic [ref=e110]: Fachhandel
+      - generic [ref=e112]:
+        - img [ref=e114]
+        - generic [ref=e116]: Mietpark
+    - generic [ref=e118]:
+      - generic [ref=e119]:
+        - paragraph [ref=e120]: Unsere Leistungen
+        - heading "Sechs Fachbereiche, ein Partner" [level=2] [ref=e121]
+        - paragraph [ref=e122]: Von der PV-Anlage über Heizung und Sanitär bis zur Dachdeckerei – alles aus einer Hand.
+      - generic [ref=e123]:
+        - link "Photovoltaik Photovoltaik Über 6.500 PV-Anlagen installiert. Festpreisgarantie und professionelle Planung. Mehr erfahren" [ref=e125] [cursor=pointer]:
+          - /url: /photovoltaik
+          - generic [ref=e126]:
+            - img "Photovoltaik" [ref=e128]
+            - generic [ref=e130]:
+              - img [ref=e132]
+              - heading "Photovoltaik" [level=3] [ref=e134]
+              - paragraph [ref=e135]: Über 6.500 PV-Anlagen installiert. Festpreisgarantie und professionelle Planung.
+              - generic [ref=e136]:
+                - text: Mehr erfahren
+                - img [ref=e137]
+        - link "HLS-Installationen HLS-Installationen Heizung, Lüftung & Sanitär – von der Badplanung bis zur Wärmepumpe. Mehr erfahren" [ref=e140] [cursor=pointer]:
+          - /url: /hls-installationen
+          - generic [ref=e141]:
+            - img "HLS-Installationen" [ref=e143]
+            - generic [ref=e145]:
+              - img [ref=e147]
+              - heading "HLS-Installationen" [level=3] [ref=e149]
+              - paragraph [ref=e150]: Heizung, Lüftung & Sanitär – von der Badplanung bis zur Wärmepumpe.
+              - generic [ref=e151]:
+                - text: Mehr erfahren
+                - img [ref=e152]
+        - link "Elektroinstallation Elektroinstallation Sichere und normgerechte Elektroinstallationen – KNX, Blitzschutz und mehr. Mehr erfahren" [ref=e155] [cursor=pointer]:
+          - /url: /elektroinstallation
+          - generic [ref=e156]:
+            - img "Elektroinstallation" [ref=e158]
+            - generic [ref=e160]:
+              - img [ref=e162]
+              - heading "Elektroinstallation" [level=3] [ref=e164]
+              - paragraph [ref=e165]: Sichere und normgerechte Elektroinstallationen – KNX, Blitzschutz und mehr.
+              - generic [ref=e166]:
+                - text: Mehr erfahren
+                - img [ref=e167]
+        - link "Fachhandel Fachhandel Elektrofachgeschäft in Murau – persönliche Beratung und Top-Marken. Mehr erfahren" [ref=e170] [cursor=pointer]:
+          - /url: /fachhandel
+          - generic [ref=e171]:
+            - img "Fachhandel" [ref=e173]
+            - generic [ref=e175]:
+              - img [ref=e177]
+              - heading "Fachhandel" [level=3] [ref=e179]
+              - paragraph [ref=e180]: Elektrofachgeschäft in Murau – persönliche Beratung und Top-Marken.
+              - generic [ref=e181]:
+                - text: Mehr erfahren
+                - img [ref=e182]
+        - link "Dachdeckerei & Spenglerei Dachdeckerei & Spenglerei Dachsanierungen, Neueindeckungen, Foliendächer und Sturmschaden-Reparaturen. Mehr erfahren" [ref=e185] [cursor=pointer]:
+          - /url: /dachdeckerei
+          - generic [ref=e186]:
+            - img "Dachdeckerei & Spenglerei" [ref=e188]
+            - generic [ref=e190]:
+              - img [ref=e192]
+              - heading "Dachdeckerei & Spenglerei" [level=3] [ref=e194]
+              - paragraph [ref=e195]: Dachsanierungen, Neueindeckungen, Foliendächer und Sturmschaden-Reparaturen.
+              - generic [ref=e196]:
+                - text: Mehr erfahren
+                - img [ref=e197]
+        - link "Mietpark Mietpark Steiger, Bagger und Spezialgeräte – flexibel mieten für Ihr Projekt. Mehr erfahren" [ref=e200] [cursor=pointer]:
+          - /url: /mietpark
+          - generic [ref=e201]:
+            - img "Mietpark" [ref=e203]
+            - generic [ref=e205]:
+              - img [ref=e207]
+              - heading "Mietpark" [level=3] [ref=e209]
+              - paragraph [ref=e210]: Steiger, Bagger und Spezialgeräte – flexibel mieten für Ihr Projekt.
+              - generic [ref=e211]:
+                - text: Mehr erfahren
+                - img [ref=e212]
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - paragraph [ref=e217]: Kundenstimmen
+        - heading "Das sagen unsere Kunden" [level=2] [ref=e218]
+      - generic [ref=e232]:
+        - button [ref=e233]
+        - region "Carousel" [ref=e234]:
+          - generic [ref=e237]:
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - link "Ansehen auf Google" [ref=e243] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xwaFpGcDVRM1YwTlRsS05WbzFXRVZHYkhoNVpIYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOlphZFp5Q3V0NTlKNVo1WEVGbHh5ZHc%7C%7C
+                - generic [ref=e248]:
+                  - link "Review by Josef Buchhart" [ref=e249] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xwaFpGcDVRM1YwTlRsS05WbzFXRVZHYkhoNVpIYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOlphZFp5Q3V0NTlKNVo1WEVGbHh5ZHc%7C%7C
+                    - generic [ref=e250]: Josef Buchhart
+                    - img "Verifizierter Kunde" [ref=e251]:
+                      - img [ref=e252]
+                  - generic [ref=e255]:
+                    - generic [ref=e257]:
+                      - generic [ref=e258]: vor 15 Tagen
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e260] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2xwaFpGcDVRM1YwTlRsS05WbzFXRVZHYkhoNVpIYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOlphZFp5Q3V0NTlKNVo1WEVGbHh5ZHc%7C%7C
+                      - img [ref=e265]
+              - generic [ref=e274]:
+                - 'img "Rating: 5.0 out of 5" [ref=e275]':
+                  - generic [ref=e276]:
+                    - generic [ref=e277]:
+                      - img [ref=e279]
+                      - img [ref=e283]
+                    - generic [ref=e286]:
+                      - img [ref=e288]
+                      - img [ref=e292]
+                    - generic [ref=e295]:
+                      - img [ref=e297]
+                      - img [ref=e301]
+                    - generic [ref=e304]:
+                      - img [ref=e306]
+                      - img [ref=e310]
+                    - generic [ref=e313]:
+                      - img [ref=e315]
+                      - img [ref=e319]
+                - generic [ref=e325]: Planung, Ausführung und Inbetriebnahme von 2 PV Anlagen samt Speicher Oktober/November 2024. Anlagen laufen seit mehr als 1 Jahr störungsfrei und produzieren die gewünschten Mengen (sogar ein klein wenig mehr) Strom. Fairer Preis (günstig im Vergleich zu manch lokalen Anbieter), wir waren sehr zufrieden und können die Firma weiter empfehlen.
+            - generic [ref=e329]:
+              - generic [ref=e330]:
+                - link "Ansehen auf Google" [ref=e331] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2twMGNqSlJWekZvUjBsdVNUaEZObGRKWjNSMlpsRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkp0cjJRVzFoR0luSThFNldJZ3R2ZlE%7C%7C
+                - generic [ref=e336]:
+                  - link "Review by Robert Kaiser" [ref=e337] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2twMGNqSlJWekZvUjBsdVNUaEZObGRKWjNSMlpsRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkp0cjJRVzFoR0luSThFNldJZ3R2ZlE%7C%7C
+                    - generic [ref=e338]: Robert Kaiser
+                    - img "Verifizierter Kunde" [ref=e339]:
+                      - img [ref=e340]
+                  - generic [ref=e343]:
+                    - generic [ref=e345]:
+                      - generic [ref=e346]: vor 4 Monaten
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e348] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2twMGNqSlJWekZvUjBsdVNUaEZObGRKWjNSMlpsRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkp0cjJRVzFoR0luSThFNldJZ3R2ZlE%7C%7C
+                      - img [ref=e353]
+              - generic [ref=e362]:
+                - 'img "Rating: 5.0 out of 5" [ref=e363]':
+                  - generic [ref=e364]:
+                    - generic [ref=e365]:
+                      - img [ref=e367]
+                      - img [ref=e371]
+                    - generic [ref=e374]:
+                      - img [ref=e376]
+                      - img [ref=e380]
+                    - generic [ref=e383]:
+                      - img [ref=e385]
+                      - img [ref=e389]
+                    - generic [ref=e392]:
+                      - img [ref=e394]
+                      - img [ref=e398]
+                    - generic [ref=e401]:
+                      - img [ref=e403]
+                      - img [ref=e407]
+                - generic [ref=e412]:
+                  - generic [ref=e413]: Vom Angebot bis zum Einbau mit Inbetriebnahme perfekt. Klaus Grangler kümmert sich, steht für Rückfragen jederzeit zur Verfügung bzw. ruft zurück. Das Installationsteam super, binnen 6 Stunden waren wir online. Die 2.Jungs am Dach haben ein pasr kleinere Probleme am Dach selbst gesehen und sodort fotografiert und mir gezeigt. So konnte der Dachdecker das umgehend anschauen und im Nachgang instandsetzen. Alle haben sehr sauber gearbeitet, man musste nicht wirklich nachreinigen. Eine klare Empfehlung.
+                  - button "Mehr lesen" [ref=e414] [cursor=pointer]
+            - generic [ref=e418]:
+              - generic [ref=e419]:
+                - link "Ansehen auf Google" [ref=e420] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tsdkxVVXpORTFPZVRWTFFVMVBOemR2ZEY5YU0yYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOklvLUUzNE1OeTVLQU1PNzdvdF9aM2c%7C%7C
+                - generic [ref=e425]:
+                  - link "Review by Daniel Moitzi" [ref=e426] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tsdkxVVXpORTFPZVRWTFFVMVBOemR2ZEY5YU0yYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOklvLUUzNE1OeTVLQU1PNzdvdF9aM2c%7C%7C
+                    - generic [ref=e427]: Daniel Moitzi
+                    - img "Verifizierter Kunde" [ref=e428]:
+                      - img [ref=e429]
+                  - generic [ref=e432]:
+                    - generic [ref=e434]:
+                      - generic [ref=e435]: vor 5 Monaten
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e437] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tsdkxVVXpORTFPZVRWTFFVMVBOemR2ZEY5YU0yYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOklvLUUzNE1OeTVLQU1PNzdvdF9aM2c%7C%7C
+                      - img [ref=e442]
+              - generic [ref=e451]:
+                - 'img "Rating: 5.0 out of 5" [ref=e452]':
+                  - generic [ref=e453]:
+                    - generic [ref=e454]:
+                      - img [ref=e456]
+                      - img [ref=e460]
+                    - generic [ref=e463]:
+                      - img [ref=e465]
+                      - img [ref=e469]
+                    - generic [ref=e472]:
+                      - img [ref=e474]
+                      - img [ref=e478]
+                    - generic [ref=e481]:
+                      - img [ref=e483]
+                      - img [ref=e487]
+                    - generic [ref=e490]:
+                      - img [ref=e492]
+                      - img [ref=e496]
+                - generic [ref=e502]: Echte Profis
+            - generic [ref=e506]:
+              - generic [ref=e507]:
+                - link "Ansehen auf Google" [ref=e508] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tWclNURjRNR3RUVGxaSk5ERjRWa040Y2tNMGNVRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkVrSTF4MGtTTlZJNDF4VkN4ckM0cUE%7C%7C
+                - generic [ref=e513]:
+                  - link "Review by Herwig Obersteiner" [ref=e514] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tWclNURjRNR3RUVGxaSk5ERjRWa040Y2tNMGNVRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkVrSTF4MGtTTlZJNDF4VkN4ckM0cUE%7C%7C
+                    - generic [ref=e515]: Herwig Obersteiner
+                    - img "Verifizierter Kunde" [ref=e516]:
+                      - img [ref=e517]
+                  - generic [ref=e520]:
+                    - generic [ref=e522]:
+                      - generic [ref=e523]: vor 5 Monaten
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e525] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tWclNURjRNR3RUVGxaSk5ERjRWa040Y2tNMGNVRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkVrSTF4MGtTTlZJNDF4VkN4ckM0cUE%7C%7C
+                      - img [ref=e530]
+              - generic [ref=e539]:
+                - 'img "Rating: 5.0 out of 5" [ref=e540]':
+                  - generic [ref=e541]:
+                    - generic [ref=e542]:
+                      - img [ref=e544]
+                      - img [ref=e548]
+                    - generic [ref=e551]:
+                      - img [ref=e553]
+                      - img [ref=e557]
+                    - generic [ref=e560]:
+                      - img [ref=e562]
+                      - img [ref=e566]
+                    - generic [ref=e569]:
+                      - img [ref=e571]
+                      - img [ref=e575]
+                    - generic [ref=e578]:
+                      - img [ref=e580]
+                      - img [ref=e584]
+                - generic [ref=e590]: Heute Umbau des Verteilers durch Egon aus Deutsch-Griffen. Vorab ein großes Dankeschön für diese Arbeit. Am Mittwoch wird die Anlage installiert. Nur zu empfehlen, könnte nicht besser verlaufen.
+            - generic [ref=e594]:
+              - generic [ref=e595]:
+                - link "Ansehen auf Google" [ref=e596] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tOMVUxOW9TbXBJVm1JMFNrUnpTMEZsWm5rMGIzYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkN1U19oSmpIVmI0SkRzS0FlZnk0b3c%7C%7C
+                - generic [ref=e601]:
+                  - link "Review by Martin Zoher" [ref=e602] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tOMVUxOW9TbXBJVm1JMFNrUnpTMEZsWm5rMGIzYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkN1U19oSmpIVmI0SkRzS0FlZnk0b3c%7C%7C
+                    - generic [ref=e603]: Martin Zoher
+                    - img "Verifizierter Kunde" [ref=e604]:
+                      - img [ref=e605]
+                  - generic [ref=e608]:
+                    - generic [ref=e610]:
+                      - generic [ref=e611]: vor 8 Monaten
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e613] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT2tOMVUxOW9TbXBJVm1JMFNrUnpTMEZsWm5rMGIzYxAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CAIQACodChtycF9oOkN1U19oSmpIVmI0SkRzS0FlZnk0b3c%7C%7C
+                      - img [ref=e618]
+              - generic [ref=e627]:
+                - 'img "Rating: 5.0 out of 5" [ref=e628]':
+                  - generic [ref=e629]:
+                    - generic [ref=e630]:
+                      - img [ref=e632]
+                      - img [ref=e636]
+                    - generic [ref=e639]:
+                      - img [ref=e641]
+                      - img [ref=e645]
+                    - generic [ref=e648]:
+                      - img [ref=e650]
+                      - img [ref=e654]
+                    - generic [ref=e657]:
+                      - img [ref=e659]
+                      - img [ref=e663]
+                    - generic [ref=e666]:
+                      - img [ref=e668]
+                      - img [ref=e672]
+                - generic [ref=e678]: Ohne Richard Feuchter läuft bei der Firma König nichts. Der beste Mann dieser Firma.
+            - generic [ref=e682]:
+              - generic [ref=e683]:
+                - link "Ansehen auf Google" [ref=e684] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VNYUh4ZG56ektiTV9nRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEMaHxdnzzKbM_gE%7C%7C
+                - generic [ref=e689]:
+                  - link "Review by Eva- Forstner" [ref=e690] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VNYUh4ZG56ektiTV9nRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEMaHxdnzzKbM_gE%7C%7C
+                    - generic [ref=e691]: Eva- Forstner
+                    - img "Verifizierter Kunde" [ref=e692]:
+                      - img [ref=e693]
+                  - generic [ref=e696]:
+                    - generic [ref=e698]:
+                      - generic [ref=e699]: vor 9 Monaten
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e701] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VNYUh4ZG56ektiTV9nRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEMaHxdnzzKbM_gE%7C%7C
+                      - img [ref=e706]
+              - generic [ref=e715]:
+                - 'img "Rating: 5.0 out of 5" [ref=e716]':
+                  - generic [ref=e717]:
+                    - generic [ref=e718]:
+                      - img [ref=e720]
+                      - img [ref=e724]
+                    - generic [ref=e727]:
+                      - img [ref=e729]
+                      - img [ref=e733]
+                    - generic [ref=e736]:
+                      - img [ref=e738]
+                      - img [ref=e742]
+                    - generic [ref=e745]:
+                      - img [ref=e747]
+                      - img [ref=e751]
+                    - generic [ref=e754]:
+                      - img [ref=e756]
+                      - img [ref=e760]
+                - generic [ref=e765]:
+                  - generic [ref=e766]: Wir möchten der Firma ET-König unser größtes Lob aussprechen. Wir haben 2 Projekte in den letzten 8 Monaten umgesetzt und zwar einen PV Zaun sowie eine PV Anlage am Dach. Von der Planung bis zur Umsetzung hat alles reibungslos funktioniert. Ein ganz besonderer Dank gilt an Klaus Grangler und sein Team. Die Mitarbeiter haben großartige Arbeit geleistet,waren sehr schnell und haben nicht mal einen Dreck hinterlassen. Alle Termine und Fristen wurden immer eingehalten. Absolute Empfehlung & herzlichen Dank Familie Dörflinger
+                  - button "Mehr lesen" [ref=e767] [cursor=pointer]
+            - generic [ref=e771]:
+              - generic [ref=e772]:
+                - link "Ansehen auf Google" [ref=e773] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURfd2FqSXZnRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgID_wajIvgE%7C%7C
+                - generic [ref=e778]:
+                  - link "Review by Condor" [ref=e779] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURfd2FqSXZnRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgID_wajIvgE%7C%7C
+                    - generic [ref=e780]: Condor
+                    - img "Verifizierter Kunde" [ref=e781]:
+                      - img [ref=e782]
+                  - generic [ref=e785]:
+                    - generic [ref=e787]:
+                      - generic [ref=e788]: vor 1 Jahr
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e790] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSURfd2FqSXZnRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgID_wajIvgE%7C%7C
+                      - img [ref=e795]
+              - generic [ref=e803]:
+                - generic [ref=e804]:
+                  - 'img "Rating: 5.0 out of 5" [ref=e805]':
+                    - generic [ref=e806]:
+                      - generic [ref=e807]:
+                        - img [ref=e809]
+                        - img [ref=e813]
+                      - generic [ref=e816]:
+                        - img [ref=e818]
+                        - img [ref=e822]
+                      - generic [ref=e825]:
+                        - img [ref=e827]
+                        - img [ref=e831]
+                      - generic [ref=e834]:
+                        - img [ref=e836]
+                        - img [ref=e840]
+                      - generic [ref=e843]:
+                        - img [ref=e845]
+                        - img [ref=e849]
+                  - generic [ref=e854]:
+                    - generic [ref=e855]: Sehr zufrieden! Das Angebot war sehr gewöhnungsbedürftig, keine Modellnummern etc., nur die Anlage und daneben der Preis. Aber die Damen am Telefon immer sehr freundlich und Hilfsbereit! Die Monteure arbeiten schnell und sauber! Um 07:30 beginn und um ca 15:00 fertig! Ich würde ET-König immer empfehlen und werde auch weiterhin Kunde sein! Lg aus Weißkirchen
+                    - button "Mehr lesen" [ref=e856] [cursor=pointer]
+                - generic [ref=e857]:
+                  - img "Condor review image 1 of 2" [ref=e862] [cursor=pointer]
+                  - img "Condor review image 2 of 2" [ref=e867] [cursor=pointer]
+            - generic [ref=e871]:
+              - generic [ref=e872]:
+                - link "Ansehen auf Google" [ref=e873] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmczlQRGpBRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgICfs9PDjAE%7C%7C
+                - generic [ref=e878]:
+                  - link "Review by C *" [ref=e879] [cursor=pointer]:
+                    - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmczlQRGpBRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgICfs9PDjAE%7C%7C
+                    - generic [ref=e880]: C *
+                    - img "Verifizierter Kunde" [ref=e881]:
+                      - img [ref=e882]
+                  - generic [ref=e885]:
+                    - generic [ref=e887]:
+                      - generic [ref=e888]: vor 1 Jahr
+                      - text: bei
+                    - link "Ansehen auf Google" [ref=e890] [cursor=pointer]:
+                      - /url: https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnSUNmczlQRGpBRRAB!2m1!1s0x0:0xe4236d953d14e61d!3m1!1s2@1:CIHM0ogKEICAgICfs9PDjAE%7C%7C
+                      - img [ref=e895]
+              - generic [ref=e904]:
+                - 'img "Rating: 5.0 out of 5" [ref=e905]':
+                  - generic [ref=e906]:
+                    - generic [ref=e907]:
+                      - img [ref=e909]
+                      - img [ref=e913]
+                    - generic [ref=e916]:
+                      - img [ref=e918]
+                      - img [ref=e922]
+                    - generic [ref=e925]:
+                      - img [ref=e927]
+                      - img [ref=e931]
+                    - generic [ref=e934]:
+                      - img [ref=e936]
+                      - img [ref=e940]
+                    - generic [ref=e943]:
+                      - img [ref=e945]
+                      - img [ref=e949]
+                - generic [ref=e955]: Bei uns wurde kurz vor Weihnachten eine PV- Anlage inklusive Speicher installiert. Alles zu unserer vollsten Zufriedenheit - vom Informationsgespräch, über die Planung bis zur Fertigstellung. Vielen Dank!
+        - button "Next" [ref=e1001]:
+          - img [ref=e1005] [cursor=pointer]
+    - generic [ref=e1032]:
+      - paragraph [ref=e1033]: Über uns
+      - heading "Elektroinstallationen & mehr vom Elektriker im Bezirk Murau" [level=2] [ref=e1034]
+      - paragraph [ref=e1035]: Willkommen bei ET König GmbH – Ihrem Elektroinstallationsunternehmen in Scheifling, Steiermark! Als führender Experte für Elektroinstallationen und innovative Technik stehen wir für höchste Qualität und erstklassigen Service.
+      - paragraph [ref=e1036]: Unser eingespieltes Team aus erfahrenen Elektroinstallateuren und Technikern sorgt dafür, dass Ihre Visionen von einem modernen, sicheren und effizienten Zuhause Wirklichkeit werden.
+      - link "Mehr über uns erfahren" [ref=e1037] [cursor=pointer]:
+        - /url: /ueber-uns
+        - text: Mehr über uns erfahren
+        - img [ref=e1038]
+    - generic [ref=e1049]:
+      - paragraph [ref=e1050]: Photovoltaik
+      - heading "Unsere PV-Anlagen & Speicher zahlen sich von selbst ab" [level=2] [ref=e1051]
+      - paragraph [ref=e1052]: Bei uns gibt es PV-Anlagen und Speicher von höchster Qualität zu einem leistbaren Preis. Mit einer PV-Anlage werden Sie unabhängig von Ihrem Netzbetreiber und sparen noch dazu viel Geld.
+      - generic [ref=e1053]:
+        - generic [ref=e1054]:
+          - img [ref=e1055]
+          - generic [ref=e1057]: Starke Kostenersparnis durch Förderung
+        - generic [ref=e1058]:
+          - img [ref=e1059]
+          - generic [ref=e1061]: Schnelle Lieferung und professionelle Montage
+        - generic [ref=e1062]:
+          - img [ref=e1063]
+          - generic [ref=e1065]: Live-Anzeige der PV-Anlage per Handy-App
+        - generic [ref=e1066]:
+          - img [ref=e1067]
+          - generic [ref=e1069]: 20 Jahre Garantie auf Module
+      - link "PV-Anlage anfragen" [ref=e1070] [cursor=pointer]:
+        - /url: /anfrage/photovoltaik
+        - text: PV-Anlage anfragen
+        - img [ref=e1071]
+    - generic [ref=e1077]:
+      - generic [ref=e1078]:
+        - paragraph [ref=e1079]: 3 Standorte
+        - heading "Immer in Ihrer Nähe" [level=2] [ref=e1080]
+      - generic [ref=e1081]:
+        - generic [ref=e1082]:
+          - generic [ref=e1083]:
+            - generic [ref=e1084]:
+              - img [ref=e1085]
+              - heading "Murau" [level=3] [ref=e1087]
+            - generic [ref=e1088]: Fachhandel
+          - generic:
+            - paragraph [ref=e1089]: Elektrofachgeschäft im Herzen von Murau – persönliche Beratung und Top-Marken.
+            - generic [ref=e1090]:
+              - generic [ref=e1091]:
+                - img [ref=e1092]
+                - link "+43 660 864 86 05" [ref=e1094] [cursor=pointer]:
+                  - /url: tel:+436608648605
+              - generic [ref=e1095]:
+                - img [ref=e1096]
+                - generic [ref=e1098]: "Mo–Fr: 08–18 | Sa: 08:30–12"
+            - link "Route planen" [ref=e1099] [cursor=pointer]:
+              - /url: https://maps.google.com/?q=Bundesstraße+14+8850+Murau
+              - img [ref=e1100]
+              - text: Route planen
+        - generic [ref=e1102]:
+          - generic [ref=e1103]:
+            - generic [ref=e1104]:
+              - img [ref=e1105]
+              - heading "Scheifling" [level=3] [ref=e1107]
+            - generic [ref=e1108]: Hauptsitz
+          - generic:
+            - paragraph [ref=e1109]: Unsere Zentrale – von hier koordinieren wir alle Projekte in der Steiermark.
+            - generic [ref=e1111]:
+              - img [ref=e1112]
+              - link "+43 664 531 90 79" [ref=e1114] [cursor=pointer]:
+                - /url: tel:+436645319079
+            - link "Route planen" [ref=e1115] [cursor=pointer]:
+              - /url: https://maps.google.com/?q=Lindbergstraße+5+8811+Scheifling
+              - img [ref=e1116]
+              - text: Route planen
+        - generic [ref=e1118]:
+          - generic [ref=e1119]:
+            - generic [ref=e1120]:
+              - img [ref=e1121]
+              - heading "Feldkirchen" [level=3] [ref=e1123]
+            - generic [ref=e1124]: Kärnten
+          - generic:
+            - paragraph [ref=e1125]: Unsere Filiale in Kärnten – schnell vor Ort, südlich der Alpen.
+            - generic [ref=e1127]:
+              - img [ref=e1128]
+              - link "+43 660 941 90 81" [ref=e1130] [cursor=pointer]:
+                - /url: tel:+436609419081
+            - link "Route planen" [ref=e1131] [cursor=pointer]:
+              - /url: https://maps.google.com/?q=Glan+8+9560+Feldkirchen
+              - img [ref=e1132]
+              - text: Route planen
+    - generic [ref=e1137]:
+      - paragraph [ref=e1138]: Lassen Sie uns starten
+      - heading "Ihr Projekt beginnt mit einem Gespräch" [level=2] [ref=e1139]
+      - paragraph [ref=e1140]: Erzählen Sie uns von Ihrem Vorhaben – wir beraten Sie unverbindlich und finden die beste Lösung.
+      - generic [ref=e1141]:
+        - link "Anfrage stellen" [ref=e1142] [cursor=pointer]:
+          - /url: /anfrage
+          - text: Anfrage stellen
+          - img [ref=e1143]
+        - link "+43 664 531 90 79" [ref=e1145] [cursor=pointer]:
+          - /url: tel:+436645319079
+          - img [ref=e1146]
+          - text: +43 664 531 90 79
+  - contentinfo [ref=e1148]:
+    - generic [ref=e1150]:
+      - paragraph [ref=e1151]: Unsere Standorte
+      - generic [ref=e1152]:
+        - generic [ref=e1153]:
+          - generic [ref=e1154]:
+            - heading "Scheifling" [level=3] [ref=e1155]
+            - generic [ref=e1156]: Hauptsitz
+          - generic [ref=e1157]:
+            - generic [ref=e1158]:
+              - img [ref=e1159]
+              - generic [ref=e1161]:
+                - paragraph [ref=e1162]: Lindbergstraße 5
+                - paragraph [ref=e1163]: 8811 Scheifling
+            - generic [ref=e1164]:
+              - img [ref=e1165]
+              - link "+43 664 531 90 79" [ref=e1167] [cursor=pointer]:
+                - /url: tel:+436645319079
+            - generic [ref=e1168]:
+              - img [ref=e1169]
+              - link "info@et-koenig.at" [ref=e1171] [cursor=pointer]:
+                - /url: mailto:info@et-koenig.at
+          - link "Route planen" [ref=e1172] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=Lindbergstraße+5+8811+Scheifling
+            - img [ref=e1173]
+            - text: Route planen
+        - generic [ref=e1175]:
+          - generic [ref=e1176]:
+            - heading "Murau" [level=3] [ref=e1177]
+            - generic [ref=e1178]: Fachhandel
+          - generic [ref=e1179]:
+            - generic [ref=e1180]:
+              - img [ref=e1181]
+              - generic [ref=e1183]:
+                - paragraph [ref=e1184]: Bundesstraße 14
+                - paragraph [ref=e1185]: 8850 Murau
+            - generic [ref=e1186]:
+              - img [ref=e1187]
+              - link "+43 660 864 86 05" [ref=e1189] [cursor=pointer]:
+                - /url: tel:+436608648605
+            - generic [ref=e1190]:
+              - img [ref=e1191]
+              - link "info@et-koenig.at" [ref=e1193] [cursor=pointer]:
+                - /url: mailto:info@et-koenig.at
+          - generic [ref=e1194]:
+            - img [ref=e1195]
+            - paragraph [ref=e1197]: "Mo–Fr: 08–18 Uhr | Sa: 08:30–12 Uhr"
+          - link "Route planen" [ref=e1198] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=Bundesstraße+14+8850+Murau
+            - img [ref=e1199]
+            - text: Route planen
+        - generic [ref=e1201]:
+          - generic [ref=e1202]:
+            - heading "Feldkirchen" [level=3] [ref=e1203]
+            - generic [ref=e1204]: Kärnten
+          - generic [ref=e1205]:
+            - generic [ref=e1206]:
+              - img [ref=e1207]
+              - generic [ref=e1209]:
+                - paragraph [ref=e1210]: Glan 8
+                - paragraph [ref=e1211]: 9560 Feldkirchen
+            - generic [ref=e1212]:
+              - img [ref=e1213]
+              - link "+43 660 941 90 81" [ref=e1215] [cursor=pointer]:
+                - /url: tel:+436609419081
+            - generic [ref=e1216]:
+              - img [ref=e1217]
+              - link "klaus.grangler@et-koenig.at" [ref=e1219] [cursor=pointer]:
+                - /url: mailto:klaus.grangler@et-koenig.at
+          - link "Route planen" [ref=e1220] [cursor=pointer]:
+            - /url: https://maps.google.com/?q=Glan+8+9560+Feldkirchen
+            - img [ref=e1221]
+            - text: Route planen
+    - generic [ref=e1224]:
+      - generic [ref=e1225]:
+        - img "ET König GmbH – Einen Herzschlag voraus" [ref=e1227]
+        - paragraph [ref=e1228]: Einen Herzschlag voraus – Ihr Partner für Elektro, PV & Haustechnik.
+        - link "ET König auf Facebook" [ref=e1229] [cursor=pointer]:
+          - /url: https://www.facebook.com/etkoenig
+          - img [ref=e1230]
+          - text: Facebook
+      - generic [ref=e1232]:
+        - paragraph [ref=e1233]: Leistungen
+        - list [ref=e1234]:
+          - listitem [ref=e1235]:
+            - link "Photovoltaik" [ref=e1236] [cursor=pointer]:
+              - /url: /photovoltaik
+          - listitem [ref=e1237]:
+            - link "HLS-Installationen" [ref=e1238] [cursor=pointer]:
+              - /url: /hls-installationen
+          - listitem [ref=e1239]:
+            - link "Elektroinstallation" [ref=e1240] [cursor=pointer]:
+              - /url: /elektroinstallation
+          - listitem [ref=e1241]:
+            - link "Fachhandel" [ref=e1242] [cursor=pointer]:
+              - /url: /fachhandel
+          - listitem [ref=e1243]:
+            - link "Dachdeckerei" [ref=e1244] [cursor=pointer]:
+              - /url: /dachdeckerei
+          - listitem [ref=e1245]:
+            - link "Mietpark" [ref=e1246] [cursor=pointer]:
+              - /url: /mietpark
+      - generic [ref=e1247]:
+        - paragraph [ref=e1248]: Unternehmen
+        - list [ref=e1249]:
+          - listitem [ref=e1250]:
+            - link "Projekte & Referenzen" [ref=e1251] [cursor=pointer]:
+              - /url: /projekte
+          - listitem [ref=e1252]:
+            - link "Kontakt" [ref=e1253] [cursor=pointer]:
+              - /url: /kontakt
+          - listitem [ref=e1254]:
+            - link "Anfrage stellen" [ref=e1255] [cursor=pointer]:
+              - /url: /anfrage
+          - listitem [ref=e1256]:
+            - link "Karriere" [ref=e1257] [cursor=pointer]:
+              - /url: /karriere
+      - generic [ref=e1258]:
+        - paragraph [ref=e1259]: Projekt starten
+        - paragraph [ref=e1260]: Erzählen Sie uns von Ihrem Vorhaben – wir beraten Sie gerne.
+        - link "Anfrage stellen" [ref=e1261] [cursor=pointer]:
+          - /url: /anfrage
+          - text: Anfrage stellen
+          - img [ref=e1262]
+    - generic [ref=e1265]:
+      - paragraph [ref=e1266]: © 2026 ET König GmbH · Alle Rechte vorbehalten
+      - generic [ref=e1267]:
+        - link "Impressum" [ref=e1268] [cursor=pointer]:
+          - /url: /impressum
+        - link "Datenschutz" [ref=e1269] [cursor=pointer]:
+          - /url: /datenschutz
+        - link "AGB" [ref=e1270] [cursor=pointer]:
+          - /url: /agb
+  - 'link "Jetzt anrufen: +43 664 531 90 79" [ref=e1271] [cursor=pointer]':
+    - /url: tel:+436645319079
+    - img [ref=e1273]
+    - generic [ref=e1275]: +43 664 531 90 79
+  - button "Open Next.js Dev Tools" [ref=e1281] [cursor=pointer]:
+    - img [ref=e1282]
+  - alert [ref=e1285]
+```

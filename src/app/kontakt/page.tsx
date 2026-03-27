@@ -179,10 +179,11 @@ export default function KontaktPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-phone" className="block text-sm font-medium mb-1.5">Telefon</label>
+                    <label htmlFor="contact-phone" className="block text-sm font-medium mb-1.5">Telefon *</label>
                     <input
                       id="contact-phone"
                       type="tel"
+                      required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"

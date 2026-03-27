@@ -258,11 +258,12 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
                     </div>
                     <div>
                       <label htmlFor="quiz-phone" className="block text-sm font-medium mb-1.5">
-                        Telefon
+                        Telefon *
                       </label>
                       <input
                         id="quiz-phone"
                         type="tel"
+                        required
                         value={contactData.phone}
                         onChange={(e) => setContactData({ ...contactData, phone: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl border border-border bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
@@ -327,7 +328,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={!contactData.name || !contactData.email || !contactData.dsgvo || isSubmitting}
+                disabled={!contactData.name || !contactData.email || !contactData.phone || !contactData.dsgvo || isSubmitting}
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all disabled:opacity-30 disabled:pointer-events-none"
               >
                 {isSubmitting ? (
