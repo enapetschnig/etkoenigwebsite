@@ -50,7 +50,7 @@ const EQUIPMENT: Equipment[] = [
     name: "ETK 9 – Steiger",
     subtitle: "16m Arbeitshöhe · 300 kg Belastung",
     category: "steiger",
-    images: ["/mietpark/etk9/1.png", "/mietpark/etk9/2.png"],
+    images: ["/mietpark/etk9/1.jpg", "/mietpark/etk9/2.jpg"],
   },
   {
     id: "etk14",
@@ -153,7 +153,7 @@ const EQUIPMENT: Equipment[] = [
     name: "Teleskoplader",
     subtitle: "Vielseitig einsetzbar auf Baustellen",
     category: "sonstiges",
-    images: ["/mietpark/teleskoplader/1.png"],
+    images: ["/mietpark/teleskoplader/1.jpg"],
   },
 ];
 
