@@ -74,18 +74,28 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // Simulate submission - replace with Server Action
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const answerMap: Record<string, string> = {};
+      Object.entries(answers).forEach(([step, value]) => {
+        const question = steps[parseInt(step)]?.question;
+        if (question) answerMap[question] = value;
+      });
 
-    // In production: send email via Server Action
-    console.log("Quiz submission:", {
-      category,
-      answers: Object.entries(answers).map(([step, value]) => ({
-        question: steps[parseInt(step)]?.question,
-        answer: value,
-      })),
-      contact: contactData,
-    });
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category,
+          name: contactData.name,
+          email: contactData.email,
+          phone: contactData.phone || null,
+          message: contactData.message || null,
+          answers: answerMap,
+        }),
+      });
+    } catch (e) {
+      console.error("Submission error:", e);
+    }
 
     setIsSubmitting(false);
     setIsSubmitted(true);

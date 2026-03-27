@@ -5,6 +5,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { PhoneButton } from "@/components/phone-button";
+import { PageTracker } from "@/components/page-tracker";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -57,6 +58,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <PhoneButton />
+        <PageTracker />
       </body>
     </html>
   );

@@ -294,9 +294,29 @@ function InquiryModal({ equipment, onClose }: { equipment: Equipment; onClose: (
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.dsgvo) return;
+
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: "Mietpark",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          message: formData.message || null,
+          equipment_name: equipment.name,
+          rental_from: formData.von || null,
+          rental_to: formData.bis || null,
+        }),
+      });
+    } catch (e) {
+      console.error("Submission error:", e);
+    }
+
     setSubmitted(true);
   };
 
