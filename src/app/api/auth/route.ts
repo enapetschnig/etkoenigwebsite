@@ -5,10 +5,10 @@ export async function POST(req: NextRequest) {
   const { email, password } = await req.json();
   const supabase = createServiceClient();
 
-  // Check if email is admin
+  // Check if email is admin and password matches
   const { data: admin } = await supabase
     .from("admins")
-    .select("email")
+    .select("email, password")
     .eq("email", email)
     .single();
 
@@ -16,8 +16,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Kein Zugang" }, { status: 403 });
   }
 
-  // Simple password check (in production use proper auth)
-  if (password !== "ETKoenig2026!") {
+  if (password !== admin.password) {
     return NextResponse.json({ error: "Falsches Passwort" }, { status: 401 });
   }
 

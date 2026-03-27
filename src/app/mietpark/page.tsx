@@ -619,7 +619,7 @@ export default function MietparkPage() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="tel:+4366453190 79"
+                href="tel:+436645319079"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary-hover transition text-sm"
               >
                 <Phone size={18} weight="bold" />
