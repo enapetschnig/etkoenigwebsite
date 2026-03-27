@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   // Send email
   const { error: emailError } = await resend.emails.send({
-    from: "ET König Website <onboarding@resend.dev>",
+    from: "ET König Website <anfrage@chrisnapetschnig.at>",
     to: toEmail,
     subject: `Neue Anfrage: ${inquiry.category} – ${inquiry.name}`,
     html: `
