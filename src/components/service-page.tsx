@@ -17,6 +17,7 @@ interface ServicePageProps {
   features: { icon: ComponentType<IconProps>; title: string; description: string }[];
   ctaText: string;
   ctaHref: string;
+  extraSection?: React.ReactNode;
 }
 
 export function ServicePage({
@@ -29,6 +30,7 @@ export function ServicePage({
   features,
   ctaText,
   ctaHref,
+  extraSection,
 }: ServicePageProps) {
   return (
     <>
@@ -98,6 +100,9 @@ export function ServicePage({
           })}
         </div>
       </Section>
+
+      {/* Extra Section */}
+      {extraSection}
 
       {/* CTA */}
       <Section className="bg-[#fff6e7]">
