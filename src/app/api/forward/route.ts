@@ -6,7 +6,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   const token = req.headers.get("x-admin-token");
-  if (token !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

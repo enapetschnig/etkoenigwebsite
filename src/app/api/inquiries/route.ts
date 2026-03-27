@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-admin-token");
-  if (token !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   const token = req.headers.get("x-admin-token");
-  if (token !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
