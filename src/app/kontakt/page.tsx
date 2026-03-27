@@ -121,13 +121,19 @@ export default function KontaktPage() {
         </div>
       </Section>
 
-      {/* Map Placeholder */}
+      {/* Google Maps */}
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 mb-10">
-        <div className="rounded-2xl bg-background-alt h-[300px] flex items-center justify-center border border-border/60">
-          <div className="text-center">
-            <MapPin size={32} weight="light" className="text-muted/30 mx-auto mb-2" />
-            <p className="text-sm text-muted">Kartenansicht – wird mit Google Maps / Mapbox integriert</p>
-          </div>
+        <div className="rounded-2xl overflow-hidden border border-border/60">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2704.6212661830355!2d14.170335783587745!3d47.11421040315879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47705606aa563b9b%3A0x4ae260c8123d1709!2sBundesstra%C3%9Fe%2014%2C%208850%20Murau!5e1!3m2!1sde!2sat!4v1774597711458!5m2!1sde!2sat"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="ET König Standort Murau"
+          />
         </div>
       </div>
 
