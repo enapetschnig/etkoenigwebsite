@@ -5,7 +5,7 @@ import { Users, MapPin, Truck, CalendarCheck, ArrowRight, Briefcase } from "@pho
 import { Section, FadeIn, CountUp } from "@/components/section";
 
 export const metadata: Metadata = {
-  title: "Über uns – Unser Team & Geschichte",
+  title: "Über uns – Ihr Elektriker & Installateur im Murtal | ET König",
   description: "Lernen Sie ET König kennen – über 95 Mitarbeiter, 3 Standorte, 13+ Jahre Erfahrung. Ihr verlässlicher Partner in der Steiermark und Kärnten.",
 };
 

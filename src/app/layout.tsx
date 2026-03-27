@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "ET König GmbH – Elektro, Photovoltaik & Haustechnik",
+    default: "Elektriker im Murtal in der Steiermark | ET König GmbH",
     template: "%s | ET König GmbH",
   },
   description:
