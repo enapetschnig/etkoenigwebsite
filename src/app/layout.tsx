@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
-import { PhoneButton } from "@/components/phone-button";
-import { PageTracker } from "@/components/page-tracker";
+import { headers } from "next/headers";
+import { LayoutShell } from "@/components/layout-shell";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -43,22 +41,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     <html lang="de" className={`${outfit.variable} ${geistMono.variable}`}>
       <head>
         <script src="https://static.elfsight.com/platform/platform.js" async></script>
       </head>
       <body className="min-h-dvh flex flex-col">
-        <Navigation />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <PhoneButton />
-        <PageTracker />
+        <LayoutShell isAdmin={isAdmin}>{children}</LayoutShell>
       </body>
     </html>
   );
