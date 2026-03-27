@@ -97,12 +97,6 @@ export default function Home() {
                   Projekt anfragen
                   <ArrowRight size={16} weight="bold" />
                 </Link>
-                <a
-                  href="#leistungen"
-                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white/90 border border-white/25 rounded-full hover:bg-white/10 active:scale-[0.98] transition-all"
-                >
-                  Unsere Leistungen
-                </a>
               </motion.div>
             </div>
 
