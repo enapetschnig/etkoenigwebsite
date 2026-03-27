@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 interface Stats {
   todayViews: number;
@@ -21,7 +21,7 @@ interface Inquiry {
   email: string;
   phone?: string;
   category: string;
-  status: "new" | "forwarded" | "done";
+  status: string;
   message?: string;
   answers?: Record<string, string>;
   equipment_name?: string;
@@ -34,6 +34,7 @@ interface Inquiry {
 
 interface Project {
   id: string;
+  created_at: string;
   title: string;
   category: string;
   year: number;
@@ -42,1247 +43,509 @@ interface Project {
   visible: boolean;
 }
 
-type Tab = "dashboard" | "anfragen" | "projekte";
-type InquiryFilter = "all" | "new" | "forwarded" | "done";
+type Tab = "dashboard" | "anfragen" | "referenzen";
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── Helpers ───────────────────────────────────────────────────────────────
 
 function getToken(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem("admin_token");
 }
 
-function setToken(token: string) {
-  localStorage.setItem("admin_token", token);
-}
-
-function clearToken() {
-  localStorage.removeItem("admin_token");
-}
-
-async function apiFetch<T>(
-  url: string,
-  options: RequestInit = {}
-): Promise<T> {
+async function api<T>(url: string, opts: RequestInit = {}): Promise<T> {
   const token = getToken();
   const res = await fetch(url, {
-    ...options,
+    ...opts,
     headers: {
       "Content-Type": "application/json",
       ...(token ? { "x-admin-token": token } : {}),
-      ...(options.headers || {}),
     },
   });
-  if (res.status === 401) {
-    throw new Error("Nicht autorisiert");
-  }
-  if (!res.ok) {
-    const body = await res.text();
-    throw new Error(body || `Fehler ${res.status}`);
-  }
+  if (!res.ok) throw new Error(await res.text());
   return res.json();
 }
 
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("de-AT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString("de-AT", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-function formatDateTime(iso: string): string {
-  return new Date(iso).toLocaleString("de-AT", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+function fmtDateTime(iso: string) {
+  return new Date(iso).toLocaleString("de-AT", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-const CATEGORIES = [
-  "Photovoltaik",
-  "Elektro",
-  "HLS",
-  "Dachdeckerei",
-  "Mietpark",
-] as const;
-
-const STATUS_CONFIG: Record<
-  string,
-  { label: string; bg: string; text: string }
-> = {
-  new: { label: "Neu", bg: "bg-orange-100", text: "text-orange-800" },
-  forwarded: {
-    label: "Weitergeleitet",
-    bg: "bg-blue-100",
-    text: "text-blue-800",
-  },
-  done: { label: "Erledigt", bg: "bg-green-100", text: "text-green-800" },
+const statusColors: Record<string, string> = {
+  new: "bg-orange-100 text-orange-700",
+  forwarded: "bg-blue-100 text-blue-700",
+  done: "bg-green-100 text-green-700",
 };
 
-// ─── Login Screen ────────────────────────────────────────────────────────────
+const statusLabels: Record<string, string> = {
+  new: "Neu",
+  forwarded: "Weitergeleitet",
+  done: "Erledigt",
+};
 
-function LoginScreen({ onLogin }: { onLogin: () => void }) {
+// ─── Login ─────────────────────────────────────────────────────────────────
+
+function LoginPage({ onLogin }: { onLogin: () => void }) {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pw, setPw] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: FormEvent) {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
+    setError("");
     try {
-      const data = await apiFetch<{ token: string }>("/api/auth", {
+      const data = await api<{ token: string }>("/api/auth", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password: pw }),
       });
-      setToken(data.token);
+      localStorage.setItem("admin_token", data.token);
       onLogin();
-    } catch (err: unknown) {
-      setError(
-        err instanceof Error ? err.message : "Login fehlgeschlagen"
-      );
-    } finally {
-      setLoading(false);
+    } catch {
+      setError("Login fehlgeschlagen");
     }
-  }
+    setLoading(false);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">
-              ET König <span className="text-[#E88B00]">Admin</span>
-            </h1>
-            <p className="text-gray-500 mt-1 text-sm">
-              Melden Sie sich an, um fortzufahren
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-[#E88B00] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-orange-200">
+            <span className="text-2xl font-bold text-white">ET</span>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                E-Mail
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none transition-all text-gray-900"
-                placeholder="admin@et-koenig.at"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Passwort
-              </label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none transition-all text-gray-900"
-                placeholder="••••••••"
-              />
-            </div>
-
-            {error && (
-              <div className="bg-red-50 text-red-700 px-4 py-2.5 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-[#E88B00] hover:bg-[#d07e00] text-white font-semibold py-2.5 rounded-lg transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? "Anmelden…" : "Anmelden"}
-            </button>
-          </form>
+          <h1 className="text-2xl font-bold text-gray-900">Admin-Bereich</h1>
+          <p className="text-sm text-gray-500 mt-1">ET König GmbH</p>
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Sidebar ─────────────────────────────────────────────────────────────────
-
-function Sidebar({
-  activeTab,
-  onTabChange,
-}: {
-  activeTab: Tab;
-  onTabChange: (tab: Tab) => void;
-}) {
-  const items: { id: Tab; label: string; icon: string }[] = [
-    { id: "dashboard", label: "Dashboard", icon: "📊" },
-    { id: "anfragen", label: "Anfragen", icon: "📨" },
-    { id: "projekte", label: "Projekte", icon: "🏗️" },
-  ];
-
-  return (
-    <aside className="w-60 min-h-screen bg-[#1a1a1a] text-white flex flex-col shrink-0">
-      <div className="p-5 border-b border-white/10">
-        <h2 className="text-lg font-bold tracking-tight">
-          ET König <span className="text-[#E88B00]">Admin</span>
-        </h2>
-      </div>
-      <nav className="flex-1 py-4">
-        {items.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onTabChange(item.id)}
-            className={`w-full flex items-center gap-3 px-5 py-3 text-left text-sm font-medium transition-colors ${
-              activeTab === item.id
-                ? "bg-white/10 text-[#E88B00] border-r-2 border-[#E88B00]"
-                : "text-gray-400 hover:text-white hover:bg-white/5"
-            }`}
-          >
-            <span className="text-base">{item.icon}</span>
-            {item.label}
-          </button>
-        ))}
-      </nav>
-      <div className="p-4 border-t border-white/10 text-xs text-gray-500">
-        ET König GmbH &copy; {new Date().getFullYear()}
-      </div>
-    </aside>
-  );
-}
-
-// ─── Header ──────────────────────────────────────────────────────────────────
-
-function Header({ onLogout }: { onLogout: () => void }) {
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    const token = getToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        setEmail(payload.email || "Admin");
-      } catch {
-        setEmail("Admin");
-      }
-    }
-  }, []);
-
-  return (
-    <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
-      <h1 className="text-lg font-semibold text-gray-800">
-        ET König <span className="text-[#E88B00]">GmbH</span>
-      </h1>
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-500">{email}</span>
-        <button
-          onClick={onLogout}
-          className="text-sm text-gray-500 hover:text-red-600 transition-colors font-medium"
-        >
-          Abmelden
-        </button>
-      </div>
-    </header>
-  );
-}
-
-// ─── Stat Card ───────────────────────────────────────────────────────────────
-
-function StatCard({
-  label,
-  value,
-  accent,
-}: {
-  label: string;
-  value: number | string;
-  accent?: boolean;
-}) {
-  return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
-      <p className="text-sm text-gray-500 mb-1">{label}</p>
-      <p
-        className={`text-3xl font-bold ${
-          accent ? "text-[#E88B00]" : "text-gray-900"
-        }`}
-      >
-        {value}
-      </p>
-    </div>
-  );
-}
-
-// ─── Dashboard Tab ───────────────────────────────────────────────────────────
-
-function DashboardView() {
-  const [stats, setStats] = useState<Stats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiFetch<Stats>("/api/stats")
-      .then(setStats)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400 text-sm">Lade Statistiken…</div>
-      </div>
-    );
-  if (error)
-    return (
-      <div className="bg-red-50 text-red-700 p-4 rounded-xl text-sm">
-        {error}
-      </div>
-    );
-  if (!stats) return null;
-
-  // Convert dailyViews object to sorted array (last 14 days)
-  const dailyArray = Object.entries(stats.dailyViews)
-    .map(([date, views]) => ({ date, views }))
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(-14);
-  const maxViews = Math.max(...dailyArray.map((d) => d.views), 1);
-
-  return (
-    <div className="space-y-8">
-      <div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Übersicht</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard label="Heute Besucher" value={stats.todayViews} />
-          <StatCard label="Diese Woche" value={stats.weekViews} />
-          <StatCard label="Dieser Monat" value={stats.monthViews} />
-          <StatCard
-            label="Neue Anfragen"
-            value={stats.newInquiries}
-            accent
-          />
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Tägliche Aufrufe (letzte 14 Tage)
-        </h3>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-          <div className="flex items-end gap-2 h-48">
-            {dailyArray.map((day) => (
-              <div
-                key={day.date}
-                className="flex-1 flex flex-col items-center justify-end h-full"
-              >
-                <span className="text-xs text-gray-500 mb-1 font-medium">
-                  {day.views}
-                </span>
-                <div
-                  className="w-full bg-[#E88B00]/80 hover:bg-[#E88B00] rounded-t-md transition-colors min-h-[4px]"
-                  style={{
-                    height: `${(day.views / maxViews) * 100}%`,
-                  }}
-                />
-                <span className="text-[10px] text-gray-400 mt-1.5">
-                  {new Date(day.date).toLocaleDateString("de-AT", {
-                    day: "2-digit",
-                    month: "2-digit",
-                  })}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
-          Top 10 Seiten
-        </h3>
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Seite
-                </th>
-                <th className="text-right px-5 py-3 text-gray-500 font-medium">
-                  Aufrufe
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {stats.topPages.map((page, i) => (
-                <tr
-                  key={page.path}
-                  className={`${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50/50"
-                  } hover:bg-gray-50 transition-colors`}
-                >
-                  <td className="px-5 py-2.5 text-gray-800 font-mono text-xs">
-                    {page.path}
-                  </td>
-                  <td className="px-5 py-2.5 text-right text-gray-600 font-medium">
-                    {page.count.toLocaleString("de-AT")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Status Badge ────────────────────────────────────────────────────────────
-
-function StatusBadge({ status }: { status: string }) {
-  const config = STATUS_CONFIG[status] || STATUS_CONFIG.new;
-  return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.text}`}
-    >
-      {config.label}
-    </span>
-  );
-}
-
-// ─── Inquiry Detail Panel ────────────────────────────────────────────────────
-
-function InquiryDetail({
-  inquiry,
-  onClose,
-  onUpdate,
-}: {
-  inquiry: Inquiry;
-  onClose: () => void;
-  onUpdate: (updated: Inquiry) => void;
-}) {
-  const [notes, setNotes] = useState(inquiry.notes || "");
-  const [saving, setSaving] = useState(false);
-  const [forwarding, setForwarding] = useState(false);
-  const [forwardEmail, setForwardEmail] = useState("info@et-koenig.at");
-  const [showForward, setShowForward] = useState(false);
-  const [message, setMessage] = useState("");
-
-  async function saveNotes() {
-    setSaving(true);
-    setMessage("");
-    try {
-      const updated = await apiFetch<Inquiry>(`/api/inquiries`, {
-        method: "PATCH",
-        body: JSON.stringify({ id: inquiry.id, notes }),
-      });
-      onUpdate(updated);
-      setMessage("Notizen gespeichert");
-    } catch (err: unknown) {
-      setMessage(
-        err instanceof Error ? err.message : "Fehler beim Speichern"
-      );
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function markDone() {
-    setSaving(true);
-    setMessage("");
-    try {
-      const updated = await apiFetch<Inquiry>(`/api/inquiries`, {
-        method: "PATCH",
-        body: JSON.stringify({ id: inquiry.id, status: "done" }),
-      });
-      onUpdate(updated);
-      setMessage("Als erledigt markiert");
-    } catch (err: unknown) {
-      setMessage(
-        err instanceof Error ? err.message : "Fehler"
-      );
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function forwardInquiry(e: FormEvent) {
-    e.preventDefault();
-    setForwarding(true);
-    setMessage("");
-    try {
-      await apiFetch("/api/forward", {
-        method: "POST",
-        body: JSON.stringify({
-          inquiryId: inquiry.id,
-          toEmail: forwardEmail,
-        }),
-      });
-      const updated = { ...inquiry, status: "forwarded" as const };
-      onUpdate(updated);
-      setShowForward(false);
-      setMessage("Erfolgreich weitergeleitet");
-    } catch (err: unknown) {
-      setMessage(
-        err instanceof Error ? err.message : "Fehler beim Weiterleiten"
-      );
-    } finally {
-      setForwarding(false);
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      <div
-        className="absolute inset-0 bg-black/30"
-        onClick={onClose}
-      />
-      <div className="relative w-full max-w-lg bg-white shadow-2xl overflow-y-auto animate-slide-in">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
-          <h3 className="text-lg font-bold text-gray-900">
-            Anfrage Details
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-xl leading-none"
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="p-6 space-y-6">
-          {/* Status & Date */}
-          <div className="flex items-center justify-between">
-            <StatusBadge status={inquiry.status} />
-            <span className="text-sm text-gray-500">
-              {formatDateTime(inquiry.created_at)}
-            </span>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-              Kontaktdaten
-            </h4>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <span className="text-gray-500">Name</span>
-                <p className="text-gray-900 font-medium">{inquiry.name}</p>
-              </div>
-              <div>
-                <span className="text-gray-500">E-Mail</span>
-                <p className="text-gray-900">{inquiry.email}</p>
-              </div>
-              {inquiry.phone && (
-                <div>
-                  <span className="text-gray-500">Telefon</span>
-                  <p className="text-gray-900">{inquiry.phone}</p>
-                </div>
-              )}
-              <div>
-                <span className="text-gray-500">Kategorie</span>
-                <p className="text-gray-900">{inquiry.category}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Quiz Answers */}
-          {inquiry.answers &&
-            Object.keys(inquiry.answers).length > 0 && (
-              <div className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                  Quiz-Antworten
-                </h4>
-                <div className="bg-gray-50 rounded-lg p-4 space-y-2 text-sm">
-                  {Object.entries(inquiry.answers).map(([key, val]) => (
-                    <div key={key} className="flex gap-2">
-                      <span className="text-gray-500 shrink-0">
-                        {key}:
-                      </span>
-                      <span className="text-gray-900">{val}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-          {/* Equipment */}
-          {inquiry.equipment_name && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                Geräte / Ausstattung
-              </h4>
-              <p className="text-sm text-gray-800 bg-gray-50 rounded-lg p-4">
-                {inquiry.equipment_name}
-              </p>
-            </div>
-          )}
-
-          {/* Dates */}
-          {inquiry.rental_from && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                Gewünschte Termine
-              </h4>
-              <p className="text-sm text-gray-800 bg-gray-50 rounded-lg p-4">
-                {inquiry.rental_from}
-              </p>
-            </div>
-          )}
-
-          {/* Message */}
-          {inquiry.message && (
-            <div className="space-y-2">
-              <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                Nachricht
-              </h4>
-              <p className="text-sm text-gray-800 bg-gray-50 rounded-lg p-4 whitespace-pre-wrap">
-                {inquiry.message}
-              </p>
-            </div>
-          )}
-
-          {/* Notes */}
-          <div className="space-y-2">
-            <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-              Interne Notizen
-            </h4>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none transition-all text-sm text-gray-900 resize-none"
-              placeholder="Notizen hinzufügen…"
-            />
-            <button
-              onClick={saveNotes}
-              disabled={saving}
-              className="text-sm bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-60"
-            >
-              {saving ? "Speichern…" : "Notizen speichern"}
-            </button>
-          </div>
-
-          {/* Forward */}
-          {showForward ? (
-            <form
-              onSubmit={forwardInquiry}
-              className="space-y-3 bg-blue-50 rounded-lg p-4"
-            >
-              <h4 className="text-sm font-semibold text-blue-800">
-                Anfrage weiterleiten
-              </h4>
-              <input
-                type="email"
-                required
-                value={forwardEmail}
-                onChange={(e) => setForwardEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-blue-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-300 outline-none text-gray-900"
-              />
-              <div className="flex gap-2">
-                <button
-                  type="submit"
-                  disabled={forwarding}
-                  className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-60"
-                >
-                  {forwarding ? "Senden…" : "Senden"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowForward(false)}
-                  className="text-sm text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  Abbrechen
-                </button>
-              </div>
-            </form>
-          ) : (
-            <div className="flex gap-3">
-              <button
-                onClick={() => setShowForward(true)}
-                className="text-sm bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Weiterleiten
-              </button>
-              {inquiry.status !== "done" && (
-                <button
-                  onClick={markDone}
-                  disabled={saving}
-                  className="text-sm bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-60"
-                >
-                  Als erledigt markieren
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Message */}
-          {message && (
-            <div className="bg-gray-100 text-gray-700 px-4 py-2.5 rounded-lg text-sm">
-              {message}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes slideIn {
-          from {
-            transform: translateX(100%);
-          }
-          to {
-            transform: translateX(0);
-          }
-        }
-        .animate-slide-in {
-          animation: slideIn 0.25s ease-out;
-        }
-      `}</style>
-    </div>
-  );
-}
-
-// ─── Anfragen Tab ────────────────────────────────────────────────────────────
-
-function AnfragenView() {
-  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [statusFilter, setStatusFilter] = useState<InquiryFilter>("all");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [selected, setSelected] = useState<Inquiry | null>(null);
-
-  const fetchInquiries = useCallback(() => {
-    setLoading(true);
-    apiFetch<Inquiry[]>("/api/inquiries")
-      .then(setInquiries)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  useEffect(() => {
-    fetchInquiries();
-  }, [fetchInquiries]);
-
-  const filtered = inquiries.filter((inq) => {
-    if (statusFilter !== "all" && inq.status !== statusFilter) return false;
-    if (categoryFilter !== "all" && inq.category !== categoryFilter)
-      return false;
-    return true;
-  });
-
-  function handleUpdate(updated: Inquiry) {
-    setInquiries((prev) =>
-      prev.map((inq) => (inq.id === updated.id ? updated : inq))
-    );
-    setSelected(updated);
-  }
-
-  const statusTabs: { id: InquiryFilter; label: string; count: number }[] = [
-    { id: "all", label: "Alle", count: inquiries.length },
-    {
-      id: "new",
-      label: "Neu",
-      count: inquiries.filter((i) => i.status === "new").length,
-    },
-    {
-      id: "forwarded",
-      label: "Weitergeleitet",
-      count: inquiries.filter((i) => i.status === "forwarded").length,
-    },
-    {
-      id: "done",
-      label: "Erledigt",
-      count: inquiries.filter((i) => i.status === "done").length,
-    },
-  ];
-
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400 text-sm">Lade Anfragen…</div>
-      </div>
-    );
-  if (error)
-    return (
-      <div className="bg-red-50 text-red-700 p-4 rounded-xl text-sm">
-        {error}
-      </div>
-    );
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-xl font-bold text-gray-900">Anfragen</h2>
-
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-4">
-        <div className="flex bg-gray-100 rounded-lg p-1">
-          {statusTabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setStatusFilter(tab.id)}
-              className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${
-                statusFilter === tab.id
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab.label}
-              <span className="ml-1.5 text-xs text-gray-400">
-                {tab.count}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-gray-700"
-        >
-          <option value="all">Alle Kategorien</option>
-          {CATEGORIES.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {filtered.length === 0 ? (
-          <div className="p-8 text-center text-gray-400 text-sm">
-            Keine Anfragen gefunden
-          </div>
-        ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100 bg-gray-50/50">
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Datum
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Name
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Kategorie
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Status
-                </th>
-                <th className="text-right px-5 py-3 text-gray-500 font-medium">
-                  Aktionen
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((inq, i) => (
-                <tr
-                  key={inq.id}
-                  className={`${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50/50"
-                  } hover:bg-orange-50/50 transition-colors cursor-pointer`}
-                  onClick={() => setSelected(inq)}
-                >
-                  <td className="px-5 py-3 text-gray-600">
-                    {formatDate(inq.created_at)}
-                  </td>
-                  <td className="px-5 py-3 text-gray-900 font-medium">
-                    {inq.name}
-                  </td>
-                  <td className="px-5 py-3 text-gray-600">
-                    {inq.category}
-                  </td>
-                  <td className="px-5 py-3">
-                    <StatusBadge status={inq.status} />
-                  </td>
-                  <td className="px-5 py-3 text-right">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelected(inq);
-                      }}
-                      className="text-[#E88B00] hover:text-[#d07e00] font-medium"
-                    >
-                      Details
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-
-      {/* Detail Panel */}
-      {selected && (
-        <InquiryDetail
-          inquiry={selected}
-          onClose={() => setSelected(null)}
-          onUpdate={handleUpdate}
-        />
-      )}
-    </div>
-  );
-}
-
-// ─── Project Form ────────────────────────────────────────────────────────────
-
-function ProjectForm({
-  project,
-  onSave,
-  onCancel,
-}: {
-  project?: Project;
-  onSave: (p: Project) => void;
-  onCancel: () => void;
-}) {
-  const [title, setTitle] = useState(project?.title || "");
-  const [category, setCategory] = useState(
-    project?.category || "Photovoltaik"
-  );
-  const [year, setYear] = useState(
-    project?.year || new Date().getFullYear()
-  );
-  const [location, setLocation] = useState(project?.location || "");
-  const [description, setDescription] = useState(
-    project?.description || ""
-  );
-  const [visible, setVisible] = useState(project?.visible ?? true);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    setSaving(true);
-    setError("");
-    try {
-      const body = {
-        ...(project ? { id: project.id } : {}),
-        title,
-        category,
-        year,
-        location,
-        description,
-        visible,
-      };
-      const saved = await apiFetch<Project>("/api/projects", {
-        method: project ? "PATCH" : "POST",
-        body: JSON.stringify(body),
-      });
-      onSave(saved);
-    } catch (err: unknown) {
-      setError(
-        err instanceof Error ? err.message : "Fehler beim Speichern"
-      );
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="absolute inset-0 bg-black/30" onClick={onCancel} />
-      <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-lg p-6 space-y-5">
-        <div className="flex items-center justify-between">
-          <h3 className="text-lg font-bold text-gray-900">
-            {project ? "Projekt bearbeiten" : "Neues Projekt"}
-          </h3>
-          <button
-            onClick={onCancel}
-            className="text-gray-400 hover:text-gray-600 text-xl leading-none"
-          >
-            ✕
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={submit} className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 space-y-4">
+          {error && <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2">{error}</p>}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Titel
-            </label>
-            <input
-              type="text"
-              required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-sm text-gray-900"
-            />
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">E-Mail</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#E88B00] focus:ring-2 focus:ring-[#E88B00]/20 outline-none text-sm" />
           </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Kategorie
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-sm text-gray-700"
-              >
-                {["Photovoltaik", "Elektro", "HLS", "Dachdeckerei"].map(
-                  (c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  )
-                )}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Jahr
-              </label>
-              <input
-                type="number"
-                required
-                min={2000}
-                max={2100}
-                value={year}
-                onChange={(e) => setYear(Number(e.target.value))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-sm text-gray-900"
-              />
-            </div>
-          </div>
-
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Ort
-            </label>
-            <input
-              type="text"
-              required
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-sm text-gray-900"
-            />
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Passwort</label>
+            <input type="password" value={pw} onChange={(e) => setPw(e.target.value)} required
+              className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#E88B00] focus:ring-2 focus:ring-[#E88B00]/20 outline-none text-sm" />
           </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Beschreibung
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E88B00]/40 focus:border-[#E88B00] outline-none text-sm text-gray-900 resize-none"
-            />
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setVisible(!visible)}
-              className={`relative w-11 h-6 rounded-full transition-colors ${
-                visible ? "bg-[#E88B00]" : "bg-gray-300"
-              }`}
-            >
-              <span
-                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                  visible ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </button>
-            <span className="text-sm text-gray-700">
-              {visible ? "Sichtbar" : "Versteckt"}
-            </span>
-          </div>
-
-          {error && (
-            <div className="bg-red-50 text-red-700 px-4 py-2 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <div className="flex justify-end gap-3 pt-2">
-            <button
-              type="button"
-              onClick={onCancel}
-              className="px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
-            >
-              Abbrechen
-            </button>
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-4 py-2 text-sm bg-[#E88B00] hover:bg-[#d07e00] text-white font-semibold rounded-lg transition-colors disabled:opacity-60"
-            >
-              {saving ? "Speichern…" : "Speichern"}
-            </button>
-          </div>
+          <button type="submit" disabled={loading}
+            className="w-full py-2.5 bg-[#E88B00] text-white font-semibold rounded-xl hover:bg-[#d07e00] active:scale-[0.98] transition-all disabled:opacity-60 text-sm">
+            {loading ? "..." : "Anmelden"}
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
-// ─── Projekte Tab ────────────────────────────────────────────────────────────
+// ─── Dashboard ─────────────────────────────────────────────────────────────
 
-function ProjekteView() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+function DashboardView() {
+  const [stats, setStats] = useState<Stats | null>(null);
   const [error, setError] = useState("");
-  const [editing, setEditing] = useState<Project | null>(null);
-  const [creating, setCreating] = useState(false);
-  const [deleting, setDeleting] = useState<string | null>(null);
-
-  const fetchProjects = useCallback(() => {
-    setLoading(true);
-    apiFetch<Project[]>("/api/projects")
-      .then(setProjects)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
 
   useEffect(() => {
-    fetchProjects();
-  }, [fetchProjects]);
+    api<Stats>("/api/stats").then(setStats).catch((e) => setError(e.message));
+  }, []);
 
-  async function handleDelete(id: string) {
-    try {
-      await apiFetch("/api/projects", {
-        method: "DELETE",
-        body: JSON.stringify({ id }),
-      });
-      setProjects((prev) => prev.filter((p) => p.id !== id));
-      setDeleting(null);
-    } catch (err: unknown) {
-      setError(
-        err instanceof Error ? err.message : "Fehler beim Löschen"
-      );
-      setDeleting(null);
-    }
-  }
+  if (error) return <div className="bg-red-50 text-red-700 p-4 rounded-xl text-sm">{error}</div>;
+  if (!stats) return <div className="flex justify-center py-20"><div className="w-8 h-8 border-3 border-[#E88B00] border-t-transparent rounded-full animate-spin" /></div>;
 
-  function handleSave(saved: Project) {
-    if (creating) {
-      setProjects((prev) => [saved, ...prev]);
-      setCreating(false);
-    } else {
-      setProjects((prev) =>
-        prev.map((p) => (p.id === saved.id ? saved : p))
-      );
-      setEditing(null);
-    }
-  }
-
-  if (loading)
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="text-gray-400 text-sm">Lade Projekte…</div>
-      </div>
-    );
-  if (error)
-    return (
-      <div className="bg-red-50 text-red-700 p-4 rounded-xl text-sm">
-        {error}
-      </div>
-    );
+  const daily = Object.entries(stats.dailyViews || {})
+    .map(([date, views]) => ({ date, views }))
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(-14);
+  const maxV = Math.max(...daily.map((d) => d.views), 1);
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900">Projekte</h2>
-        <button
-          onClick={() => setCreating(true)}
-          className="bg-[#E88B00] hover:bg-[#d07e00] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-        >
-          + Neues Projekt
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { label: "Heute", value: stats.todayViews, icon: "📊" },
+          { label: "Diese Woche", value: stats.weekViews, icon: "📈" },
+          { label: "Dieser Monat", value: stats.monthViews, icon: "📅" },
+          { label: "Neue Anfragen", value: stats.newInquiries, icon: "🔔", accent: true },
+        ].map((s) => (
+          <div key={s.label} className={`bg-white rounded-2xl p-5 shadow-sm border ${s.accent ? "border-[#E88B00]/30 bg-orange-50/30" : "border-gray-100"}`}>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-500">{s.label}</span>
+              <span className="text-lg">{s.icon}</span>
+            </div>
+            <p className={`text-3xl font-bold ${s.accent ? "text-[#E88B00]" : "text-gray-900"}`}>{s.value}</p>
+          </div>
+        ))}
+      </div>
+
+      {daily.length > 0 && (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4">Seitenaufrufe – letzte 14 Tage</h3>
+          <div className="flex items-end gap-1.5 h-40">
+            {daily.map((d) => (
+              <div key={d.date} className="flex-1 flex flex-col items-center justify-end h-full group">
+                <span className="text-[10px] text-gray-400 mb-1 opacity-0 group-hover:opacity-100 transition">{d.views}</span>
+                <div className="w-full bg-[#E88B00]/20 group-hover:bg-[#E88B00]/80 rounded-t transition-all" style={{ height: `${Math.max((d.views / maxV) * 100, 3)}%` }} />
+                <span className="text-[9px] text-gray-400 mt-1">{d.date.slice(5).replace("-", ".")}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {stats.topPages.length > 0 && (
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="px-5 py-3 border-b border-gray-50"><h3 className="text-sm font-semibold text-gray-900">Meistbesuchte Seiten</h3></div>
+          {stats.topPages.map((p, i) => (
+            <div key={p.path} className={`flex items-center justify-between px-5 py-2.5 text-sm ${i % 2 ? "bg-gray-50/50" : ""}`}>
+              <span className="text-gray-700 font-mono text-xs">{p.path}</span>
+              <span className="text-gray-500 font-medium">{p.count}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Anfragen ──────────────────────────────────────────────────────────────
+
+function AnfragenView() {
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+  const [catFilter, setCatFilter] = useState("all");
+  const [selected, setSelected] = useState<Inquiry | null>(null);
+  const [notes, setNotes] = useState("");
+  const [fwdEmail, setFwdEmail] = useState("info@et-koenig.at");
+  const [showFwd, setShowFwd] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  useEffect(() => {
+    api<Inquiry[]>("/api/inquiries").then(setInquiries).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  const filtered = inquiries.filter((i) => {
+    if (filter !== "all" && i.status !== filter) return false;
+    if (catFilter !== "all" && i.category !== catFilter) return false;
+    return true;
+  });
+
+  const counts = {
+    all: inquiries.length,
+    new: inquiries.filter((i) => i.status === "new").length,
+    forwarded: inquiries.filter((i) => i.status === "forwarded").length,
+    done: inquiries.filter((i) => i.status === "done").length,
+  };
+
+  const categories = [...new Set(inquiries.map((i) => i.category))];
+
+  const updateStatus = async (id: string, status: string) => {
+    await api("/api/inquiries", { method: "PATCH", body: JSON.stringify({ id, status, notes }) });
+    setInquiries((prev) => prev.map((i) => (i.id === id ? { ...i, status, notes } : i)));
+    if (selected?.id === id) setSelected((prev) => prev ? { ...prev, status, notes } : null);
+  };
+
+  const saveNotes = async () => {
+    if (!selected) return;
+    await api("/api/inquiries", { method: "PATCH", body: JSON.stringify({ id: selected.id, notes, status: selected.status }) });
+    setInquiries((prev) => prev.map((i) => (i.id === selected.id ? { ...i, notes } : i)));
+  };
+
+  const forward = async () => {
+    if (!selected || !fwdEmail) return;
+    setSending(true);
+    try {
+      await api("/api/forward", { method: "POST", body: JSON.stringify({ inquiryId: selected.id, toEmail: fwdEmail }) });
+      setInquiries((prev) => prev.map((i) => (i.id === selected.id ? { ...i, status: "forwarded", forwarded_to: fwdEmail, forwarded_at: new Date().toISOString() } : i)));
+      setSelected((prev) => prev ? { ...prev, status: "forwarded", forwarded_to: fwdEmail, forwarded_at: new Date().toISOString() } : null);
+      setShowFwd(false);
+    } catch {}
+    setSending(false);
+  };
+
+  if (loading) return <div className="flex justify-center py-20"><div className="w-8 h-8 border-3 border-[#E88B00] border-t-transparent rounded-full animate-spin" /></div>;
+
+  return (
+    <div className="flex gap-6 h-[calc(100vh-8rem)]">
+      {/* List */}
+      <div className={`${selected ? "hidden lg:flex" : "flex"} flex-col flex-1 min-w-0`}>
+        {/* Filters */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {(["all", "new", "forwarded", "done"] as const).map((f) => (
+            <button key={f} onClick={() => setFilter(f)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${filter === f ? "bg-[#E88B00] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+              {f === "all" ? "Alle" : statusLabels[f]} ({counts[f]})
+            </button>
+          ))}
+          {categories.length > 1 && (
+            <select value={catFilter} onChange={(e) => setCatFilter(e.target.value)}
+              className="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 border-0 outline-none ml-auto">
+              <option value="all">Alle Bereiche</option>
+              {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          )}
+        </div>
+
+        {/* Inquiry List */}
+        <div className="flex-1 overflow-y-auto space-y-2">
+          {filtered.length === 0 && <p className="text-sm text-gray-400 text-center py-10">Keine Anfragen</p>}
+          {filtered.map((inq) => (
+            <button key={inq.id} onClick={() => { setSelected(inq); setNotes(inq.notes || ""); setShowFwd(false); }}
+              className={`w-full text-left p-4 rounded-xl border transition-all ${selected?.id === inq.id ? "border-[#E88B00] bg-orange-50/50 shadow-sm" : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"}`}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="font-semibold text-sm text-gray-900">{inq.name}</span>
+                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${statusColors[inq.status] || "bg-gray-100 text-gray-600"}`}>
+                  {statusLabels[inq.status] || inq.status}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-gray-500">
+                <span className="font-medium text-[#E88B00]">{inq.category}</span>
+                <span>·</span>
+                <span>{fmtDate(inq.created_at)}</span>
+                {inq.equipment_name && <><span>·</span><span>{inq.equipment_name}</span></>}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Detail Panel */}
+      {selected && (
+        <div className="flex-1 min-w-0 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-y-auto">
+          <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between z-10">
+            <div>
+              <h3 className="font-bold text-lg text-gray-900">{selected.name}</h3>
+              <p className="text-xs text-gray-500">{selected.category} · {fmtDateTime(selected.created_at)}</p>
+            </div>
+            <button onClick={() => setSelected(null)} className="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+          </div>
+
+          <div className="p-6 space-y-5">
+            {/* Status */}
+            <div className="flex items-center gap-2">
+              <span className={`text-xs font-medium px-3 py-1 rounded-full ${statusColors[selected.status] || "bg-gray-100"}`}>
+                {statusLabels[selected.status] || selected.status}
+              </span>
+              {selected.forwarded_to && (
+                <span className="text-xs text-gray-400">→ {selected.forwarded_to} ({fmtDate(selected.forwarded_at || "")})</span>
+              )}
+            </div>
+
+            {/* Contact Info */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="bg-gray-50 rounded-xl p-3">
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-0.5">E-Mail</p>
+                <a href={`mailto:${selected.email}`} className="text-sm font-medium text-[#E88B00]">{selected.email}</a>
+              </div>
+              {selected.phone && (
+                <div className="bg-gray-50 rounded-xl p-3">
+                  <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-0.5">Telefon</p>
+                  <a href={`tel:${selected.phone}`} className="text-sm font-medium text-gray-900">{selected.phone}</a>
+                </div>
+              )}
+            </div>
+
+            {/* Equipment & Dates */}
+            {selected.equipment_name && (
+              <div className="bg-gray-50 rounded-xl p-3">
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-0.5">Gerät</p>
+                <p className="text-sm font-medium">{selected.equipment_name}</p>
+                {selected.rental_from && <p className="text-xs text-gray-500 mt-1">Zeitraum: {selected.rental_from} – {selected.rental_to || "offen"}</p>}
+              </div>
+            )}
+
+            {/* Answers */}
+            {selected.answers && Object.keys(selected.answers).length > 0 && (
+              <div>
+                <p className="text-xs font-semibold text-gray-700 mb-2">Quiz-Antworten</p>
+                <div className="space-y-1.5">
+                  {Object.entries(selected.answers).map(([q, a]) => (
+                    <div key={q} className="flex items-start gap-2 bg-gray-50 rounded-lg px-3 py-2">
+                      <span className="text-xs text-gray-500 flex-1">{q}</span>
+                      <span className="text-xs font-semibold text-gray-900">{a}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Message */}
+            {selected.message && (
+              <div className="bg-gray-50 rounded-xl p-3">
+                <p className="text-[10px] text-gray-400 uppercase tracking-wider mb-0.5">Nachricht</p>
+                <p className="text-sm text-gray-700 whitespace-pre-wrap">{selected.message}</p>
+              </div>
+            )}
+
+            {/* Notes */}
+            <div>
+              <p className="text-xs font-semibold text-gray-700 mb-1.5">Notizen</p>
+              <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="Interne Notizen..."
+                className="w-full px-3 py-2 text-sm rounded-xl border border-gray-200 focus:border-[#E88B00] focus:ring-1 focus:ring-[#E88B00]/20 outline-none resize-none" />
+              <button onClick={saveNotes} className="mt-1.5 text-xs font-medium text-[#E88B00] hover:underline">Notizen speichern</button>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
+              {!showFwd ? (
+                <button onClick={() => setShowFwd(true)} className="px-4 py-2 text-xs font-semibold bg-[#E88B00] text-white rounded-xl hover:bg-[#d07e00] transition">
+                  ✉ Weiterleiten
+                </button>
+              ) : (
+                <div className="flex gap-2 items-center w-full">
+                  <input type="email" value={fwdEmail} onChange={(e) => setFwdEmail(e.target.value)} placeholder="E-Mail"
+                    className="flex-1 px-3 py-2 text-sm rounded-xl border border-gray-200 focus:border-[#E88B00] outline-none" />
+                  <button onClick={forward} disabled={sending} className="px-4 py-2 text-xs font-semibold bg-[#E88B00] text-white rounded-xl hover:bg-[#d07e00] transition disabled:opacity-50">
+                    {sending ? "..." : "Senden"}
+                  </button>
+                  <button onClick={() => setShowFwd(false)} className="text-xs text-gray-400 hover:text-gray-600">Abbrechen</button>
+                </div>
+              )}
+              {selected.status !== "done" && (
+                <button onClick={() => updateStatus(selected.id, "done")} className="px-4 py-2 text-xs font-semibold bg-green-500 text-white rounded-xl hover:bg-green-600 transition">
+                  ✓ Erledigt
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Referenzen ────────────────────────────────────────────────────────────
+
+function ReferenzenView() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editing, setEditing] = useState<Project | null>(null);
+  const [isNew, setIsNew] = useState(false);
+  const [form, setForm] = useState({ title: "", category: "Photovoltaik", year: new Date().getFullYear(), location: "", description: "", visible: true });
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+
+  useEffect(() => {
+    api<Project[]>("/api/projects").then(setProjects).catch(() => {}).finally(() => setLoading(false));
+  }, []);
+
+  const openNew = () => {
+    setForm({ title: "", category: "Photovoltaik", year: new Date().getFullYear(), location: "", description: "", visible: true });
+    setIsNew(true);
+    setEditing({} as Project);
+  };
+
+  const openEdit = (p: Project) => {
+    setForm({ title: p.title, category: p.category, year: p.year, location: p.location, description: p.description || "", visible: p.visible });
+    setIsNew(false);
+    setEditing(p);
+  };
+
+  const save = async (e: FormEvent) => {
+    e.preventDefault();
+    if (isNew) {
+      await api("/api/projects", { method: "POST", body: JSON.stringify(form) });
+    } else if (editing) {
+      await api("/api/projects", { method: "PATCH", body: JSON.stringify({ id: editing.id, ...form }) });
+    }
+    const fresh = await api<Project[]>("/api/projects");
+    setProjects(fresh);
+    setEditing(null);
+  };
+
+  const remove = async (id: string) => {
+    await api("/api/projects", { method: "DELETE", body: JSON.stringify({ id }) });
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+    setDeleteId(null);
+  };
+
+  if (loading) return <div className="flex justify-center py-20"><div className="w-8 h-8 border-3 border-[#E88B00] border-t-transparent rounded-full animate-spin" /></div>;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-bold text-gray-900">Referenzen ({projects.length})</h2>
+        <button onClick={openNew} className="px-4 py-2 text-xs font-semibold bg-[#E88B00] text-white rounded-xl hover:bg-[#d07e00] transition">
+          + Neue Referenz
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {projects.length === 0 ? (
-          <div className="p-8 text-center text-gray-400 text-sm">
-            Keine Projekte vorhanden
+      {/* Edit Modal */}
+      {editing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={() => setEditing(null)}>
+          <div className="absolute inset-0 bg-black/50" />
+          <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-4">
+            <h3 className="font-bold text-lg">{isNew ? "Neue Referenz" : "Referenz bearbeiten"}</h3>
+            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titel *" required
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
+            <div className="grid grid-cols-2 gap-3">
+              <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
+                className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none">
+                {["Photovoltaik", "Elektro", "HLS", "Dachdeckerei"].map((c) => <option key={c}>{c}</option>)}
+              </select>
+              <input type="number" value={form.year} onChange={(e) => setForm({ ...form, year: +e.target.value })} placeholder="Jahr"
+                className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
+            </div>
+            <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="Ort"
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
+            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Beschreibung" rows={2}
+              className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none resize-none" />
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input type="checkbox" checked={form.visible} onChange={(e) => setForm({ ...form, visible: e.target.checked })} className="accent-[#E88B00]" />
+              Auf Website sichtbar
+            </label>
+            <div className="flex gap-2">
+              <button type="submit" className="flex-1 py-2.5 bg-[#E88B00] text-white font-semibold rounded-xl hover:bg-[#d07e00] transition text-sm">Speichern</button>
+              <button type="button" onClick={() => setEditing(null)} className="px-4 py-2.5 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition text-sm">Abbrechen</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Delete Confirm */}
+      {deleteId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setDeleteId(null)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl p-6 max-w-sm text-center">
+            <p className="font-semibold mb-2">Referenz löschen?</p>
+            <p className="text-sm text-gray-500 mb-4">Diese Aktion kann nicht rückgängig gemacht werden.</p>
+            <div className="flex gap-2">
+              <button onClick={() => remove(deleteId)} className="flex-1 py-2 bg-red-500 text-white rounded-xl font-semibold text-sm hover:bg-red-600">Löschen</button>
+              <button onClick={() => setDeleteId(null)} className="flex-1 py-2 bg-gray-100 text-gray-600 rounded-xl font-semibold text-sm hover:bg-gray-200">Abbrechen</button>
+            </div>
           </div>
+        </div>
+      )}
+
+      {/* Table */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        {projects.length === 0 ? (
+          <p className="text-sm text-gray-400 text-center py-10">Noch keine Referenzen angelegt</p>
         ) : (
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50/50">
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Titel
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Kategorie
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Jahr
-                </th>
-                <th className="text-left px-5 py-3 text-gray-500 font-medium">
-                  Ort
-                </th>
-                <th className="text-center px-5 py-3 text-gray-500 font-medium">
-                  Sichtbar
-                </th>
-                <th className="text-right px-5 py-3 text-gray-500 font-medium">
-                  Aktionen
-                </th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Titel</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Kategorie</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Jahr</th>
+                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Ort</th>
+                <th className="text-center px-4 py-3 text-xs font-medium text-gray-500">Sichtbar</th>
+                <th className="text-right px-4 py-3 text-xs font-medium text-gray-500">Aktionen</th>
               </tr>
             </thead>
             <tbody>
-              {projects.map((proj, i) => (
-                <tr
-                  key={proj.id}
-                  className={`${
-                    i % 2 === 0 ? "bg-white" : "bg-gray-50/50"
-                  } hover:bg-orange-50/50 transition-colors`}
-                >
-                  <td className="px-5 py-3 text-gray-900 font-medium">
-                    {proj.title}
-                  </td>
-                  <td className="px-5 py-3 text-gray-600">
-                    {proj.category}
-                  </td>
-                  <td className="px-5 py-3 text-gray-600">{proj.year}</td>
-                  <td className="px-5 py-3 text-gray-600">
-                    {proj.location}
-                  </td>
-                  <td className="px-5 py-3 text-center">
-                    <span
-                      className={`inline-block w-2.5 h-2.5 rounded-full ${
-                        proj.visible ? "bg-green-500" : "bg-gray-300"
-                      }`}
-                    />
-                  </td>
-                  <td className="px-5 py-3 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <button
-                        onClick={() => setEditing(proj)}
-                        className="text-[#E88B00] hover:text-[#d07e00] font-medium"
-                      >
-                        Bearbeiten
-                      </button>
-                      {deleting === proj.id ? (
-                        <div className="flex items-center gap-1">
-                          <button
-                            onClick={() => handleDelete(proj.id)}
-                            className="text-red-600 hover:text-red-700 font-medium"
-                          >
-                            Ja
-                          </button>
-                          <span className="text-gray-400">|</span>
-                          <button
-                            onClick={() => setDeleting(null)}
-                            className="text-gray-500 hover:text-gray-700 font-medium"
-                          >
-                            Nein
-                          </button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => setDeleting(proj.id)}
-                          className="text-red-500 hover:text-red-600 font-medium"
-                        >
-                          Löschen
-                        </button>
-                      )}
-                    </div>
+              {projects.map((p, i) => (
+                <tr key={p.id} className={`border-b border-gray-50 ${i % 2 ? "bg-gray-50/30" : ""} hover:bg-orange-50/30 transition`}>
+                  <td className="px-4 py-3 font-medium text-gray-900">{p.title}</td>
+                  <td className="px-4 py-3 text-gray-600">{p.category}</td>
+                  <td className="px-4 py-3 text-gray-600">{p.year}</td>
+                  <td className="px-4 py-3 text-gray-600">{p.location}</td>
+                  <td className="px-4 py-3 text-center">{p.visible ? "✅" : "❌"}</td>
+                  <td className="px-4 py-3 text-right">
+                    <button onClick={() => openEdit(p)} className="text-xs text-[#E88B00] hover:underline font-medium mr-3">Bearbeiten</button>
+                    <button onClick={() => setDeleteId(p.id)} className="text-xs text-red-500 hover:underline font-medium">Löschen</button>
                   </td>
                 </tr>
               ))}
@@ -1290,67 +553,63 @@ function ProjekteView() {
           </table>
         )}
       </div>
-
-      {/* Create / Edit modal */}
-      {(creating || editing) && (
-        <ProjectForm
-          project={editing || undefined}
-          onSave={handleSave}
-          onCancel={() => {
-            setCreating(false);
-            setEditing(null);
-          }}
-        />
-      )}
     </div>
   );
 }
 
-// ─── Main Admin Page ─────────────────────────────────────────────────────────
+// ─── Main Admin Page ───────────────────────────────────────────────────────
 
 export default function AdminPage() {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [checking, setChecking] = useState(true);
-  const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+  const [authed, setAuthed] = useState(false);
+  const [tab, setTab] = useState<Tab>("dashboard");
 
   useEffect(() => {
-    const token = getToken();
-    setAuthenticated(!!token);
-    setChecking(false);
+    setAuthed(!!getToken());
   }, []);
 
-  function handleLogin() {
-    setAuthenticated(true);
-  }
+  if (!authed) return <LoginPage onLogin={() => setAuthed(true)} />;
 
-  function handleLogout() {
-    clearToken();
-    setAuthenticated(false);
-  }
-
-  if (checking) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-gray-400 text-sm">Laden…</div>
-      </div>
-    );
-  }
-
-  if (!authenticated) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
+  const tabs: { key: Tab; label: string; icon: string }[] = [
+    { key: "dashboard", label: "Dashboard", icon: "📊" },
+    { key: "anfragen", label: "Anfragen", icon: "📩" },
+    { key: "referenzen", label: "Referenzen", icon: "📋" },
+  ];
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header onLogout={handleLogout} />
-        <main className="flex-1 p-6 overflow-auto">
-          {activeTab === "dashboard" && <DashboardView />}
-          {activeTab === "anfragen" && <AnfragenView />}
-          {activeTab === "projekte" && <ProjekteView />}
-        </main>
-      </div>
+    <div className="min-h-screen bg-gray-50/80">
+      {/* Top Bar */}
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 h-14 flex items-center justify-between sticky top-0 z-40">
+        <div className="flex items-center gap-6">
+          <span className="font-bold text-gray-900">ET König <span className="text-[#E88B00]">Admin</span></span>
+          <nav className="hidden sm:flex gap-1">
+            {tabs.map((t) => (
+              <button key={t.key} onClick={() => setTab(t.key)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${tab === t.key ? "bg-[#E88B00]/10 text-[#E88B00]" : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"}`}>
+                {t.icon} {t.label}
+              </button>
+            ))}
+          </nav>
+        </div>
+        <button onClick={() => { localStorage.removeItem("admin_token"); setAuthed(false); }}
+          className="text-sm text-gray-400 hover:text-red-500 transition font-medium">Abmelden</button>
+      </header>
+
+      {/* Mobile Tabs */}
+      <nav className="sm:hidden flex border-b border-gray-200 bg-white px-2">
+        {tabs.map((t) => (
+          <button key={t.key} onClick={() => setTab(t.key)}
+            className={`flex-1 py-3 text-xs font-medium text-center transition border-b-2 ${tab === t.key ? "border-[#E88B00] text-[#E88B00]" : "border-transparent text-gray-500"}`}>
+            {t.icon} {t.label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Content */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6">
+        {tab === "dashboard" && <DashboardView />}
+        {tab === "anfragen" && <AnfragenView />}
+        {tab === "referenzen" && <ReferenzenView />}
+      </main>
     </div>
   );
 }
