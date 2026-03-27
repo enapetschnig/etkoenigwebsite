@@ -5,17 +5,18 @@ import { useState, useEffect, useCallback, FormEvent } from "react";
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface Stats {
-  todayVisitors: number;
-  weekVisitors: number;
-  monthVisitors: number;
+  todayViews: number;
+  weekViews: number;
+  monthViews: number;
   newInquiries: number;
-  dailyViews: { date: string; views: number }[];
-  topPages: { path: string; views: number }[];
+  totalInquiries: number;
+  dailyViews: Record<string, number>;
+  topPages: { path: string; count: number }[];
 }
 
 interface Inquiry {
   id: string;
-  createdAt: string;
+  created_at: string;
   name: string;
   email: string;
   phone?: string;
@@ -23,9 +24,12 @@ interface Inquiry {
   status: "new" | "forwarded" | "done";
   message?: string;
   answers?: Record<string, string>;
-  equipment?: string;
-  dates?: string;
+  equipment_name?: string;
+  rental_from?: string;
+  rental_to?: string;
   notes?: string;
+  forwarded_to?: string;
+  forwarded_at?: string;
 }
 
 interface Project {
@@ -70,8 +74,6 @@ async function apiFetch<T>(
     },
   });
   if (res.status === 401) {
-    clearToken();
-    window.location.reload();
     throw new Error("Nicht autorisiert");
   }
   if (!res.ok) {
@@ -343,16 +345,21 @@ function DashboardView() {
     );
   if (!stats) return null;
 
-  const maxViews = Math.max(...stats.dailyViews.map((d) => d.views), 1);
+  // Convert dailyViews object to sorted array (last 14 days)
+  const dailyArray = Object.entries(stats.dailyViews)
+    .map(([date, views]) => ({ date, views }))
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(-14);
+  const maxViews = Math.max(...dailyArray.map((d) => d.views), 1);
 
   return (
     <div className="space-y-8">
       <div>
         <h2 className="text-xl font-bold text-gray-900 mb-4">Übersicht</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard label="Heute Besucher" value={stats.todayVisitors} />
-          <StatCard label="Diese Woche" value={stats.weekVisitors} />
-          <StatCard label="Dieser Monat" value={stats.monthVisitors} />
+          <StatCard label="Heute Besucher" value={stats.todayViews} />
+          <StatCard label="Diese Woche" value={stats.weekViews} />
+          <StatCard label="Dieser Monat" value={stats.monthViews} />
           <StatCard
             label="Neue Anfragen"
             value={stats.newInquiries}
@@ -367,7 +374,7 @@ function DashboardView() {
         </h3>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-end gap-2 h-48">
-            {stats.dailyViews.map((day) => (
+            {dailyArray.map((day) => (
               <div
                 key={day.date}
                 className="flex-1 flex flex-col items-center justify-end h-full"
@@ -421,7 +428,7 @@ function DashboardView() {
                     {page.path}
                   </td>
                   <td className="px-5 py-2.5 text-right text-gray-600 font-medium">
-                    {page.views.toLocaleString("de-AT")}
+                    {page.count.toLocaleString("de-AT")}
                   </td>
                 </tr>
               ))}
@@ -551,7 +558,7 @@ function InquiryDetail({
           <div className="flex items-center justify-between">
             <StatusBadge status={inquiry.status} />
             <span className="text-sm text-gray-500">
-              {formatDateTime(inquiry.createdAt)}
+              {formatDateTime(inquiry.created_at)}
             </span>
           </div>
 
@@ -603,25 +610,25 @@ function InquiryDetail({
             )}
 
           {/* Equipment */}
-          {inquiry.equipment && (
+          {inquiry.equipment_name && (
             <div className="space-y-2">
               <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
                 Geräte / Ausstattung
               </h4>
               <p className="text-sm text-gray-800 bg-gray-50 rounded-lg p-4">
-                {inquiry.equipment}
+                {inquiry.equipment_name}
               </p>
             </div>
           )}
 
           {/* Dates */}
-          {inquiry.dates && (
+          {inquiry.rental_from && (
             <div className="space-y-2">
               <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
                 Gewünschte Termine
               </h4>
               <p className="text-sm text-gray-800 bg-gray-50 rounded-lg p-4">
-                {inquiry.dates}
+                {inquiry.rental_from}
               </p>
             </div>
           )}
@@ -882,7 +889,7 @@ function AnfragenView() {
                   onClick={() => setSelected(inq)}
                 >
                   <td className="px-5 py-3 text-gray-600">
-                    {formatDate(inq.createdAt)}
+                    {formatDate(inq.created_at)}
                   </td>
                   <td className="px-5 py-3 text-gray-900 font-medium">
                     {inq.name}
