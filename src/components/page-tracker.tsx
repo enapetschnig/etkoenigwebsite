@@ -9,6 +9,12 @@ export function PageTracker() {
   useEffect(() => {
     if (pathname.startsWith("/admin")) return;
 
+    // Only track once per page per session (not on every re-render)
+    const tracked = sessionStorage.getItem("tracked_" + pathname);
+    if (tracked) return;
+
+    sessionStorage.setItem("tracked_" + pathname, "1");
+
     fetch("/api/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
