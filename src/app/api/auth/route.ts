@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     .from("admins")
     .select("email, password")
     .eq("email", email)
-    .single();
+    .maybeSingle();
 
   if (dbError) {
     console.error("Admin DB error:", dbError.message, "URL:", process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || "MISSING");
