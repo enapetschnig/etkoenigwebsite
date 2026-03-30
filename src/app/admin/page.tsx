@@ -409,6 +409,14 @@ function AnfragenView() {
                   ✓ Erledigt
                 </button>
               )}
+              <button onClick={async () => {
+                if (!confirm("Anfrage wirklich löschen?")) return;
+                await api("/api/inquiries", { method: "DELETE", body: JSON.stringify({ id: selected.id }) });
+                setInquiries((prev) => prev.filter((i) => i.id !== selected.id));
+                setSelected(null);
+              }} className="px-4 py-2 text-xs font-semibold bg-red-500 text-white rounded-xl hover:bg-red-600 transition ml-auto">
+                🗑 Löschen
+              </button>
             </div>
           </div>
         </div>
@@ -420,19 +428,29 @@ function AnfragenView() {
 // ─── Referenzen ────────────────────────────────────────────────────────────
 
 function ReferenzenView() {
+  const allCategories = ["Photovoltaik", "Elektro", "HLS", "Dachdeckerei"];
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Project | null>(null);
   const [isNew, setIsNew] = useState(false);
   const [form, setForm] = useState({ title: "", category: "Photovoltaik", year: new Date().getFullYear(), location: "", description: "", visible: true });
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [activeCat, setActiveCat] = useState("all");
+  const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    api<Project[]>("/api/projects").then(setProjects).catch(() => {}).finally(() => setLoading(false));
+    api<Project[]>("/api/projects").then((p) => {
+      setProjects(p);
+      // Expand the latest year by default
+      if (p.length > 0) {
+        const latestYear = Math.max(...p.map((x) => x.year)).toString();
+        setExpandedYears(new Set([latestYear]));
+      }
+    }).catch(() => {}).finally(() => setLoading(false));
   }, []);
 
-  const openNew = () => {
-    setForm({ title: "", category: "Photovoltaik", year: new Date().getFullYear(), location: "", description: "", visible: true });
+  const openNew = (category?: string, year?: number) => {
+    setForm({ title: "", category: category || activeCat === "all" ? "Photovoltaik" : activeCat, year: year || new Date().getFullYear(), location: "", description: "", visible: true });
     setIsNew(true);
     setEditing({} as Project);
   };
@@ -461,15 +479,51 @@ function ReferenzenView() {
     setDeleteId(null);
   };
 
+  const toggleYear = (key: string) => {
+    setExpandedYears((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key); else next.add(key);
+      return next;
+    });
+  };
+
+  // Group by category → year
+  const filtered = activeCat === "all" ? projects : projects.filter((p) => p.category === activeCat);
+  const grouped: Record<string, Record<number, Project[]>> = {};
+  for (const p of filtered) {
+    if (!grouped[p.category]) grouped[p.category] = {};
+    if (!grouped[p.category][p.year]) grouped[p.category][p.year] = [];
+    grouped[p.category][p.year].push(p);
+  }
+
+  // Count per category
+  const catCounts: Record<string, number> = { all: projects.length };
+  for (const p of projects) catCounts[p.category] = (catCounts[p.category] || 0) + 1;
+
   if (loading) return <div className="flex justify-center py-20"><div className="w-8 h-8 border-3 border-[#E88B00] border-t-transparent rounded-full animate-spin" /></div>;
 
   return (
     <div>
+      {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-900">Referenzen ({projects.length})</h2>
-        <button onClick={openNew} className="px-4 py-2 text-xs font-semibold bg-[#E88B00] text-white rounded-xl hover:bg-[#d07e00] transition">
+        <button onClick={() => openNew()} className="px-4 py-2 text-xs font-semibold bg-[#E88B00] text-white rounded-xl hover:bg-[#d07e00] transition">
           + Neue Referenz
         </button>
+      </div>
+
+      {/* Category Tabs */}
+      <div className="flex flex-wrap gap-1.5 mb-4">
+        <button onClick={() => setActiveCat("all")}
+          className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${activeCat === "all" ? "bg-[#E88B00] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+          Alle ({catCounts.all})
+        </button>
+        {allCategories.map((c) => (
+          <button key={c} onClick={() => setActiveCat(c)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition ${activeCat === c ? "bg-[#E88B00] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+            {c} ({catCounts[c] || 0})
+          </button>
+        ))}
       </div>
 
       {/* Edit Modal */}
@@ -478,19 +532,19 @@ function ReferenzenView() {
           <div className="absolute inset-0 bg-black/50" />
           <form onSubmit={save} onClick={(e) => e.stopPropagation()} className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md space-y-4">
             <h3 className="font-bold text-lg">{isNew ? "Neue Referenz" : "Referenz bearbeiten"}</h3>
-            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titel *" required
+            <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="Titel / Projektname *" required
               className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
             <div className="grid grid-cols-2 gap-3">
               <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}
                 className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none">
-                {["Photovoltaik", "Elektro", "HLS", "Dachdeckerei"].map((c) => <option key={c}>{c}</option>)}
+                {allCategories.map((c) => <option key={c}>{c}</option>)}
               </select>
-              <input type="number" value={form.year} onChange={(e) => setForm({ ...form, year: +e.target.value })} placeholder="Jahr"
+              <input type="number" value={form.year} onChange={(e) => setForm({ ...form, year: +e.target.value })} placeholder="Jahr" min={2000} max={2030}
                 className="px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
             </div>
-            <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="Ort"
+            <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="Ort (z.B. Murau, Scheifling)"
               className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none" />
-            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Beschreibung" rows={2}
+            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Beschreibung (optional)" rows={2}
               className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#E88B00] outline-none resize-none" />
             <label className="flex items-center gap-2 text-sm cursor-pointer">
               <input type="checkbox" checked={form.visible} onChange={(e) => setForm({ ...form, visible: e.target.checked })} className="accent-[#E88B00]" />
@@ -519,40 +573,63 @@ function ReferenzenView() {
         </div>
       )}
 
-      {/* Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        {projects.length === 0 ? (
-          <p className="text-sm text-gray-400 text-center py-10">Noch keine Referenzen angelegt</p>
-        ) : (
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100 bg-gray-50/50">
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Titel</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Kategorie</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Jahr</th>
-                <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Ort</th>
-                <th className="text-center px-4 py-3 text-xs font-medium text-gray-500">Sichtbar</th>
-                <th className="text-right px-4 py-3 text-xs font-medium text-gray-500">Aktionen</th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects.map((p, i) => (
-                <tr key={p.id} className={`border-b border-gray-50 ${i % 2 ? "bg-gray-50/30" : ""} hover:bg-orange-50/30 transition`}>
-                  <td className="px-4 py-3 font-medium text-gray-900">{p.title}</td>
-                  <td className="px-4 py-3 text-gray-600">{p.category}</td>
-                  <td className="px-4 py-3 text-gray-600">{p.year}</td>
-                  <td className="px-4 py-3 text-gray-600">{p.location}</td>
-                  <td className="px-4 py-3 text-center">{p.visible ? "✅" : "❌"}</td>
-                  <td className="px-4 py-3 text-right">
-                    <button onClick={() => openEdit(p)} className="text-xs text-[#E88B00] hover:underline font-medium mr-3">Bearbeiten</button>
-                    <button onClick={() => setDeleteId(p.id)} className="text-xs text-red-500 hover:underline font-medium">Löschen</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {/* Grouped Content */}
+      {filtered.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+          <p className="text-sm text-gray-400">Keine Referenzen in dieser Kategorie</p>
+          <button onClick={() => openNew(activeCat === "all" ? undefined : activeCat)} className="mt-3 text-sm font-medium text-[#E88B00] hover:underline">+ Jetzt hinzufügen</button>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {Object.entries(grouped).sort(([a], [b]) => a.localeCompare(b)).map(([category, years]) => (
+            <div key={category}>
+              {activeCat === "all" && (
+                <h3 className="text-sm font-bold text-gray-700 mb-2 mt-4 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#E88B00]" />
+                  {category}
+                </h3>
+              )}
+              {Object.entries(years).sort(([a], [b]) => Number(b) - Number(a)).map(([year, items]) => {
+                const yearKey = `${category}-${year}`;
+                const isExpanded = expandedYears.has(yearKey) || expandedYears.has(year);
+                return (
+                  <div key={yearKey} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-2">
+                    <button onClick={() => toggleYear(yearKey)}
+                      className="w-full flex items-center justify-between px-5 py-3 hover:bg-gray-50/50 transition">
+                      <div className="flex items-center gap-3">
+                        <span className="text-sm font-bold text-gray-900">{year}</span>
+                        <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{items.length} Projekt{items.length !== 1 ? "e" : ""}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button onClick={(e) => { e.stopPropagation(); openNew(category, Number(year)); }}
+                          className="text-xs text-[#E88B00] hover:underline font-medium">+ Hinzufügen</button>
+                        <span className={`text-gray-400 transition-transform ${isExpanded ? "rotate-180" : ""}`}>▼</span>
+                      </div>
+                    </button>
+                    {isExpanded && (
+                      <div className="border-t border-gray-50">
+                        {items.map((p, i) => (
+                          <div key={p.id} className={`flex items-center justify-between px-5 py-2.5 ${i % 2 ? "bg-gray-50/30" : ""} hover:bg-orange-50/30 transition group`}>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-sm font-medium text-gray-900">{p.title}</span>
+                              {p.location && <span className="text-xs text-gray-400 ml-2">· {p.location}</span>}
+                              {!p.visible && <span className="text-[10px] text-red-400 ml-2">(versteckt)</span>}
+                            </div>
+                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
+                              <button onClick={() => openEdit(p)} className="text-xs text-[#E88B00] hover:underline font-medium px-2 py-1">Bearbeiten</button>
+                              <button onClick={() => setDeleteId(p.id)} className="text-xs text-red-500 hover:underline font-medium px-2 py-1">Löschen</button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

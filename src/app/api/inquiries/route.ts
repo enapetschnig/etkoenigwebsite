@@ -21,6 +21,20 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ success: true });
 }
 
+export async function DELETE(req: NextRequest) {
+  const token = req.headers.get("x-admin-token");
+  if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await req.json();
+  const supabase = createServiceClient();
+
+  const { error } = await supabase.from("inquiries").delete().eq("id", body.id);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ success: true });
+}
+
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-admin-token");
   if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
