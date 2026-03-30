@@ -4,26 +4,36 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Section, FadeIn } from "@/components/section";
 
-type Category = "alle" | "Photovoltaik-Projekte" | "Elektroinstallations-Projekte" | "HLS Projekte" | "Dachdeckerei / Spenglerei";
-type ReferenzData = Record<string, Record<string, string[]>>;
+type Category = "alle" | "Photovoltaik" | "Elektro" | "HLS" | "Dachdeckerei";
+
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  year: number;
+  location: string;
+}
 
 const categories: { key: Category; label: string }[] = [
   { key: "alle", label: "Alle Projekte" },
-  { key: "Photovoltaik-Projekte", label: "Photovoltaik" },
-  { key: "Elektroinstallations-Projekte", label: "Elektro" },
-  { key: "HLS Projekte", label: "HLS" },
-  { key: "Dachdeckerei / Spenglerei", label: "Dachdeckerei" },
+  { key: "Photovoltaik", label: "Photovoltaik" },
+  { key: "Elektro", label: "Elektro" },
+  { key: "HLS", label: "HLS" },
+  { key: "Dachdeckerei", label: "Dachdeckerei" },
 ];
 
 export default function ProjekteClient() {
-  const [data, setData] = useState<ReferenzData | null>(null);
-  const [activeCategory, setActiveCategory] = useState<Category>("Photovoltaik-Projekte");
-  const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set(["2025"]));
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState<Category>("Photovoltaik");
+  const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set(["2025", "2026"]));
 
   useEffect(() => {
-    fetch("/referenzen.json")
+    fetch("/api/projects/public")
       .then((r) => r.json())
-      .then((d) => setData(d));
+      .then((d) => setProjects(d))
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   const toggleYear = (year: string) => {
@@ -35,29 +45,20 @@ export default function ProjekteClient() {
     });
   };
 
-  const getDisplayData = (): { year: string; entries: string[] }[] => {
-    if (!data) return [];
-    if (activeCategory === "alle") {
-      const merged: Record<string, string[]> = {};
-      for (const cat of Object.keys(data)) {
-        for (const year of Object.keys(data[cat])) {
-          if (!merged[year]) merged[year] = [];
-          merged[year].push(...data[cat][year]);
-        }
-      }
-      return Object.entries(merged)
-        .map(([year, entries]) => ({ year, entries }))
-        .sort((a, b) => Number(b.year) - Number(a.year));
-    }
-    const catData = data[activeCategory];
-    if (!catData) return [];
-    return Object.entries(catData)
-      .map(([year, entries]) => ({ year, entries }))
-      .sort((a, b) => Number(b.year) - Number(a.year));
-  };
+  const filtered = activeCategory === "alle" ? projects : projects.filter((p) => p.category === activeCategory);
 
-  const displayData = getDisplayData();
-  const totalEntries = displayData.reduce((sum, g) => sum + g.entries.length, 0);
+  // Group by year
+  const grouped: Record<string, Project[]> = {};
+  for (const p of filtered) {
+    const y = String(p.year);
+    if (!grouped[y]) grouped[y] = [];
+    grouped[y].push(p);
+  }
+  const displayData = Object.entries(grouped)
+    .map(([year, items]) => ({ year, entries: items }))
+    .sort((a, b) => Number(b.year) - Number(a.year));
+
+  const totalEntries = filtered.length;
 
   return (
     <>
@@ -65,7 +66,7 @@ export default function ProjekteClient() {
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Über <span className="font-mono">8.000</span> Projekte
+            Über <span className="font-mono">{projects.length > 0 ? projects.length.toLocaleString("de-AT") : "8.000"}</span> Projekte
           </h1>
           <p className="text-base text-muted max-w-2xl">
             Jedes Projekt spiegelt unser Streben nach Qualität wider.
@@ -80,7 +81,7 @@ export default function ProjekteClient() {
           {categories.map((cat) => (
             <button
               key={cat.key}
-              onClick={() => { setActiveCategory(cat.key); setExpandedYears(new Set(["2025"])); }}
+              onClick={() => { setActiveCategory(cat.key); setExpandedYears(new Set(["2025", "2026"])); }}
               className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-full transition-all ${
                 activeCategory === cat.key
                   ? "bg-primary text-white"
@@ -92,13 +93,13 @@ export default function ProjekteClient() {
           ))}
         </div>
 
-        {data && (
+        {!loading && (
           <p className="text-sm text-muted mb-6">
             <span className="font-semibold text-foreground">{totalEntries.toLocaleString("de-AT")}</span> Projekte in dieser Kategorie
           </p>
         )}
 
-        {!data && (
+        {loading && (
           <div className="flex items-center justify-center py-20">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
           </div>
@@ -129,9 +130,9 @@ export default function ProjekteClient() {
                   className="px-5 sm:px-6 pb-4 border-t border-border/40"
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-1 pt-4">
-                    {group.entries.map((entry, i) => (
-                      <p key={i} className="text-sm text-muted py-1.5 border-b border-border/20 last:border-0">
-                        {entry}
+                    {group.entries.map((entry) => (
+                      <p key={entry.id} className="text-sm text-muted py-1.5 border-b border-border/20 last:border-0">
+                        {entry.title}
                       </p>
                     ))}
                   </div>
