@@ -1,6 +1,6 @@
 "use client";
 
-import { HouseLine, Buildings, Factory, House, SolarPanel, Plus, BatteryCharging, Package, ArrowsOutSimple, TextT, ArrowsInSimple, Question, Lightning, CalendarBlank } from "@phosphor-icons/react";
+import { HouseLine, Buildings, Factory, House, SolarPanel, Plus, BatteryCharging, Package, ArrowsOutSimple, TextT, ArrowsInSimple, Question } from "@phosphor-icons/react";
 import { QuizForm } from "@/components/quiz-form";
 import type { QuizStep } from "@/components/quiz-form";
 
@@ -30,15 +30,6 @@ const steps: QuizStep[] = [
       { label: "Mittel (50–100 m²)", icon: TextT, value: "mittel" },
       { label: "Groß (über 100 m²)", icon: ArrowsOutSimple, value: "gross" },
       { label: "Weiß ich nicht", icon: Question, value: "unbekannt" },
-    ],
-  },
-  {
-    question: "Wann soll die Anlage installiert werden?",
-    options: [
-      { label: "So schnell wie möglich", icon: Lightning, value: "asap" },
-      { label: "In den nächsten 3 Monaten", icon: CalendarBlank, value: "3monate" },
-      { label: "In den nächsten 6 Monaten", icon: CalendarBlank, value: "6monate" },
-      { label: "Noch unbestimmt", icon: Question, value: "unbestimmt" },
     ],
   },
 ];
