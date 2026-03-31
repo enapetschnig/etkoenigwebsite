@@ -411,9 +411,16 @@ function AnfragenView() {
               )}
               <button onClick={async () => {
                 if (!confirm("Anfrage wirklich löschen?")) return;
-                await api("/api/inquiries", { method: "DELETE", body: JSON.stringify({ id: selected.id }) });
-                setInquiries((prev) => prev.filter((i) => i.id !== selected.id));
-                setSelected(null);
+                try {
+                  const res = await fetch("/api/inquiries", {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json", "x-admin-token": getToken() || "" },
+                    body: JSON.stringify({ id: selected.id }),
+                  });
+                  if (!res.ok) { alert("Fehler beim Löschen"); return; }
+                  setInquiries((prev) => prev.filter((i) => i.id !== selected.id));
+                  setSelected(null);
+                } catch { alert("Fehler beim Löschen"); }
               }} className="px-4 py-2 text-xs font-semibold bg-red-500 text-white rounded-xl hover:bg-red-600 transition ml-auto">
                 🗑 Löschen
               </button>

@@ -34,6 +34,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
     name: "",
     email: "",
     phone: "",
+    plz: "",
     message: "",
     dsgvo: false,
   });
@@ -80,6 +81,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
         const question = steps[parseInt(step)]?.question;
         if (question) answerMap[question] = value;
       });
+      if (contactData.plz) answerMap["Postleitzahl"] = contactData.plz;
 
       await fetch("/api/inquiries", {
         method: "POST",
@@ -272,6 +274,21 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
                     </div>
                   </div>
                   <div>
+                    <label htmlFor="quiz-plz" className="block text-sm font-medium mb-1.5">
+                      Postleitzahl *
+                    </label>
+                    <input
+                      id="quiz-plz"
+                      type="text"
+                      required
+                      maxLength={5}
+                      value={contactData.plz}
+                      onChange={(e) => setContactData({ ...contactData, plz: e.target.value.replace(/\D/g, "").slice(0, 4) })}
+                      className="w-full px-4 py-3 rounded-xl border border-border bg-white text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                      placeholder="z.B. 8811"
+                    />
+                  </div>
+                  <div>
                     <label htmlFor="quiz-message" className="block text-sm font-medium mb-1.5">
                       Nachricht (optional)
                     </label>
@@ -328,7 +345,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={!contactData.name || !contactData.email || !contactData.phone || !contactData.dsgvo || isSubmitting}
+                disabled={!contactData.name || !contactData.email || !contactData.phone || !contactData.plz || !contactData.dsgvo || isSubmitting}
                 className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all disabled:opacity-30 disabled:pointer-events-none"
               >
                 {isSubmitting ? (
