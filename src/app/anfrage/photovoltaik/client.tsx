@@ -1,6 +1,6 @@
 "use client";
 
-import { HouseLine, Buildings, Factory, House, SolarPanel, Plus, BatteryCharging, Package, ArrowsOutSimple, TextT, ArrowsInSimple, Question, Lightning, CalendarBlank, MapPin, NavigationArrow } from "@phosphor-icons/react";
+import { HouseLine, Buildings, Factory, House, SolarPanel, Plus, BatteryCharging, Package, ArrowsOutSimple, TextT, ArrowsInSimple, Question, Lightning, CalendarBlank } from "@phosphor-icons/react";
 import { QuizForm } from "@/components/quiz-form";
 import type { QuizStep } from "@/components/quiz-form";
 
@@ -30,15 +30,6 @@ const steps: QuizStep[] = [
       { label: "Mittel (50–100 m²)", icon: TextT, value: "mittel" },
       { label: "Groß (über 100 m²)", icon: ArrowsOutSimple, value: "gross" },
       { label: "Weiß ich nicht", icon: Question, value: "unbekannt" },
-    ],
-  },
-  {
-    question: "Wo befindet sich das Gebäude?",
-    options: [
-      { label: "Bezirk Murau", icon: MapPin, value: "Bezirk Murau" },
-      { label: "Bezirk Murtal", icon: MapPin, value: "Bezirk Murtal" },
-      { label: "Steiermark (anderer Bezirk)", icon: NavigationArrow, value: "Steiermark" },
-      { label: "Kärnten / Anderes Bundesland", icon: NavigationArrow, value: "Kärnten / Anderes Bundesland" },
     ],
   },
   {
