@@ -252,6 +252,63 @@ export default function FachhandelClient() {
         </div>
       </Section>
 
+      {/* Osterdeals – bis 14.04.2026 */}
+      {new Date() <= new Date("2026-04-14T23:59:59") && (
+        <Section className="bg-[#fff6e7]" id="osterdeals">
+          <FadeIn>
+            <div className="text-center mb-8">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/15 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+                Solange der Vorrat reicht
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">
+                Osterdeals, die richtig <span className="text-primary">Spannung</span> bringen!
+              </h2>
+              <p className="text-muted max-w-xl mx-auto">
+                Top-Angebote zu Ostern in unserem Fachhandel in Murau. Gültig bis spätestens 14. April 2026.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              { src: "/osterdeals/01-titelseite.jpg", alt: "ET König Osterdeals – Titelseite mit Top-Angeboten" },
+              { src: "/osterdeals/02-waschen-trocknen.jpg", alt: "Waschen & Trocknen – Miele, Siemens, elektrabregenz Angebote" },
+              { src: "/osterdeals/03-kochen-kuehlen.jpg", alt: "Trocknen, Kochen & Kühlen – Siemens, elektrabregenz, NABO" },
+              { src: "/osterdeals/04-kueche-geniessen.jpg", alt: "Küche & Genießen – DeLonghi, WMF, cloer, SEVERIN" },
+              { src: "/osterdeals/05-haushalt-pflege.jpg", alt: "Haushalt & Pflege – Bosch, Kärcher, Leifheit, Panasonic" },
+              { src: "/osterdeals/06-kuechenhelfer.jpg", alt: "Küchenhelfer & Unterwegs – Bosch, GRAEF, NABO" },
+              { src: "/osterdeals/07-tv-entertainment.jpg", alt: "TV & Entertainment – Samsung 98 Zoll Crystal UHD, Neo QLED" },
+              { src: "/osterdeals/08-tv-sound.jpg", alt: "TV & Sound – Samsung OLED, Crystal UHD ab 399,-" },
+            ].map((img, i) => (
+              <FadeIn key={img.src} delay={i * 0.05}>
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white shadow-sm group cursor-pointer">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          <FadeIn delay={0.3}>
+            <div className="text-center mt-8">
+              <p className="text-sm text-muted mb-4">Alle Preise inkl. MwSt. Angebote solange der Vorrat reicht.</p>
+              <a
+                href="tel:+436608648605"
+                className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-dark bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
+              >
+                <Phone size={16} weight="bold" />
+                Jetzt anfragen: +43 660 864 86 05
+              </a>
+            </div>
+          </FadeIn>
+        </Section>
+      )}
+
       {/* Vorteile */}
       <Section>
         <FadeIn>
