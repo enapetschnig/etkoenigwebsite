@@ -60,8 +60,22 @@ export default function KontaktClient() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    console.log("Contact form:", formData);
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: "Kontakt" + (formData.betreff ? ` – ${formData.betreff}` : ""),
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          message: formData.message || null,
+          answers: formData.betreff ? { Betreff: formData.betreff } : null,
+        }),
+      });
+    } catch (err) {
+      console.error("Submit error:", err);
+    }
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
