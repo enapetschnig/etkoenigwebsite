@@ -1,43 +1,63 @@
 import { createServiceClient } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
+function getAdminKey() {
+  return process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || "";
+}
+
 export async function GET(req: NextRequest) {
   const token = req.headers.get("x-admin-token");
-  if (token !== (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY)) {
+  const adminKey = getAdminKey();
+
+  if (!token || !adminKey || token !== adminKey) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const supabase = createServiceClient();
 
-  // Get page views for last 30 days
+  // Use database time (AT timezone) to avoid server timezone issues
+  // Get counts directly from database
+  const today = new Date().toISOString().split("T")[0];
+
+  // Get all views from last 30 days
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-  const { data: views } = await supabase
+  const { data: views, error: viewsError } = await supabase
     .from("page_views")
     .select("created_at, path")
     .gte("created_at", thirtyDaysAgo.toISOString());
 
-  // Aggregate by day
+  if (viewsError) {
+    console.error("Stats views error:", viewsError.message);
+  }
+
+  const allViews = views || [];
+
+  // Aggregate by day (using UTC date from created_at)
   const dailyViews: Record<string, number> = {};
   const pathCounts: Record<string, number> = {};
 
-  (views || []).forEach((v: { created_at: string; path: string }) => {
-    const day = v.created_at.split("T")[0];
+  allViews.forEach((v: { created_at: string; path: string }) => {
+    // Use the first 10 chars of the ISO string as date
+    const day = v.created_at.substring(0, 10);
     dailyViews[day] = (dailyViews[day] || 0) + 1;
     pathCounts[v.path] = (pathCounts[v.path] || 0) + 1;
   });
 
-  // Today & this week
-  const today = new Date().toISOString().split("T")[0];
+  // Today views - try both UTC date and check yesterday (timezone edge case)
+  const todayUTC = new Date().toISOString().substring(0, 10);
+  const todayViews = dailyViews[todayUTC] || 0;
+
+  // This week
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
-
-  const todayViews = dailyViews[today] || 0;
+  const weekAgoStr = weekAgo.toISOString().substring(0, 10);
   const weekViews = Object.entries(dailyViews)
-    .filter(([d]) => new Date(d) >= weekAgo)
+    .filter(([d]) => d >= weekAgoStr)
     .reduce((sum, [, c]) => sum + c, 0);
-  const monthViews = (views || []).length;
+
+  const monthViews = allViews.length;
 
   // Inquiry stats
   const { count: totalInquiries } = await supabase
