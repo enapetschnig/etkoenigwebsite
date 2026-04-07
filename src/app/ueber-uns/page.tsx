@@ -6,12 +6,12 @@ import { Section, FadeIn, CountUp } from "@/components/section";
 
 export const metadata: Metadata = {
   title: "Über uns – Ihr Elektriker & Installateur im Murtal | ET König",
-  description: "Lernen Sie ET König kennen – über 95 Mitarbeiter, 3 Standorte, 13+ Jahre Erfahrung. Ihr verlässlicher Partner in der Steiermark und Kärnten.",
+  description: "Lernen Sie ET König kennen – über 85 Mitarbeiter, 3 Standorte, 25+ Jahre Erfahrung. Ihr verlässlicher Partner in der Steiermark und Kärnten.",
 };
 
 const zahlen = [
-  { icon: CalendarCheck, value: 2013, label: "Gründungsjahr", suffix: "" },
-  { icon: Users, value: 95, label: "Mitarbeiter", suffix: "+" },
+  { icon: CalendarCheck, value: 2001, label: "Gründungsjahr", suffix: "" },
+  { icon: Users, value: 85, label: "Mitarbeiter", suffix: "+" },
   { icon: MapPin, value: 3, label: "Standorte", suffix: "" },
   { icon: Truck, value: 62, label: "Firmenfahrzeuge", suffix: "" },
 ];
@@ -32,14 +32,14 @@ export default function UeberUnsPage() {
           <FadeIn>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Über uns</p>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
-              Einen Herzschlag voraus – seit 2013
+              Einen Herzschlag voraus – seit 2001
             </h1>
             <p className="text-muted leading-relaxed mb-4">
               Was als Elektroinstallationsbetrieb begann, ist heute eines der führenden Unternehmen für
               Elektro, Photovoltaik und Haustechnik in der Steiermark und Kärnten.
             </p>
             <p className="text-muted leading-relaxed">
-              Mit über 95 Mitarbeitern, 3 Standorten und mehr als 7.600 abgeschlossenen Projekten
+              Mit über 85 Mitarbeitern, 3 Standorten und mehr als 20.000 abgeschlossenen Projekten
               sind wir Ihr verlässlicher Partner – von der Beratung bis zur Montage.
             </p>
           </FadeIn>

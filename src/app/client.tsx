@@ -23,10 +23,10 @@ import { ScrollVideo } from "@/components/scroll-video";
 import { ScrollStandorte } from "@/components/scroll-standorte";
 
 const stats = [
-  { value: 13, suffix: "+", label: "Jahre Erfahrung", icon: "calendar" },
-  { value: 15000, suffix: "+", label: "abgeschlossene Projekte", icon: "check" },
+  { value: 25, suffix: "+", label: "Jahre Erfahrung", icon: "calendar" },
+  { value: 20000, suffix: "+", label: "abgeschlossene Projekte", icon: "check" },
   { value: 3, suffix: "", label: "Standorte", icon: "pin" },
-  { value: 95, suffix: "+", label: "Mitarbeiter im Team", icon: "users" },
+  { value: 85, suffix: "+", label: "Mitarbeiter im Team", icon: "users" },
 ];
 
 export default function HomeClient() {
@@ -70,7 +70,7 @@ export default function HomeClient() {
                 className="text-lg text-white/70 max-w-xl mb-8 leading-relaxed"
               >
                 Von der Planung bis zur Montage – Ihre regionalen Experten in der Steiermark und Kärnten.
-                Über 15.000 erfolgreich abgeschlossene Projekte seit 2013.
+                Über 20.000 erfolgreich abgeschlossene Projekte seit 2001.
               </motion.p>
 
               <motion.div
@@ -97,9 +97,9 @@ export default function HomeClient() {
               className="hidden lg:grid grid-cols-2 gap-3"
             >
               {[
-                { value: "15.000+", label: "abgeschlossene Projekte" },
-                { value: "95+", label: "Mitarbeiter im Team" },
-                { value: "13+", label: "Jahre Erfahrung" },
+                { value: "20.000+", label: "abgeschlossene Projekte" },
+                { value: "85+", label: "Mitarbeiter im Team" },
+                { value: "25+", label: "Jahre Erfahrung" },
                 { value: "3", label: "Standorte" },
               ].map((stat, i) => (
                 <motion.div

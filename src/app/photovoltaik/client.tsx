@@ -29,7 +29,7 @@ const whyUs = [
   {
     num: "01",
     title: "Lokaler Platzhirsch",
-    description: "In der Steiermark und Kärnten zuhause – mit 3 Standorten, 95+ Mitarbeitern und einem großen Fuhrpark ist keine Anlage zu groß für uns.",
+    description: "In der Steiermark und Kärnten zuhause – mit 3 Standorten, 85+ Mitarbeitern und einem großen Fuhrpark ist keine Anlage zu groß für uns.",
     icon: MapPin,
   },
   {
@@ -434,7 +434,7 @@ export default function PhotovoltaikClient() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Über uns</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">12 Jahre ET König</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">14 Jahre ET König</h2>
 
             <div className="space-y-6 mb-8">
               <div className="flex items-start gap-4">
@@ -444,7 +444,7 @@ export default function PhotovoltaikClient() {
                 <div>
                   <p className="text-lg font-bold mb-1">Hochqualifizierte Mitarbeiter</p>
                   <p className="text-base text-muted leading-relaxed">
-                    Wir können auf über 95 Mitarbeiter zurückgreifen und gewährleisten so einen
+                    Wir können auf über 85 Mitarbeiter zurückgreifen und gewährleisten so einen
                     reibungslosen Ablauf bei der Installation Ihrer PV-Anlage.
                   </p>
                 </div>

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | ET König GmbH",
   },
   description:
-    "Ihr Elektriker und Installateur in der Steiermark & Kärnten. Elektroinstallation, Photovoltaik und HLS – über 15.000 Projekte seit 2013. ET König GmbH Murau, Scheifling & Feldkirchen.",
+    "Ihr Elektriker und Installateur in der Steiermark & Kärnten. Elektroinstallation, Photovoltaik und HLS – über 20.000 Projekte seit 2001. ET König GmbH Murau, Scheifling & Feldkirchen.",
   keywords: [
     "Elektriker Steiermark",
     "Elektroinstallation Murau",
