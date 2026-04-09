@@ -141,8 +141,27 @@ function ApplicationForm() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    console.log("Bewerbung:", { answers, contact: contactData });
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          category: "Bewerbung",
+          name: contactData.vorname + " " + contactData.nachname,
+          email: "",
+          phone: contactData.telefon,
+          message: `Alter: ${contactData.alter}`,
+          answers: {
+            "Erfahrung": answers[0] || "",
+            "Aktuelle Situation": answers[1] || "",
+            "PV-Erfahrung": answers[2] || "",
+            "Frühester Start": answers[3] || "",
+          },
+        }),
+      });
+    } catch (e) {
+      console.error("Bewerbung Fehler:", e);
+    }
     setIsSubmitting(false);
     setIsSubmitted(true);
   };
