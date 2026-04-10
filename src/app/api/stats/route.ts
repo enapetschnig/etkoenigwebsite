@@ -9,41 +9,47 @@ export async function GET(req: NextRequest) {
 
   const supabase = createServiceClient();
 
-  // Use database time (AT timezone) to avoid server timezone issues
-  // Get counts directly from database
-  const today = new Date().toISOString().split("T")[0];
-
-  // Get all views from last 30 days
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+  const since = thirtyDaysAgo.toISOString();
 
-  const { data: views, error: viewsError } = await supabase
-    .from("page_views")
-    .select("created_at, path")
-    .gte("created_at", thirtyDaysAgo.toISOString());
+  // Fetch ALL page views (Supabase default limit is 1000!)
+  // Paginate to get everything
+  const allViews: { created_at: string; path: string }[] = [];
+  let from = 0;
+  const batchSize = 1000;
 
-  if (viewsError) {
-    console.error("Stats views error:", viewsError.message);
+  while (true) {
+    const { data, error } = await supabase
+      .from("page_views")
+      .select("created_at, path")
+      .gte("created_at", since)
+      .range(from, from + batchSize - 1);
+
+    if (error) {
+      console.error("Stats views error:", error.message);
+      break;
+    }
+
+    if (!data || data.length === 0) break;
+    allViews.push(...data);
+    if (data.length < batchSize) break; // last page
+    from += batchSize;
   }
 
-  const allViews = views || [];
-
-  // Aggregate by day (using UTC date from created_at)
+  // Aggregate by day
   const dailyViews: Record<string, number> = {};
   const pathCounts: Record<string, number> = {};
 
-  allViews.forEach((v: { created_at: string; path: string }) => {
-    // Use the first 10 chars of the ISO string as date
+  allViews.forEach((v) => {
     const day = v.created_at.substring(0, 10);
     dailyViews[day] = (dailyViews[day] || 0) + 1;
     pathCounts[v.path] = (pathCounts[v.path] || 0) + 1;
   });
 
-  // Today views - try both UTC date and check yesterday (timezone edge case)
+  // Today
   const todayUTC = new Date().toISOString().substring(0, 10);
   const todayViews = dailyViews[todayUTC] || 0;
-
-  console.log("Stats debug:", { viewCount: allViews.length, todayUTC, todayViews });
 
   // This week
   const weekAgo = new Date();
