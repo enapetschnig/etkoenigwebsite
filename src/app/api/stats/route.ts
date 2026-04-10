@@ -1,15 +1,9 @@
 import { createServiceClient } from "@/lib/supabase";
+import { isValidAdminToken } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-function getAdminKey() {
-  return process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || "";
-}
-
 export async function GET(req: NextRequest) {
-  const token = req.headers.get("x-admin-token");
-  const adminKey = getAdminKey();
-
-  if (!token || !adminKey || token !== adminKey) {
+  if (!isValidAdminToken(req.headers.get("x-admin-token"))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -48,6 +42,8 @@ export async function GET(req: NextRequest) {
   // Today views - try both UTC date and check yesterday (timezone edge case)
   const todayUTC = new Date().toISOString().substring(0, 10);
   const todayViews = dailyViews[todayUTC] || 0;
+
+  console.log("Stats debug:", { viewCount: allViews.length, todayUTC, todayViews });
 
   // This week
   const weekAgo = new Date();

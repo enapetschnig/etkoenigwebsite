@@ -1,4 +1,5 @@
 import { createServiceClient } from "@/lib/supabase";
+import { getAdminToken } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -27,7 +28,7 @@ export async function POST(req: NextRequest) {
 
   // Return service role key as admin token
   return NextResponse.json({
-    token: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY,
+    token: getAdminToken(),
     email: admin.email,
   });
 }
