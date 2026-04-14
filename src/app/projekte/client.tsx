@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Section, FadeIn } from "@/components/section";
 
 type Category = "alle" | "Photovoltaik" | "Elektro" | "HLS" | "Dachdeckerei";
@@ -75,16 +74,16 @@ export default function ProjekteClient() {
           </p>
         </FadeIn>
         <FadeIn delay={0.1}>
-          <div className="relative w-full max-w-3xl mx-auto mt-8 mb-2">
-            <Image
-              src="/projekte-hero.png"
-              alt="Über 8.000 Projekte in ganz Österreich – ET König Standorte"
-              width={1792}
-              height={1024}
-              className="w-full h-auto mix-blend-multiply"
-              sizes="(max-width: 768px) 100vw, 800px"
-              priority
-            />
+          <div className="relative w-full max-w-3xl mx-auto mt-8 mb-2 rounded-2xl overflow-hidden">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-auto"
+            >
+              <source src="/projekte-hero.mp4" type="video/mp4" />
+            </video>
           </div>
         </FadeIn>
       </Section>
