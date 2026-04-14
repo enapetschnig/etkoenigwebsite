@@ -67,7 +67,7 @@ export default function ProjekteClient() {
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            Über <span className="font-mono">{projects.length > 0 ? projects.length.toLocaleString("de-AT") : "8.000"}</span> Projekte
+            Mehr als <span className="font-mono">25 Jahre</span> Erfahrung
           </h1>
           <p className="text-base text-muted max-w-2xl">
             Jedes Projekt spiegelt unser Streben nach Qualität wider.
