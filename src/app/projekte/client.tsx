@@ -63,20 +63,8 @@ export default function ProjekteClient() {
 
   return (
     <>
-      <Section className="pt-28 !pb-8">
+      <Section className="pt-28 !pb-0">
         <FadeIn>
-          <div className="relative w-full aspect-[16/7] rounded-2xl overflow-hidden mb-8">
-            <Image
-              src="/projekte-hero.png"
-              alt="Über 8.000 Projekte in ganz Österreich – ET König Standorte"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, 1400px"
-              priority
-            />
-          </div>
-        </FadeIn>
-        <FadeIn delay={0.1}>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             Über <span className="font-mono">{projects.length > 0 ? projects.length.toLocaleString("de-AT") : "8.000"}</span> Projekte
@@ -85,6 +73,19 @@ export default function ProjekteClient() {
             Jedes Projekt spiegelt unser Streben nach Qualität wider.
             Filtern Sie nach Kategorie und Jahr, um unsere Referenzen zu durchsuchen.
           </p>
+        </FadeIn>
+        <FadeIn delay={0.1}>
+          <div className="relative w-full max-w-3xl mx-auto mt-8 mb-2">
+            <Image
+              src="/projekte-hero.png"
+              alt="Über 8.000 Projekte in ganz Österreich – ET König Standorte"
+              width={1792}
+              height={1024}
+              className="w-full h-auto mix-blend-multiply"
+              sizes="(max-width: 768px) 100vw, 800px"
+              priority
+            />
+          </div>
         </FadeIn>
       </Section>
 
