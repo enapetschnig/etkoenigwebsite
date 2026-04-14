@@ -78,7 +78,6 @@ export default function ProjekteClient() {
             <video
               autoPlay
               muted
-              loop
               playsInline
               className="w-full h-auto"
             >
