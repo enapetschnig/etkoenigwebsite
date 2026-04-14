@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Section, FadeIn } from "@/components/section";
 
 type Category = "alle" | "Photovoltaik" | "Elektro" | "HLS" | "Dachdeckerei";
@@ -64,6 +65,18 @@ export default function ProjekteClient() {
     <>
       <Section className="pt-28 !pb-8">
         <FadeIn>
+          <div className="relative w-full aspect-[16/7] rounded-2xl overflow-hidden mb-8">
+            <Image
+              src="/projekte-hero.png"
+              alt="Über 8.000 Projekte in ganz Österreich – ET König Standorte"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 1400px"
+              priority
+            />
+          </div>
+        </FadeIn>
+        <FadeIn delay={0.1}>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Referenzen</p>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
             Über <span className="font-mono">{projects.length > 0 ? projects.length.toLocaleString("de-AT") : "8.000"}</span> Projekte
