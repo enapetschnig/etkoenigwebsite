@@ -148,6 +148,28 @@ const futurePaths = [
   },
 ];
 
+// ─── WARUM ELEKTROTECHNIK ───
+const zukunftReasons = [
+  {
+    icon: Wrench,
+    title: "Handwerk bleibt Handwerk",
+    description:
+      "Kabel verlegen, Anlagen installieren, Fehler finden — das kann keine KI übernehmen. Der Beruf erfordert Erfahrung, Fingerspitzengefühl und einen Menschen vor Ort. Damit bist du auch in 30 Jahren gefragt.",
+  },
+  {
+    icon: SolarPanel,
+    title: "Die Energiewende braucht dich",
+    description:
+      "PV-Anlagen, E-Auto-Ladestationen, Wärmepumpen, Smart-Home-Systeme — alles davon wächst, alles davon muss installiert werden. Der Bedarf an Elektrotechnikern steigt seit Jahren und wird weiter steigen.",
+  },
+  {
+    icon: Lightning,
+    title: "Du baust etwas Echtes",
+    description:
+      "Am Ende des Tages siehst du, was du mit deinen Händen geschafft hast. Eine funktionierende Anlage, ein Haus mit Strom, ein zufriedener Kunde. Das bleibt. Nicht nur eine Datei am Bildschirm.",
+  },
+];
+
 // ─── FAQ DATA ───
 const faqs = [
   {
@@ -160,7 +182,7 @@ const faqs = [
   },
   {
     q: "Wo findet die Berufsschule statt?",
-    a: "Je nach Wohnort in Graz, Knittelfeld oder Eisenerz — blockweise in 2- bis 3-wöchigen Einheiten. Unterkunft und Verpflegung während der Berufsschule werden bezahlt.",
+    a: "Die Berufsschule befindet sich in Voitsberg. Der Unterricht findet blockweise statt — mehrere Wochen am Stück. Unterkunft und Verpflegung während der Berufsschule werden bezahlt.",
   },
   {
     q: "Brauche ich einen Führerschein?",
@@ -637,6 +659,39 @@ export default function LehrstellenClient() {
           </FadeIn>
         </div>
       </section>
+
+      {/* Warum Elektrotechnik */}
+      <Section id="zukunft-beruf">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
+            Warum Elektrotechnik?
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            Ein Beruf, der auch in 30 Jahren gebraucht wird
+          </h2>
+          <p className="text-base text-muted max-w-2xl mb-10">
+            KI und Automatisierung verändern viele Berufe. Die Elektrotechnik nicht — im Gegenteil.
+            Gerade jetzt steigt der Bedarf an Fachkräften, die anpacken können.
+          </p>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {zukunftReasons.map((reason, i) => {
+            const Icon = reason.icon;
+            return (
+              <FadeIn key={reason.title} delay={i * 0.08}>
+                <div className="rounded-2xl border border-border/60 bg-white p-6 h-full hover:shadow-[0_8px_30px_rgba(232,139,0,0.08)] transition-shadow">
+                  <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <Icon size={22} weight="light" className="text-primary" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2">{reason.title}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{reason.description}</p>
+                </div>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </Section>
 
       {/* Zahlen */}
       <Section className="bg-background-alt" id="zahlen">

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie, ShieldCheck, ChartBar, X } from "@phosphor-icons/react";
-import { getConsent, setConsent } from "@/lib/consent";
+import { CONSENT_OPEN_EVENT, getConsent, setConsent } from "@/lib/consent";
 
 type View = "hidden" | "main" | "details";
 
@@ -24,6 +24,15 @@ export function CookieBanner() {
       setDecided(false);
       setView("main");
     }
+
+    // Allow footer links / other UI to re-open the banner in details view.
+    const onOpen = () => {
+      const latest = getConsent();
+      setAnalytics(latest?.analytics ?? false);
+      setView("details");
+    };
+    window.addEventListener(CONSENT_OPEN_EVENT, onOpen);
+    return () => window.removeEventListener(CONSENT_OPEN_EVENT, onOpen);
   }, []);
 
   const persist = useCallback((value: boolean) => {
@@ -37,49 +46,27 @@ export function CookieBanner() {
   const rejectAll = () => persist(false);
   const saveSelection = () => persist(analytics);
 
-  const reopen = () => {
-    const stored = getConsent();
-    setAnalytics(stored?.analytics ?? false);
-    setView("details");
-  };
+  // Silence "decided" unused-warning – state is tracked so the banner
+  // knows when a user has finished the initial decision flow.
+  void decided;
 
   return (
-    <>
-      <AnimatePresence>
-        {view !== "hidden" && (
-          <BannerCard
-            key="banner"
-            view={view}
-            analytics={analytics}
-            setAnalytics={setAnalytics}
-            onAcceptAll={acceptAll}
-            onRejectAll={rejectAll}
-            onOpenDetails={() => setView("details")}
-            onBackToMain={() => setView("main")}
-            onSaveSelection={saveSelection}
-            onClose={decided ? () => setView("hidden") : undefined}
-          />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {decided && view === "hidden" && (
-          <motion.button
-            key="reopen"
-            type="button"
-            onClick={reopen}
-            aria-label="Cookie-Einstellungen öffnen"
-            initial={{ opacity: 0, scale: 0.8, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            transition={{ type: "spring", stiffness: 220, damping: 22 }}
-            className="fixed bottom-5 left-5 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-white text-dark shadow-lg shadow-black/10 ring-1 ring-black/5 hover:bg-warm hover:text-primary active:scale-[0.96] transition-all"
-          >
-            <Cookie size={20} weight="duotone" />
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </>
+    <AnimatePresence>
+      {view !== "hidden" && (
+        <BannerCard
+          key="banner"
+          view={view}
+          analytics={analytics}
+          setAnalytics={setAnalytics}
+          onAcceptAll={acceptAll}
+          onRejectAll={rejectAll}
+          onOpenDetails={() => setView("details")}
+          onBackToMain={() => setView("main")}
+          onSaveSelection={saveSelection}
+          onClose={decided ? () => setView("hidden") : undefined}
+        />
+      )}
+    </AnimatePresence>
   );
 }
 

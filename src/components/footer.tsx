@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, EnvelopeSimple, FacebookLogo, Clock, ArrowRight, NavigationArrow } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "./logo";
+import { CookieSettingsLink } from "./cookie-settings-link";
 
 const standorte = [
   {
@@ -204,7 +205,7 @@ export function Footer() {
           <p className="text-[11px] text-white/30">
             © {new Date().getFullYear()} ET König GmbH · Alle Rechte vorbehalten
           </p>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {rechtliches.map((link) => (
               <Link
                 key={link.href}
@@ -214,6 +215,7 @@ export function Footer() {
                 {link.label}
               </Link>
             ))}
+            <CookieSettingsLink />
           </div>
         </div>
       </div>
