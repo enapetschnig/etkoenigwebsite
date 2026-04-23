@@ -39,9 +39,9 @@ import { Section, FadeIn, CountUp } from "@/components/section";
 
 // ─── STATS DATA ───
 const stats = [
-  { icon: CalendarCheck, value: 25, suffix: "+", label: "Jahre am Markt" },
-  { icon: Users, value: 85, suffix: "+", label: "Kollegen im Team" },
-  { icon: CheckCircle, value: 20000, suffix: "+", label: "Projekte abgeschlossen" },
+  { icon: CalendarCheck, value: 25, suffix: "+", label: "Jahre Erfahrung" },
+  { icon: Users, value: 85, suffix: "+", label: "Mitarbeiter" },
+  { icon: CheckCircle, value: 20000, suffix: "+", label: "Abgeschlossene Projekte" },
   { icon: Truck, value: 62, suffix: "", label: "Firmenfahrzeuge" },
 ];
 
@@ -49,25 +49,25 @@ const stats = [
 const tasks = [
   {
     icon: SolarPanel,
-    title: "Photovoltaik & Energiewende",
+    title: "Photovoltaik",
     description:
-      "Du bist bei der Installation modernster PV-Anlagen dabei und verstehst, wie Sonnenenergie zu Strom wird. Zukunftsbranche — deine Skills werden gebraucht!",
-    highlights: ["PV-Module", "Wechselrichter", "Zukunftstechnik"],
+      "Du lernst Planung, Montage und Anschluss von PV-Anlagen — von Einfamilienhäusern bis zu Gewerbeobjekten. Die Branche wächst stark und bietet langfristige Perspektiven.",
+    highlights: ["PV-Module", "Wechselrichter", "Netzanschluss"],
     image: "/karriere/pv-installation.jpg",
   },
   {
     icon: BatteryCharging,
     title: "Batteriespeicher & Smart Home",
     description:
-      "Moderne Speichersysteme, Wallboxen, E-Auto-Ladestationen — du lernst die Technik der Zukunft kennen und setzt sie selbst um.",
+      "Du arbeitest mit modernen Speichersystemen, Wallboxen und Ladestationen. Dazu kommen Smart-Home-Lösungen zur Gebäudesteuerung.",
     highlights: ["Speichertechnik", "E-Mobilität", "Smart Home"],
     image: "/karriere/battery-storage.jpg",
   },
   {
     icon: Lightning,
-    title: "Elektroinstallation von A bis Z",
+    title: "Elektroinstallation",
     description:
-      "Vom Verlegen der ersten Leitung im Rohbau bis zur fertigen Lichtschaltung — du begleitest ganze Projekte und siehst, was du mit deinen Händen schaffst.",
+      "Vom Verlegen der Leitungen im Rohbau bis zur Endmontage bist du Teil des gesamten Prozesses. Neubauten, Sanierungen, Beleuchtungskonzepte.",
     highlights: ["Neubau", "Sanierung", "Beleuchtung"],
     image: "/karriere/electrical-panel.jpg",
   },
@@ -75,7 +75,7 @@ const tasks = [
     icon: Wrench,
     title: "Werkstatt & Fehlersuche",
     description:
-      "Messen, prüfen, reparieren — du lernst, wie du in jedem Gebäude Probleme findest und löst. Analytisches Denken gepaart mit Handwerk.",
+      "Messen, prüfen, Fehler diagnostizieren und beheben. Ein wichtiger Teil der Ausbildung — und eine Fähigkeit, die im Beruf täglich gefragt ist.",
     highlights: ["Messtechnik", "Fehlerdiagnose", "Reparatur"],
   },
 ];
@@ -84,45 +84,45 @@ const tasks = [
 const daySteps = [
   {
     time: "07:00",
-    title: "Los geht's",
+    title: "Arbeitsbeginn",
     icon: Sun,
     description:
-      "Treffpunkt Werkstatt in Scheifling oder direkt auf der Baustelle. Tagesplan durchgehen, Werkzeug einladen, Kaffee holen (den trinkst du schon selbst).",
+      "Treffpunkt in der Werkstatt in Scheifling oder direkt auf der Baustelle. Tagesplan besprechen, Material und Werkzeug einladen.",
   },
   {
     time: "08:00",
-    title: "Baustelle",
+    title: "Auf der Baustelle",
     icon: Wrench,
     description:
-      "Leitungen verlegen, Schalter setzen, PV-Module montieren — du bist mittendrin statt nur dabei.",
+      "Leitungen verlegen, Schalter und Steckdosen setzen, PV-Module montieren — du arbeitest im Team an laufenden Aufträgen.",
   },
   {
     time: "10:00",
     title: "Jausenpause",
     icon: Coffee,
     description:
-      "10 Minuten durchschnaufen mit den Kollegen. Wenn's gut läuft, gibt's Wurstsemmerl aus der Bäckerei nebenan.",
+      "Kurze Pause mit den Kollegen, um durchzuschnaufen und zu besprechen, was als Nächstes ansteht.",
   },
   {
     time: "12:00",
-    title: "Mittag",
+    title: "Mittagspause",
     icon: Pizza,
     description:
-      "Gemeinsame Mittagspause mit dem Team. Manchmal in der Werkstatt, manchmal im Wirtshaus.",
+      "Mittagessen mit dem Team — meistens in der Werkstatt, manchmal unterwegs im Gasthaus.",
   },
   {
     time: "15:30",
-    title: "Finish",
+    title: "Abschluss",
     icon: Toolbox,
     description:
-      "Letzte Tests, Dokumentation, Werkzeug verstauen. Abrechnung mit dem Gesellen — was lief gut, was war schwierig?",
+      "Letzte Kontrollen, Dokumentation, Werkzeug verstauen. Kurze Besprechung mit dem Gesellen, was gut lief und was besser laufen könnte.",
   },
   {
     time: "16:00",
     title: "Feierabend",
     icon: House,
     description:
-      "Nach Hause. Fit für deine Freunde, Training, Familie. Keine Überstunden, keine Wochenend-Einsätze während der Lehre.",
+      "Nach Hause. Keine Überstunden und keine Wochenend-Einsätze während der Lehre — dein Feierabend gehört dir.",
   },
 ];
 
@@ -132,19 +132,19 @@ const futurePaths = [
     icon: Briefcase,
     title: "Fixanstellung",
     description:
-      "Nach der Lehrabschlussprüfung übernehmen wir dich — mit attraktivem Gehalt, eigenem Firmenauto und allem, was dazugehört.",
+      "Nach bestandener Lehrabschlussprüfung übernehmen wir dich in eine Fixanstellung — mit attraktivem Gehalt, Firmenfahrzeug und allem, was dazugehört.",
   },
   {
     icon: Trophy,
     title: "Meisterprüfung",
     description:
-      "Du willst mehr? Wir unterstützen dich bei der Meisterausbildung — finanziell und mit Freistellung für die Vorbereitung.",
+      "Wer weitergehen möchte, kann die Meisterprüfung ablegen. Wir unterstützen dich dabei finanziell und mit Freistellung für die Vorbereitung.",
   },
   {
     icon: Rocket,
     title: "Spezialisierung",
     description:
-      "Photovoltaik, Smart Home, KNX, Blitzschutz — such dir dein Fachgebiet und werde richtig gut darin. Wir zahlen die Weiterbildungen.",
+      "Photovoltaik, KNX, Blitzschutz, Smart Home — such dir ein Fachgebiet, in dem du dich weiterentwickeln möchtest. Die Weiterbildung übernehmen wir.",
   },
 ];
 
@@ -152,27 +152,27 @@ const futurePaths = [
 const faqs = [
   {
     q: "Wie viel verdiene ich in der Lehre?",
-    a: "Die Lehrlingsentschädigung richtet sich nach dem Kollektivvertrag und steigt mit jedem Lehrjahr. Dazu kommt unser Leistungsbonus für gute Schulnoten — bei guten Leistungen kannst du pro Jahr mehrere Hundert Euro zusätzlich bekommen.",
+    a: "Die Lehrlingsentschädigung richtet sich nach dem Kollektivvertrag und steigt mit jedem Lehrjahr. Dazu kommt unser Leistungsbonus für gute Schulnoten.",
   },
   {
     q: "Wie lange dauert die Lehre?",
-    a: "3,5 Jahre bis zum Elektrotechniker. Mit Zusatzmodul (z.B. Gebäudetechnik) kann sie 4 Jahre dauern — aber die Zusatzqualifikation ist Gold wert.",
+    a: "3,5 Jahre bis zum Elektrotechniker. Mit einem Zusatzmodul (zum Beispiel Gebäudetechnik) kann sie 4 Jahre dauern. Die zusätzliche Qualifikation ist im Beruf später hilfreich.",
   },
   {
     q: "Wo findet die Berufsschule statt?",
-    a: "Je nach Wohnort in Graz, Knittelfeld oder Eisenerz — blockweise, jeweils 2-3 Wochen am Stück. Unterkunft und Verpflegung während der Berufsschule werden bezahlt.",
+    a: "Je nach Wohnort in Graz, Knittelfeld oder Eisenerz — blockweise in 2- bis 3-wöchigen Einheiten. Unterkunft und Verpflegung während der Berufsschule werden bezahlt.",
   },
   {
     q: "Brauche ich einen Führerschein?",
-    a: "Nicht sofort. Aber spätestens im 2. Lehrjahr macht ein Mopedausweis (AM) oder Auto-Führerschein (B17/B) Sinn — wir unterstützen dich mit einem Zuschuss zur Fahrschule.",
+    a: "Nicht sofort. Spätestens im zweiten Lehrjahr ist ein Mopedausweis oder Führerschein aber sinnvoll. Wir unterstützen dich mit einem Zuschuss zur Fahrschule.",
   },
   {
     q: "Kann ich vorher schnuppern?",
-    a: "Klar. Ruf einfach an und komm auf einen Schnuppertag vorbei. Du kannst dir 1-3 Tage unverbindlich anschauen, ob der Job was für dich ist. Keine Bewerbung nötig.",
+    a: "Ja. Ruf einfach an und vereinbare einen Schnuppertag. Du kannst dir 1 bis 3 Tage unverbindlich anschauen, wie die Arbeit abläuft — ohne vorherige Bewerbung.",
   },
   {
-    q: "Was, wenn ich was nicht weiß?",
-    a: "Dumme Fragen gibt's bei uns nicht. Dein Lehrlingsausbildner ist genau dafür da — und jeder in unserem Team war mal in deiner Position. Wir sagen es dir gerne.",
+    q: "Was, wenn ich etwas nicht verstehe?",
+    a: "Dafür ist dein Lehrlingsausbildner da. Und dein gesamtes Team hat diese Ausbildung selbst durchlaufen — Fragen werden ernst genommen und beantwortet.",
   },
 ];
 
@@ -180,58 +180,58 @@ const faqs = [
 const benefits = [
   {
     icon: Money,
-    title: "Geld-Bonus für gute Noten",
+    title: "Bonus für gute Noten",
     description:
-      "Wer in der Berufsschule gute Leistungen bringt, wird belohnt. Zeig, was in dir steckt, und verdien dir einen extra Bonus oben drauf.",
+      "Wer in der Berufsschule gute Leistungen bringt, bekommt einen zusätzlichen Bonus. Ein fairer Anreiz für den Einsatz, den du in die Schule steckst.",
   },
   {
     icon: Student,
-    title: "Praxis vom ersten Tag",
+    title: "Praxis ab der ersten Woche",
     description:
-      "Kein wochenlanges Zuschauen: Du bist ab der ersten Woche auf der Baustelle oder in der Werkstatt dabei und arbeitest an echten Aufträgen mit.",
+      "Du arbeitest von Anfang an an echten Projekten mit. Kein wochenlanges Zuschauen, sondern begleitetes Lernen in der Praxis.",
   },
   {
     icon: Trophy,
-    title: "Top-Übernahmechancen",
+    title: "Übernahme nach der Lehre",
     description:
-      "Nach deiner erfolgreichen Lehrabschlussprüfung bieten wir dir eine Fixanstellung mit attraktivem Gehalt und klaren Aufstiegsmöglichkeiten.",
+      "Nach bestandener Lehrabschlussprüfung übernehmen wir dich in der Regel in eine Fixanstellung — mit geregeltem Einkommen und Firmenfahrzeug.",
   },
   {
     icon: Users,
-    title: "Eingespieltes Team",
+    title: "Begleitet durch die Lehrzeit",
     description:
-      "Du bist nie allein: Dein Lehrlingsausbildner und deine Kollegen stehen dir bei jedem Schritt zur Seite. Fragen sind bei uns immer willkommen.",
+      "Du bekommst einen fixen Lehrlingsausbildner, der dich durch die gesamte Ausbildung begleitet. Dazu Kollegen, die deine Fragen ernst nehmen.",
   },
   {
     icon: Car,
-    title: "Hochwertiges Werkzeug",
+    title: "Moderne Ausstattung",
     description:
-      "Wir arbeiten nur mit professionellem Werkzeug und modernster Messtechnik. Du lernst von Anfang an an den richtigen Geräten.",
+      "Wir arbeiten mit professionellem Werkzeug und moderner Messtechnik. Du lernst an Geräten, die du später im Beruf tatsächlich verwendest.",
   },
   {
     icon: Heart,
-    title: "Familiäre Atmosphäre",
+    title: "Persönliches Team",
     description:
-      "Bei ET König ist der Chef kein Fremder. Teamausflüge, gemeinsame Feiern und echte Wertschätzung — so sieht ein gutes Arbeitsklima aus.",
+      "Flache Hierarchien und ein persönlicher Umgang. Teamveranstaltungen und gemeinsame Mittagspausen gehören zum Alltag.",
   },
 ];
 
 // ─── REQUIREMENTS DATA ───
 const mustHave = [
-  { title: "Pflichtschulabschluss", detail: "Mit Abschlusszeugnis bist du dabei" },
-  { title: "Begeisterung für Technik", detail: "Du willst wissen, wie Dinge funktionieren" },
-  { title: "Handwerkliches Geschick", detail: "Du arbeitest gerne mit deinen Händen" },
-  { title: "Teamfähigkeit & Zuverlässigkeit", detail: "Wir verlassen uns auf dich, du dich auf uns" },
-  { title: "Lernbereitschaft", detail: "Die Elektrotechnik entwickelt sich rasant — wir mit ihr" },
+  { title: "Pflichtschulabschluss", detail: "Erforderlich für den Start in die Berufsschule." },
+  { title: "Interesse an Technik", detail: "Du willst verstehen, wie Dinge funktionieren." },
+  { title: "Handwerkliches Geschick", detail: "Du arbeitest gerne mit deinen Händen." },
+  { title: "Zuverlässigkeit", detail: "Du hältst Absprachen ein und bist ein verlässlicher Kollege." },
+  { title: "Lernbereitschaft", detail: "Die Elektrotechnik entwickelt sich laufend weiter." },
 ];
 
 const niceToHave = [
   {
-    title: "Schulpraktikum oder Schnuppertag bei einem Elektriker",
-    detail: "Du weißt, worauf du dich einlässt",
+    title: "Schulpraktikum oder Schnuppertag",
+    detail: "Du weißt bereits, was dich im Beruf erwartet.",
   },
-  { title: "Interesse an Mathematik & Physik", detail: "Elektrotechnik lebt von beidem" },
-  { title: "Führerschein oder Mopedschein", detail: "Für den Weg zur Berufsschule oder Baustelle" },
+  { title: "Interesse an Mathematik & Physik", detail: "Hilfreich für die Berufsschule." },
+  { title: "Moped- oder Führerschein", detail: "Für den Weg zur Berufsschule oder Baustelle." },
 ];
 
 // ─── QUIZ STEPS ───
@@ -363,10 +363,9 @@ function ApplicationForm() {
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success/10 mb-5">
           <CheckCircle size={32} weight="fill" className="text-success" />
         </div>
-        <h3 className="text-2xl font-bold mb-3">Super, wir haben deine Bewerbung!</h3>
+        <h3 className="text-2xl font-bold mb-3">Bewerbung erhalten</h3>
         <p className="text-muted">
-          Wir melden uns innerhalb von 2-3 Werktagen bei dir — per Anruf oder E-Mail. Schau schon
-          mal, ob dein Telefon Empfang hat.
+          Wir melden uns innerhalb von 2 bis 3 Werktagen bei dir — per Anruf oder E-Mail.
         </p>
       </motion.div>
     );
@@ -375,21 +374,18 @@ function ApplicationForm() {
   if (!started) {
     return (
       <div className="text-center py-8">
-        <h3 className="text-2xl font-bold mb-3">Bereit, deine Lehre zu starten?</h3>
+        <h3 className="text-2xl font-bold mb-3">Bewerbung starten</h3>
         <p className="text-muted mb-6">
-          In nur 2 Minuten bewirbst du dich — ganz ohne Lebenslauf. Wir melden uns garantiert bei
-          dir!
+          {quizSteps.length + 1} kurze Schritte, kein Lebenslauf nötig. Wir melden uns innerhalb
+          von 3 Werktagen bei dir zurück.
         </p>
         <button
           onClick={() => setStarted(true)}
           className="inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
         >
           <Play size={16} weight="fill" />
-          Bewerbung starten
+          Jetzt starten
         </button>
-        <p className="text-xs text-muted mt-3">
-          {quizSteps.length + 1} kurze Schritte · Kein Lebenslauf nötig
-        </p>
       </div>
     );
   }
@@ -594,8 +590,8 @@ export default function LehrstellenClient() {
               {[
                 { icon: MapPin, text: "Scheifling · Murau · Feldkirchen" },
                 { icon: GraduationCap, text: "Lehre Elektrotechnik" },
-                { icon: Money, text: "Geld-Bonus für gute Noten" },
-                { icon: Users, text: "Junges Team" },
+                { icon: Money, text: "Bonus für gute Noten" },
+                { icon: Users, text: "Begleitet durch die Lehre" },
               ].map((badge) => {
                 const Icon = badge.icon;
                 return (
@@ -612,16 +608,15 @@ export default function LehrstellenClient() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.1] mb-5 max-w-2xl">
-              Schluss mit <span className="line-through text-white/40">Schulbank</span>
+              Lehre zum <span className="text-primary">Elektrotechniker</span>
               <br />
-              Zeit für <span className="text-primary">echten Strom.</span>
+              in einem starken Team.
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-base sm:text-lg text-white/70 max-w-xl mb-6">
-              Dein Weg zum Elektrotechniker beginnt mit deiner ersten Leitung, nicht mit deinem 50.
-              Arbeitsblatt. Wir zeigen dir, wie Technik wirklich funktioniert — und bezahlen dich
-              dafür.
+              3,5 Jahre Ausbildung mit echter Verantwortung, modernem Werkzeug und klaren
+              Perspektiven — bei einem der größten Elektrobetriebe der Region.
             </p>
           </FadeIn>
           <FadeIn delay={0.3}>
@@ -647,15 +642,15 @@ export default function LehrstellenClient() {
       <Section className="bg-background-alt" id="zahlen">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">
-            Die Zahlen sprechen für sich
+            Ein Betrieb mit Substanz
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-center">
-            Du wirst Teil von etwas Großem
+            Ausbildung in einem etablierten Unternehmen
           </h2>
           <p className="text-base text-muted max-w-2xl mx-auto mb-12 text-center">
-            ET König ist einer der führenden Elektrotechnikbetriebe der Steiermark und Kärnten. Was
-            heißt das für dich? Du lernst von den Besten, arbeitest an spannenden Aufträgen — und
-            kannst dich auf ein stabiles Unternehmen verlassen, das auch in 20 Jahren noch da ist.
+            ET König gehört zu den größten Elektrotechnikbetrieben in der Steiermark und Kärnten.
+            Du lernst mit erfahrenen Kollegen, an abwechslungsreichen Projekten und in einem
+            Unternehmen, das seit über 25 Jahren stabil wächst.
           </p>
         </FadeIn>
 
@@ -684,11 +679,11 @@ export default function LehrstellenClient() {
             Deine Ausbildung
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Richtige Projekte. Echte Verantwortung.
+            Was du bei uns lernst
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Kein Kaffee holen, kein Werkzeug aufräumen. Ab Woche 1 arbeitest du an echten Anlagen —
-            und am Ende des Tages siehst du, was DEINE Hände geschafft haben.
+            Du arbeitest ab der ersten Woche an echten Projekten mit. Dein Lehrlingsausbildner
+            bringt dir Schritt für Schritt alles bei, was du als Elektrotechniker können musst.
           </p>
         </FadeIn>
 
@@ -737,8 +732,8 @@ export default function LehrstellenClient() {
           <div className="mt-8 p-4 rounded-xl bg-[#fff6e7] border border-primary/10 flex items-start gap-3">
             <Lightning size={22} weight="fill" className="text-primary flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted">
-              Kein Bock auf trockene Theorie? Bei uns lernst du durch Tun — Hand in Hand mit
-              Gesellen, die wissen, was sie machen.
+              Die Theorie in der Berufsschule wird bei uns durch praktische Arbeit ergänzt —
+              begleitet von erfahrenen Gesellen, die dir die Handgriffe zeigen.
             </p>
           </div>
         </FadeIn>
@@ -748,14 +743,14 @@ export default function LehrstellenClient() {
       <Section id="tag">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-            Typischer Lehrlings-Tag bei ET König
+            Ein Tag in der Lehre
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            So sieht dein Tag aus
+            So kann dein Tag aussehen
           </h2>
           <p className="text-base text-muted max-w-2xl mb-12">
-            Kein Tag wie der andere — aber die Struktur bleibt. Hier ein typischer Ablauf, damit du
-            weißt, was dich erwartet.
+            Kein Tag ist wie der andere, aber die Grundstruktur bleibt ähnlich. Ein Beispiel, wie
+            ein typischer Arbeitstag ablaufen kann.
           </p>
         </FadeIn>
 
@@ -804,7 +799,8 @@ export default function LehrstellenClient() {
             Das bieten wir dir
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Eine Lehre, die sich wirklich lohnt — fachlich, menschlich und finanziell.
+            Eine Ausbildung mit Struktur, persönlicher Betreuung und klaren Perspektiven nach der
+            Lehre.
           </p>
         </FadeIn>
 
@@ -836,8 +832,8 @@ export default function LehrstellenClient() {
             Das bringst du mit
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Du musst kein Einser-Schüler sein. Aber du solltest Bock haben, anzupacken und zu
-            lernen.
+            Du musst kein Einser-Schüler sein. Wichtiger sind Interesse, Zuverlässigkeit und die
+            Bereitschaft, etwas zu lernen.
           </p>
         </FadeIn>
 
@@ -891,17 +887,18 @@ export default function LehrstellenClient() {
 
             <div className="p-5 rounded-2xl bg-[#fff6e7] border border-primary/10">
               <p className="text-base font-bold mb-1">
-                Nicht sicher, ob die Lehre was für dich ist?
+                Nicht sicher, ob die Lehre das Richtige für dich ist?
               </p>
               <p className="text-sm text-muted">
-                Komm einfach auf einen Schnuppertag vorbei — ohne Bewerbung, ohne Verpflichtung. Ruf
-                uns an:{" "}
+                Komm auf einen Schnuppertag vorbei — unverbindlich und ohne Bewerbung. Einfach
+                anrufen unter{" "}
                 <a
                   href="tel:+436645319079"
                   className="font-semibold text-foreground hover:text-primary transition-colors"
                 >
                   +43 664 531 90 79
                 </a>
+                .
               </p>
             </div>
           </FadeIn>
@@ -912,14 +909,14 @@ export default function LehrstellenClient() {
       <Section className="bg-background-alt" id="zukunft">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-            Deine Zukunft
+            Nach der Lehre
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Mit Lehrabschluss fängt's erst an
+            Perspektiven nach dem Lehrabschluss
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Mit dem Gesellenbrief von ET König in der Tasche stehen dir alle Türen offen. Und wir
-            unterstützen dich dabei, deinen Weg zu gehen.
+            Mit dem Gesellenbrief von ET König hast du viele Möglichkeiten. Wir unterstützen dich
+            dabei, deinen Weg zu finden.
           </p>
         </FadeIn>
 
@@ -950,12 +947,13 @@ export default function LehrstellenClient() {
       {/* FAQ */}
       <Section id="faq">
         <FadeIn>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Fragen?</p>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Fragen & Antworten</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Das wollen die meisten wissen
+            Häufig gestellte Fragen
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Keine Frage ist zu klein. Wenn du etwas nicht findest — ruf uns einfach an.
+            Alles, was du zur Lehre bei uns wissen solltest. Falls eine Frage offen bleibt, melde
+            dich einfach bei uns.
           </p>
         </FadeIn>
 
@@ -974,11 +972,11 @@ export default function LehrstellenClient() {
               Jetzt bewerben
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-center">
-              Bereit, deine Lehre zu starten?
+              Bereit für deine Ausbildung?
             </h2>
             <p className="text-base text-muted text-center mb-8">
-              In nur 2 Minuten bewirbst du dich — ganz ohne Lebenslauf. Wir melden uns garantiert
-              bei dir!
+              5 kurze Fragen, deine Kontaktdaten, fertig. Kein Lebenslauf erforderlich — wir melden
+              uns innerhalb von 3 Werktagen bei dir zurück.
             </p>
           </FadeIn>
 
@@ -995,15 +993,15 @@ export default function LehrstellenClient() {
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">
-              Bock? Dann los.
+              Interesse?
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
               <MapPin size={16} weight="fill" className="text-primary" />
               <span className="text-muted">Scheifling · Murau · Feldkirchen</span>
             </div>
             <p className="text-muted mb-6">
-              Ruf uns an oder bewirb dich gleich online. Dauert 2 Minuten. Wir melden uns garantiert
-              innerhalb von 3 Werktagen bei dir.
+              Bewirb dich online oder ruf uns direkt an. Wir melden uns innerhalb von 3 Werktagen
+              bei dir zurück.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
