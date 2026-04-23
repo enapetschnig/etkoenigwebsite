@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { PhoneButton } from "@/components/phone-button";
 import { PageTracker } from "@/components/page-tracker";
+import { CookieBanner } from "@/components/cookie-banner";
 
 export function LayoutShell({
   children,
@@ -27,6 +28,7 @@ export function LayoutShell({
       <Footer />
       <PhoneButton />
       <PageTracker />
+      <CookieBanner />
     </>
   );
 }

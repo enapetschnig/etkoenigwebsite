@@ -6,14 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
   Briefcase,
-  CurrencyEur,
   Users,
   SolarPanel,
   BatteryCharging,
   Lightning,
   Wrench,
   Money,
-  Clock,
   Student,
   Trophy,
   Car,
@@ -26,8 +24,26 @@ import {
   Play,
   GraduationCap,
   CalendarCheck,
+  Truck,
+  Sun,
+  Coffee,
+  Pizza,
+  ForkKnife,
+  Toolbox,
+  House,
+  Rocket,
+  Plus,
+  Minus,
 } from "@phosphor-icons/react";
-import { Section, FadeIn } from "@/components/section";
+import { Section, FadeIn, CountUp } from "@/components/section";
+
+// ─── STATS DATA ───
+const stats = [
+  { icon: CalendarCheck, value: 25, suffix: "+", label: "Jahre am Markt" },
+  { icon: Users, value: 85, suffix: "+", label: "Kollegen im Team" },
+  { icon: CheckCircle, value: 20000, suffix: "+", label: "Projekte abgeschlossen" },
+  { icon: Truck, value: 62, suffix: "", label: "Firmenfahrzeuge" },
+];
 
 // ─── TASKS DATA ───
 const tasks = [
@@ -61,6 +77,102 @@ const tasks = [
     description:
       "Messen, prüfen, reparieren — du lernst, wie du in jedem Gebäude Probleme findest und löst. Analytisches Denken gepaart mit Handwerk.",
     highlights: ["Messtechnik", "Fehlerdiagnose", "Reparatur"],
+  },
+];
+
+// ─── DAY TIMELINE ───
+const daySteps = [
+  {
+    time: "07:00",
+    title: "Los geht's",
+    icon: Sun,
+    description:
+      "Treffpunkt Werkstatt in Scheifling oder direkt auf der Baustelle. Tagesplan durchgehen, Werkzeug einladen, Kaffee holen (den trinkst du schon selbst).",
+  },
+  {
+    time: "08:00",
+    title: "Baustelle",
+    icon: Wrench,
+    description:
+      "Leitungen verlegen, Schalter setzen, PV-Module montieren — du bist mittendrin statt nur dabei.",
+  },
+  {
+    time: "10:00",
+    title: "Jausenpause",
+    icon: Coffee,
+    description:
+      "10 Minuten durchschnaufen mit den Kollegen. Wenn's gut läuft, gibt's Wurstsemmerl aus der Bäckerei nebenan.",
+  },
+  {
+    time: "12:00",
+    title: "Mittag",
+    icon: Pizza,
+    description:
+      "Gemeinsame Mittagspause mit dem Team. Manchmal in der Werkstatt, manchmal im Wirtshaus.",
+  },
+  {
+    time: "15:30",
+    title: "Finish",
+    icon: Toolbox,
+    description:
+      "Letzte Tests, Dokumentation, Werkzeug verstauen. Abrechnung mit dem Gesellen — was lief gut, was war schwierig?",
+  },
+  {
+    time: "16:00",
+    title: "Feierabend",
+    icon: House,
+    description:
+      "Nach Hause. Fit für deine Freunde, Training, Familie. Keine Überstunden, keine Wochenend-Einsätze während der Lehre.",
+  },
+];
+
+// ─── FUTURE PATHS ───
+const futurePaths = [
+  {
+    icon: Briefcase,
+    title: "Fixanstellung",
+    description:
+      "Nach der Lehrabschlussprüfung übernehmen wir dich — mit attraktivem Gehalt, eigenem Firmenauto und allem, was dazugehört.",
+  },
+  {
+    icon: Trophy,
+    title: "Meisterprüfung",
+    description:
+      "Du willst mehr? Wir unterstützen dich bei der Meisterausbildung — finanziell und mit Freistellung für die Vorbereitung.",
+  },
+  {
+    icon: Rocket,
+    title: "Spezialisierung",
+    description:
+      "Photovoltaik, Smart Home, KNX, Blitzschutz — such dir dein Fachgebiet und werde richtig gut darin. Wir zahlen die Weiterbildungen.",
+  },
+];
+
+// ─── FAQ DATA ───
+const faqs = [
+  {
+    q: "Wie viel verdiene ich in der Lehre?",
+    a: "Die Lehrlingsentschädigung richtet sich nach dem Kollektivvertrag und steigt mit jedem Lehrjahr. Dazu kommt unser Leistungsbonus für gute Schulnoten — bei guten Leistungen kannst du pro Jahr mehrere Hundert Euro zusätzlich bekommen.",
+  },
+  {
+    q: "Wie lange dauert die Lehre?",
+    a: "3,5 Jahre bis zum Elektrotechniker. Mit Zusatzmodul (z.B. Gebäudetechnik) kann sie 4 Jahre dauern — aber die Zusatzqualifikation ist Gold wert.",
+  },
+  {
+    q: "Wo findet die Berufsschule statt?",
+    a: "Je nach Wohnort in Graz, Knittelfeld oder Eisenerz — blockweise, jeweils 2-3 Wochen am Stück. Unterkunft und Verpflegung während der Berufsschule werden bezahlt.",
+  },
+  {
+    q: "Brauche ich einen Führerschein?",
+    a: "Nicht sofort. Aber spätestens im 2. Lehrjahr macht ein Mopedausweis (AM) oder Auto-Führerschein (B17/B) Sinn — wir unterstützen dich mit einem Zuschuss zur Fahrschule.",
+  },
+  {
+    q: "Kann ich vorher schnuppern?",
+    a: "Klar. Ruf einfach an und komm auf einen Schnuppertag vorbei. Du kannst dir 1-3 Tage unverbindlich anschauen, ob der Job was für dich ist. Keine Bewerbung nötig.",
+  },
+  {
+    q: "Was, wenn ich was nicht weiß?",
+    a: "Dumme Fragen gibt's bei uns nicht. Dein Lehrlingsausbildner ist genau dafür da — und jeder in unserem Team war mal in deiner Position. Wir sagen es dir gerne.",
   },
 ];
 
@@ -254,7 +366,7 @@ function ApplicationForm() {
         <h3 className="text-2xl font-bold mb-3">Super, wir haben deine Bewerbung!</h3>
         <p className="text-muted">
           Wir melden uns innerhalb von 2-3 Werktagen bei dir — per Anruf oder E-Mail. Schau schon
-          mal, ob dein Telefon Empfang hat 😉
+          mal, ob dein Telefon Empfang hat.
         </p>
       </motion.div>
     );
@@ -423,6 +535,39 @@ function ApplicationForm() {
   );
 }
 
+// ─── FAQ ITEM ───
+function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <FadeIn delay={index * 0.05}>
+      <div className="border-l-4 border-primary bg-white rounded-r-xl border-y border-r border-border/50 overflow-hidden">
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-primary/5 transition-colors"
+        >
+          <span className="text-sm sm:text-base font-bold text-foreground">{q}</span>
+          <span className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+            {open ? <Minus size={16} weight="bold" /> : <Plus size={16} weight="bold" />}
+          </span>
+        </button>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="overflow-hidden"
+            >
+              <p className="px-5 pb-5 text-sm text-muted leading-relaxed">{a}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </FadeIn>
+  );
+}
+
 // ─── MAIN PAGE ───
 export default function LehrstellenClient() {
   return (
@@ -467,14 +612,16 @@ export default function LehrstellenClient() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.1] mb-5 max-w-2xl">
-              Starte deine Lehre als <span className="text-primary">Elektrotechniker</span>
+              Schluss mit <span className="line-through text-white/40">Schulbank</span>
+              <br />
+              Zeit für <span className="text-primary">echten Strom.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-base sm:text-lg text-white/70 max-w-xl mb-6">
-              Pack mit an, statt nur zuzuschauen. Bei ET König wirst du vom ersten Tag an Teil eines
-              jungen, motivierten Teams und arbeitest an echten Projekten — von Photovoltaik bis
-              Smart Home.
+              Dein Weg zum Elektrotechniker beginnt mit deiner ersten Leitung, nicht mit deinem 50.
+              Arbeitsblatt. Wir zeigen dir, wie Technik wirklich funktioniert — und bezahlen dich
+              dafür.
             </p>
           </FadeIn>
           <FadeIn delay={0.3}>
@@ -496,6 +643,40 @@ export default function LehrstellenClient() {
         </div>
       </section>
 
+      {/* Zahlen */}
+      <Section className="bg-background-alt" id="zahlen">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">
+            Die Zahlen sprechen für sich
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-center">
+            Du wirst Teil von etwas Großem
+          </h2>
+          <p className="text-base text-muted max-w-2xl mx-auto mb-12 text-center">
+            ET König ist einer der führenden Elektrotechnikbetriebe der Steiermark und Kärnten. Was
+            heißt das für dich? Du lernst von den Besten, arbeitest an spannenden Aufträgen — und
+            kannst dich auf ein stabiles Unternehmen verlassen, das auch in 20 Jahren noch da ist.
+          </p>
+        </FadeIn>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {stats.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <FadeIn key={item.label} delay={i * 0.1} className="text-center">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <Icon size={24} weight="light" className="text-primary" />
+                </div>
+                <p className="text-3xl sm:text-4xl font-bold mb-1">
+                  <CountUp end={item.value} suffix={item.suffix} />
+                </p>
+                <p className="text-sm text-muted">{item.label}</p>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </Section>
+
       {/* Deine Ausbildung */}
       <Section id="aufgaben">
         <FadeIn>
@@ -503,11 +684,11 @@ export default function LehrstellenClient() {
             Deine Ausbildung
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Das lernst du bei uns
+            Richtige Projekte. Echte Verantwortung.
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            In 3,5 bis 4 Jahren machen wir dich zum Profi. Du lernst alles, was du als
-            Elektrotechniker wissen musst — und noch viel mehr.
+            Kein Kaffee holen, kein Werkzeug aufräumen. Ab Woche 1 arbeitest du an echten Anlagen —
+            und am Ende des Tages siehst du, was DEINE Hände geschafft haben.
           </p>
         </FadeIn>
 
@@ -554,13 +735,63 @@ export default function LehrstellenClient() {
 
         <FadeIn>
           <div className="mt-8 p-4 rounded-xl bg-[#fff6e7] border border-primary/10 flex items-start gap-3">
-            <span className="text-2xl">💡</span>
+            <Lightning size={22} weight="fill" className="text-primary flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted">
               Kein Bock auf trockene Theorie? Bei uns lernst du durch Tun — Hand in Hand mit
               Gesellen, die wissen, was sie machen.
             </p>
           </div>
         </FadeIn>
+      </Section>
+
+      {/* So sieht dein Tag aus */}
+      <Section id="tag">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
+            Typischer Lehrlings-Tag bei ET König
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            So sieht dein Tag aus
+          </h2>
+          <p className="text-base text-muted max-w-2xl mb-12">
+            Kein Tag wie der andere — aber die Struktur bleibt. Hier ein typischer Ablauf, damit du
+            weißt, was dich erwartet.
+          </p>
+        </FadeIn>
+
+        <div className="relative max-w-3xl mx-auto">
+          {/* Vertical timeline line */}
+          <div
+            aria-hidden
+            className="absolute left-5 sm:left-6 top-2 bottom-2 w-[2px] bg-gradient-to-b from-primary via-primary/40 to-transparent"
+          />
+
+          <div className="space-y-5">
+            {daySteps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <FadeIn key={step.time} delay={i * 0.08}>
+                  <div className="relative pl-14 sm:pl-20">
+                    {/* Icon circle */}
+                    <div className="absolute left-0 top-1 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-background shadow-[0_6px_20px_rgba(232,139,0,0.25)]">
+                      <Icon size={20} weight="fill" />
+                    </div>
+
+                    <div className="rounded-2xl border border-border/60 bg-white p-5 hover:shadow-[0_8px_30px_rgba(232,139,0,0.08)] transition-shadow">
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                        <span className="text-sm font-mono font-bold text-primary tabular-nums">
+                          {step.time}
+                        </span>
+                        <span className="text-lg font-bold text-foreground">{step.title}</span>
+                      </div>
+                      <p className="text-sm text-muted leading-relaxed">{step.description}</p>
+                    </div>
+                  </div>
+                </FadeIn>
+              );
+            })}
+          </div>
+        </div>
       </Section>
 
       {/* Benefits */}
@@ -659,7 +890,6 @@ export default function LehrstellenClient() {
             </div>
 
             <div className="p-5 rounded-2xl bg-[#fff6e7] border border-primary/10">
-              <p className="text-lg mb-1">👋</p>
               <p className="text-base font-bold mb-1">
                 Nicht sicher, ob die Lehre was für dich ist?
               </p>
@@ -675,6 +905,64 @@ export default function LehrstellenClient() {
               </p>
             </div>
           </FadeIn>
+        </div>
+      </Section>
+
+      {/* Was danach? */}
+      <Section className="bg-background-alt" id="zukunft">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
+            Deine Zukunft
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            Mit Lehrabschluss fängt's erst an
+          </h2>
+          <p className="text-base text-muted max-w-2xl mb-10">
+            Mit dem Gesellenbrief von ET König in der Tasche stehen dir alle Türen offen. Und wir
+            unterstützen dich dabei, deinen Weg zu gehen.
+          </p>
+        </FadeIn>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {futurePaths.map((path, i) => {
+            const Icon = path.icon;
+            return (
+              <FadeIn key={path.title} delay={i * 0.1}>
+                <div className="relative rounded-2xl border border-border/60 bg-white p-6 h-full overflow-hidden group hover:shadow-[0_8px_30px_rgba(232,139,0,0.1)] transition-shadow">
+                  <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                      <Icon size={24} weight="fill" className="text-primary" />
+                    </div>
+                    <div className="text-xs font-mono font-bold text-primary mb-2">
+                      0{i + 1}
+                    </div>
+                    <h3 className="text-lg font-bold mb-2">{path.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{path.description}</p>
+                  </div>
+                </div>
+              </FadeIn>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section id="faq">
+        <FadeIn>
+          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Fragen?</p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            Das wollen die meisten wissen
+          </h2>
+          <p className="text-base text-muted max-w-2xl mb-10">
+            Keine Frage ist zu klein. Wenn du etwas nicht findest — ruf uns einfach an.
+          </p>
+        </FadeIn>
+
+        <div className="max-w-3xl space-y-3">
+          {faqs.map((faq, i) => (
+            <FaqItem key={faq.q} q={faq.q} a={faq.a} index={i} />
+          ))}
         </div>
       </Section>
 
@@ -707,15 +995,15 @@ export default function LehrstellenClient() {
         <FadeIn>
           <div className="text-center max-w-xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">
-              Dein neuer Ausbildungsplatz
+              Bock? Dann los.
             </h2>
             <div className="flex items-center justify-center gap-2 mb-4">
               <MapPin size={16} weight="fill" className="text-primary" />
               <span className="text-muted">Scheifling · Murau · Feldkirchen</span>
             </div>
             <p className="text-muted mb-6">
-              Du arbeitest hauptsächlich im Bezirk Murau und der umliegenden Region — nach der
-              Arbeit bist du zuhause bei deiner Familie oder deinen Freunden.
+              Ruf uns an oder bewirb dich gleich online. Dauert 2 Minuten. Wir melden uns garantiert
+              innerhalb von 3 Werktagen bei dir.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
