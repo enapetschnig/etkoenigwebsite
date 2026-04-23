@@ -42,6 +42,7 @@ const betreffOptions = [
   "HLS-Installation",
   "Fachhandel",
   "Karriere / Bewerbung",
+  "Lehrstelle",
   "Sonstiges",
 ];
 

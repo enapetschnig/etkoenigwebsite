@@ -46,6 +46,7 @@ const unternehmen = [
   { href: "/projekte", label: "Projekte & Referenzen" },
   { href: "/kontakt", label: "Kontakt" },
   { href: "/anfrage", label: "Anfrage stellen" },
+  { href: "/lehrstellen", label: "Lehrstellen" },
   { href: "/karriere", label: "Karriere" },
 ];
 
