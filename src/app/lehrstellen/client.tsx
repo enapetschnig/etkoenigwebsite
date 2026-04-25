@@ -28,8 +28,6 @@ import {
   Sun,
   Coffee,
   Pizza,
-  ForkKnife,
-  Toolbox,
   House,
   Rocket,
   Plus,
@@ -107,18 +105,10 @@ const daySteps = [
     time: "12:00",
     title: "Mittagspause",
     icon: Pizza,
-    description:
-      "Mittagessen mit dem Team — meistens in der Werkstatt, manchmal unterwegs im Gasthaus.",
+    description: "Mittagessen mit dem Team.",
   },
   {
-    time: "15:30",
-    title: "Abschluss",
-    icon: Toolbox,
-    description:
-      "Letzte Kontrollen, Dokumentation, Werkzeug verstauen. Kurze Besprechung mit dem Gesellen, was gut lief und was besser laufen könnte.",
-  },
-  {
-    time: "16:00",
+    time: "16:00 – 17:00",
     title: "Feierabend",
     icon: House,
     description:
@@ -178,7 +168,7 @@ const faqs = [
   },
   {
     q: "Wie lange dauert die Lehre?",
-    a: "3,5 Jahre bis zum Elektrotechniker. Mit einem Zusatzmodul (zum Beispiel Gebäudetechnik) kann sie 4 Jahre dauern. Die zusätzliche Qualifikation ist im Beruf später hilfreich.",
+    a: "4 Jahre bis zum Elektrotechniker — das Zusatzmodul (zum Beispiel Gebäudetechnik) ist dabei. Die zusätzliche Qualifikation ist im Beruf später hilfreich.",
   },
   {
     q: "Wo findet die Berufsschule statt?",
@@ -194,7 +184,7 @@ const faqs = [
   },
   {
     q: "Was, wenn ich etwas nicht verstehe?",
-    a: "Dafür ist dein Lehrlingsausbildner da. Und dein gesamtes Team hat diese Ausbildung selbst durchlaufen — Fragen werden ernst genommen und beantwortet.",
+    a: "Dafür sind deine Kollegen da. Das gesamte Team hat diese Ausbildung selbst durchlaufen — Fragen werden ernst genommen und beantwortet.",
   },
 ];
 
@@ -222,7 +212,7 @@ const benefits = [
     icon: Users,
     title: "Begleitet durch die Lehrzeit",
     description:
-      "Du bekommst einen fixen Lehrlingsausbildner, der dich durch die gesamte Ausbildung begleitet. Dazu Kollegen, die deine Fragen ernst nehmen.",
+      "Du arbeitest von Anfang an Seite an Seite mit erfahrenen Kollegen, die dich durch die Ausbildung begleiten und deine Fragen ernst nehmen.",
   },
   {
     icon: Car,
@@ -637,7 +627,7 @@ export default function LehrstellenClient() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-base sm:text-lg text-white/70 max-w-xl mb-6">
-              3,5 Jahre Ausbildung mit echter Verantwortung, modernem Werkzeug und klaren
+              4 Jahre Ausbildung mit echter Verantwortung, modernem Werkzeug und klaren
               Perspektiven — bei einem der größten Elektrobetriebe der Region.
             </p>
           </FadeIn>
@@ -737,8 +727,8 @@ export default function LehrstellenClient() {
             Was du bei uns lernst
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Du arbeitest ab der ersten Woche an echten Projekten mit. Dein Lehrlingsausbildner
-            bringt dir Schritt für Schritt alles bei, was du als Elektrotechniker können musst.
+            Du arbeitest ab der ersten Woche an echten Projekten mit. Deine Kollegen bringen dir
+            Schritt für Schritt alles bei, was du als Elektrotechniker können musst.
           </p>
         </FadeIn>
 
