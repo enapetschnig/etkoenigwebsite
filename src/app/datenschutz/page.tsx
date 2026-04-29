@@ -141,10 +141,41 @@ export default function DatenschutzPage() {
                 Analyse des Nutzerverhaltens und der Optimierung unserer Website.
               </li>
             </ul>
-            <p>
+            <p className="mb-3">
               Sie können Ihre Cookie-Einstellungen jederzeit über unseren Cookie-Banner oder die
               Browsereinstellungen anpassen. Das Deaktivieren bestimmter Cookies kann die
               Funktionalität der Website einschränken.
+            </p>
+            <h3 className="text-base font-semibold text-foreground mt-4 mb-2">
+              5.1 Meta Pixel (Facebook)
+            </h3>
+            <p className="mb-2">
+              Auf unserer Website setzen wir bei aktivierter Marketing-Einwilligung den Meta
+              Pixel von Meta Platforms Ireland Limited (4 Grand Canal Square, Dublin 2, Irland)
+              ein. Der Meta Pixel ermöglicht es uns, das Verhalten der Nutzer:innen nachzuverfolgen,
+              nachdem diese durch Klick auf eine Facebook- oder Instagram-Werbeanzeige auf unsere
+              Website weitergeleitet wurden. So können wir die Wirksamkeit unserer Werbeanzeigen
+              messen und optimieren.
+            </p>
+            <p className="mb-2">
+              Die durch den Pixel erhobenen Daten werden an Meta Platforms in den USA übertragen.
+              Dort gilt nach Auffassung der EU-Kommission (Angemessenheitsbeschluss vom 10. Juli
+              2023) ein angemessenes Datenschutzniveau, sofern Meta am EU-US Data Privacy Framework
+              teilnimmt.
+            </p>
+            <p className="mb-2">
+              Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Sie können
+              diese Einwilligung jederzeit über den Cookie-Banner widerrufen. Weitere Informationen
+              zur Datenverarbeitung durch Meta finden Sie in der{" "}
+              <a
+                href="https://www.facebook.com/privacy/policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                Meta-Datenschutzerklärung
+              </a>
+              .
             </p>
           </div>
 

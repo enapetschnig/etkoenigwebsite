@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import { Cookie, ShieldCheck, ChartBar, X } from "@phosphor-icons/react";
+import { Cookie, ShieldCheck, ChartBar, Megaphone, X } from "@phosphor-icons/react";
 import { CONSENT_OPEN_EVENT, getConsent, setConsent } from "@/lib/consent";
 
 type View = "hidden" | "main" | "details";
@@ -11,6 +11,7 @@ type View = "hidden" | "main" | "details";
 export function CookieBanner() {
   const [view, setView] = useState<View>("hidden");
   const [analytics, setAnalytics] = useState(false);
+  const [marketing, setMarketing] = useState(false);
   const [decided, setDecided] = useState(false);
 
   // On mount, decide whether to show the banner.
@@ -18,6 +19,7 @@ export function CookieBanner() {
     const stored = getConsent();
     if (stored) {
       setAnalytics(stored.analytics);
+      setMarketing(stored.marketing);
       setDecided(true);
       setView("hidden");
     } else {
@@ -29,22 +31,24 @@ export function CookieBanner() {
     const onOpen = () => {
       const latest = getConsent();
       setAnalytics(latest?.analytics ?? false);
+      setMarketing(latest?.marketing ?? false);
       setView("details");
     };
     window.addEventListener(CONSENT_OPEN_EVENT, onOpen);
     return () => window.removeEventListener(CONSENT_OPEN_EVENT, onOpen);
   }, []);
 
-  const persist = useCallback((value: boolean) => {
-    setConsent({ analytics: value });
-    setAnalytics(value);
+  const persist = useCallback((a: boolean, m: boolean) => {
+    setConsent({ analytics: a, marketing: m });
+    setAnalytics(a);
+    setMarketing(m);
     setDecided(true);
     setView("hidden");
   }, []);
 
-  const acceptAll = () => persist(true);
-  const rejectAll = () => persist(false);
-  const saveSelection = () => persist(analytics);
+  const acceptAll = () => persist(true, true);
+  const rejectAll = () => persist(false, false);
+  const saveSelection = () => persist(analytics, marketing);
 
   // Silence "decided" unused-warning – state is tracked so the banner
   // knows when a user has finished the initial decision flow.
@@ -58,6 +62,8 @@ export function CookieBanner() {
           view={view}
           analytics={analytics}
           setAnalytics={setAnalytics}
+          marketing={marketing}
+          setMarketing={setMarketing}
           onAcceptAll={acceptAll}
           onRejectAll={rejectAll}
           onOpenDetails={() => setView("details")}
@@ -74,6 +80,8 @@ function BannerCard({
   view,
   analytics,
   setAnalytics,
+  marketing,
+  setMarketing,
   onAcceptAll,
   onRejectAll,
   onOpenDetails,
@@ -84,6 +92,8 @@ function BannerCard({
   view: Exclude<View, "hidden">;
   analytics: boolean;
   setAnalytics: (v: boolean) => void;
+  marketing: boolean;
+  setMarketing: (v: boolean) => void;
   onAcceptAll: () => void;
   onRejectAll: () => void;
   onOpenDetails: () => void;
@@ -142,6 +152,8 @@ function BannerCard({
             <DetailsView
               analytics={analytics}
               setAnalytics={setAnalytics}
+              marketing={marketing}
+              setMarketing={setMarketing}
               onBack={onBackToMain}
               onAcceptAll={onAcceptAll}
               onSaveSelection={onSaveSelection}
@@ -209,12 +221,16 @@ function MainView({
 function DetailsView({
   analytics,
   setAnalytics,
+  marketing,
+  setMarketing,
   onBack,
   onAcceptAll,
   onSaveSelection,
 }: {
   analytics: boolean;
   setAnalytics: (v: boolean) => void;
+  marketing: boolean;
+  setMarketing: (v: boolean) => void;
   onBack: () => void;
   onAcceptAll: () => void;
   onSaveSelection: () => void;
@@ -242,6 +258,13 @@ function DetailsView({
           description="Hilft uns zu verstehen, welche Seiten besucht werden. Wir nutzen unsere eigene Analyse — keine Google Analytics, kein Tracking über Websites hinweg."
           checked={analytics}
           onChange={setAnalytics}
+        />
+        <CategoryRow
+          icon={<Megaphone size={16} weight="duotone" />}
+          title="Marketing"
+          description="Meta Pixel von Meta Platforms (Facebook/Instagram). Hilft uns zu verstehen, welche Werbeanzeigen auf Facebook oder Instagram zu Besuchen führen. Daten werden an Meta in den USA übertragen."
+          checked={marketing}
+          onChange={setMarketing}
         />
       </div>
 

@@ -10,7 +10,7 @@
  * ITP edge cases) still remember the decision.
  */
 
-export const CONSENT_VERSION = 1;
+export const CONSENT_VERSION = 2;
 export const CONSENT_STORAGE_KEY = `etk-consent-v${CONSENT_VERSION}`;
 export const CONSENT_EVENT = "consent-changed";
 export const CONSENT_OPEN_EVENT = "consent-open";
@@ -19,6 +19,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 export type ConsentState = {
   necessary: true;
   analytics: boolean;
+  marketing: boolean;
   timestamp: number;
   version: number;
 };
@@ -44,13 +45,15 @@ function parseConsent(raw: string | null): ConsentState | null {
       !parsed ||
       typeof parsed !== "object" ||
       parsed.version !== CONSENT_VERSION ||
-      typeof parsed.analytics !== "boolean"
+      typeof parsed.analytics !== "boolean" ||
+      typeof parsed.marketing !== "boolean"
     ) {
       return null;
     }
     return {
       necessary: true,
       analytics: parsed.analytics,
+      marketing: parsed.marketing,
       timestamp: typeof parsed.timestamp === "number" ? parsed.timestamp : Date.now(),
       version: CONSENT_VERSION,
     };
@@ -88,13 +91,14 @@ export function getConsent(): ConsentState | null {
 
 /**
  * Persist consent to localStorage AND a 1-year cookie, then broadcast a
- * `consent-changed` event so listeners (e.g. the PageTracker) can react
- * without a full reload.
+ * `consent-changed` event so listeners (e.g. the PageTracker, Meta Pixel)
+ * can react without a full reload.
  */
-export function setConsent(partial: { analytics: boolean }): ConsentState {
+export function setConsent(partial: { analytics: boolean; marketing: boolean }): ConsentState {
   const next: ConsentState = {
     necessary: true,
     analytics: partial.analytics,
+    marketing: partial.marketing,
     timestamp: Date.now(),
     version: CONSENT_VERSION,
   };
@@ -120,6 +124,15 @@ export function setConsent(partial: { analytics: boolean }): ConsentState {
 export function hasAnalyticsConsent(): boolean {
   const consent = getConsent();
   return consent?.analytics === true;
+}
+
+/**
+ * Returns true only if the user has explicitly opted in to marketing
+ * cookies (Meta Pixel etc.). Defaults to false (opt-in model).
+ */
+export function hasMarketingConsent(): boolean {
+  const consent = getConsent();
+  return consent?.marketing === true;
 }
 
 /**
