@@ -3,6 +3,7 @@
 import { HouseLine, Buildings, Factory, House, SolarPanel, Plus, BatteryCharging, Package, ArrowsOutSimple, TextT, ArrowsInSimple, Question } from "@phosphor-icons/react";
 import { QuizForm } from "@/components/quiz-form";
 import type { QuizStep } from "@/components/quiz-form";
+import { MetaEvent } from "@/components/meta-event";
 
 const steps: QuizStep[] = [
   {
@@ -36,11 +37,14 @@ const steps: QuizStep[] = [
 
 export default function PVQuizClient() {
   return (
-    <QuizForm
-      steps={steps}
-      title="PV"
-      targetEmail="anfrage@et-koenig.at"
-      category="Photovoltaik"
-    />
+    <>
+      <MetaEvent event="Lead" params={{ content_name: "Photovoltaik-Anfrage" }} />
+      <QuizForm
+        steps={steps}
+        title="PV"
+        targetEmail="anfrage@et-koenig.at"
+        category="Photovoltaik"
+      />
+    </>
   );
 }
