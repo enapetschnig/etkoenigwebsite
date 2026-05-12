@@ -15,6 +15,7 @@ import {
   CheckCircle,
   Phone,
   Plug,
+  ChargingStation,
 } from "@phosphor-icons/react";
 import { Section, FadeIn, CountUp } from "@/components/section";
 
@@ -67,6 +68,13 @@ const services = [
     icon: Cpu,
     href: "/elektroinstallation/knx",
     image: "/smart.jpg",
+  },
+  {
+    title: "Wallbox & E-Ladestation",
+    description: "Planung, Installation und Förderabwicklung für Ihre Wallbox — vom Einfamilienhaus bis zur Tiefgaragen-Anlage mit Lastmanagement.",
+    icon: ChargingStation,
+    href: "/elektroinstallation/wallbox",
+    image: "/karriere/battery-storage.jpg",
   },
 ];
 
