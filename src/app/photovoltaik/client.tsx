@@ -221,26 +221,13 @@ export default function PhotovoltaikClient() {
             </h2>
           </div>
         </FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="max-w-2xl mx-auto">
           <FadeIn>
             <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
               <div className="relative aspect-video">
                 <iframe
                   src="https://fast.wistia.net/embed/iframe/gjjahcjpnu?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 1"
-                  allow="autoplay; fullscreen"
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl overflow-hidden border border-border/60 bg-white shadow-sm">
-              <div className="relative aspect-video">
-                <iframe
-                  src="https://fast.wistia.net/embed/iframe/dzed1k7mw6?seo=true&videoFoam=true"
-                  title="Kundenstimme Video 2"
+                  title="Kundenstimme Video"
                   allow="autoplay; fullscreen"
                   className="absolute inset-0 w-full h-full"
                   loading="lazy"
