@@ -36,8 +36,8 @@ import { ShareJob } from "@/components/share-job";
 // ─────────────────────────────────────────────────────────────
 // GEHALT (vom Kunden bestätigt). Nur diese zwei Zeilen anpassen.
 // ─────────────────────────────────────────────────────────────
-const GEHALT_KURZ = "ab € 2.300 netto"; // Hero-Großzahl
-const GEHALT_BRUTTO = "ca. € 3.250 brutto"; // Umrechnung AT 2025 (alleinstehend, 14×) – rechtlich transparent
+const GEHALT_KURZ = "ab € 2.750 netto"; // Hero-Großzahl
+const GEHALT_BRUTTO = "ca. € 4.100 brutto"; // Umrechnung AT 2025 (alleinstehend, 14×) – rechtlich transparent
 const GEHALT_QUALIFIER = `pro Monat (${GEHALT_BRUTTO}) · Bereitschaft zur Überzahlung je nach Erfahrung & Qualifikation`;
 const GEHALT_LANG = `${GEHALT_KURZ}/Monat (${GEHALT_BRUTTO}) · Bereitschaft zur Überzahlung je nach Erfahrung & Qualifikation`;
 
@@ -73,7 +73,7 @@ const highlights = [
 
 // ─── BENEFITS DATA ───
 const benefits = [
-  { icon: Money, title: "Faires, transparentes Gehalt", description: "Klare Gehaltsstruktur ohne Verhandlungspoker – ab € 2.300 netto (ca. € 3.250 brutto) und mehr, je nach Erfahrung. Was du leistest, wird fair entlohnt." },
+  { icon: Money, title: "Faires, transparentes Gehalt", description: "Klare Gehaltsstruktur ohne Verhandlungspoker – ab € 2.750 netto (ca. € 4.100 brutto) und mehr, je nach Erfahrung. Was du leistest, wird fair entlohnt." },
   { icon: ShieldCheck, title: "Sicherer Arbeitsplatz", description: "Über 25 Jahre am Markt, volle Auftragsbücher: Bei uns hast du einen langfristigen, unbefristeten Job in einer krisensicheren Branche." },
   { icon: Users, title: "Bodenständiges Team", description: "Ein eingespieltes Team aus der Region – ehrlich, handfest, ohne Allüren. Bei uns kennt jeder jeden, vom Lehrling bis zum Chef." },
   { icon: Student, title: "Weiterbildung & Aufstieg", description: "PV-, KNX- und Speicher-Zertifizierungen bis zur Meisterprüfung – wir übernehmen die Kosten und fördern deinen nächsten Schritt." },

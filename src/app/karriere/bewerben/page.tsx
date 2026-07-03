@@ -37,7 +37,7 @@ export default function BewerbenPage() {
             <p className="text-sm font-medium text-primary uppercase tracking-wider mb-2">Bewerbung</p>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight mb-3">Elektriker (m/w/d) bei ET König</h1>
             <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm text-muted">
-              <span className="font-semibold text-foreground">ab € 2.300 netto</span>
+              <span className="font-semibold text-foreground">ab € 2.750 netto</span>
               <span className="text-border">·</span>
               <span className="inline-flex items-center gap-1"><MapPin size={13} weight="fill" className="text-primary" /> Scheifling · Murau · Feldkirchen</span>
             </div>
