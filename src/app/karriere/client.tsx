@@ -29,7 +29,6 @@ import {
   Minus,
   Lightbulb,
   HandWaving,
-  WhatsappLogo,
 } from "@phosphor-icons/react";
 import { Section, FadeIn, CountUp } from "@/components/section";
 import { ShareJob } from "@/components/share-job";
@@ -48,10 +47,6 @@ const PHONE_DISPLAY = "+43 664 531 90 79";
 const STANDORTE = ["Scheifling", "Murau", "Feldkirchen"];
 const STANDORT_TEXT = "Scheifling & Murau (Steiermark) · Feldkirchen (Kärnten)";
 const BEWERBEN_URL = "/karriere/bewerben";
-// WhatsApp-Direktbewerbung auf die Firmennummer (mobil-first Zielgruppe)
-const WA_APPLY = `https://wa.me/436645319079?text=${encodeURIComponent(
-  "Hallo, ich interessiere mich für die Elektriker-Stelle bei ET König."
-)}`;
 
 const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1";
 
@@ -575,13 +570,10 @@ export default function KarriereClient() {
       </Section>
 
       {/* Sticky Mobile Apply Bar */}
-      <div className={`md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur border-t border-border px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2.5 transition-transform duration-300 ${hideBar ? "translate-y-full" : "translate-y-0"}`}>
-        <Link href={BEWERBEN_URL} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-primary rounded-full active:scale-[0.98] transition-all">
+      <div className={`md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur border-t border-border px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] transition-transform duration-300 ${hideBar ? "translate-y-full" : "translate-y-0"}`}>
+        <Link href={BEWERBEN_URL} className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-primary rounded-full active:scale-[0.98] transition-all">
           Jetzt bewerben <ArrowRight size={16} weight="bold" />
         </Link>
-        <a href={WA_APPLY} target="_blank" rel="noopener noreferrer" aria-label="Per WhatsApp bewerben" className="inline-flex items-center justify-center w-12 h-12 flex-shrink-0 rounded-full bg-[#25D366] text-white active:scale-95 transition-all">
-          <WhatsappLogo size={20} weight="fill" />
-        </a>
       </div>
       <div className="h-20 md:hidden" aria-hidden />
     </>

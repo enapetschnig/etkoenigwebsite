@@ -8,13 +8,7 @@ import {
   ArrowLeft,
   Spinner,
   Play,
-  WhatsappLogo,
 } from "@phosphor-icons/react";
-
-// WhatsApp-Direktbewerbung auf die Firmennummer (mobil-first Zielgruppe)
-const WA_APPLY = `https://wa.me/436645319079?text=${encodeURIComponent(
-  "Hallo, ich interessiere mich für die Elektriker-Stelle bei ET König."
-)}`;
 
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1";
@@ -135,11 +129,6 @@ export function BewerbungForm({ autoStart = false }: { autoStart?: boolean }) {
           Bewerbung starten
         </button>
         <p className="text-xs text-muted mt-3">4 kurze Fragen · Kein Lebenslauf nötig</p>
-        <div className="mt-5 pt-5 border-t border-border">
-          <a href={WA_APPLY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[#25D366] hover:underline">
-            <WhatsappLogo size={18} weight="fill" /> Lieber kurz per WhatsApp melden
-          </a>
-        </div>
       </div>
     );
   }

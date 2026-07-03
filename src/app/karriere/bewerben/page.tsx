@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Clock, FileX, ChatCircleDots, WhatsappLogo, MapPin } from "@phosphor-icons/react/dist/ssr";
+import { ArrowLeft, Clock, FileX, ChatCircleDots, MapPin } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "@/components/logo";
 import { BewerbungForm } from "@/components/bewerbung-form";
 
@@ -8,10 +8,6 @@ export const metadata: Metadata = {
   title: "Bewerbung – Elektriker (m/w/d) bei ET König",
   description: "Bewirb dich in 2 Minuten als Elektriker (m/w/d) bei ET König – ohne Lebenslauf. Standorte Scheifling, Murau & Feldkirchen.",
 };
-
-const WA_APPLY = `https://wa.me/436645319079?text=${encodeURIComponent(
-  "Hallo, ich interessiere mich für die Elektriker-Stelle bei ET König."
-)}`;
 
 const reassurance = [
   { icon: Clock, text: "In 2 Minuten" },
@@ -60,12 +56,6 @@ export default function BewerbenPage() {
 
           <div className="rounded-2xl border border-border/60 bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
             <BewerbungForm autoStart />
-          </div>
-
-          <div className="text-center mt-6">
-            <a href={WA_APPLY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[#25D366] hover:underline">
-              <WhatsappLogo size={18} weight="fill" /> Lieber kurz per WhatsApp bewerben
-            </a>
           </div>
         </div>
       </main>
