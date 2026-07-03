@@ -70,7 +70,6 @@ async function sendApplicationEmails(body: any) {
           <div style="background:#fff;padding:24px;border:1px solid #eee;border-top:none;border-radius:0 0 12px 12px;color:#1a1a1a">
             <p style="margin-top:0">Hallo ${firstName || "und danke"},</p>
             <p>wir haben deine Bewerbung erhalten und melden uns innerhalb von <strong>2–3 Werktagen</strong> bei dir – telefonisch oder per E-Mail.</p>
-            <p>Hast du vorher noch eine Frage? Ruf uns einfach an unter <a href="tel:+436645319079" style="color:#E88B00">+43 664 531 90 79</a>.</p>
             <p style="margin-bottom:0">Beste Grüße<br/><strong>Dein Team von ET König</strong></p>
           </div>
         </div>

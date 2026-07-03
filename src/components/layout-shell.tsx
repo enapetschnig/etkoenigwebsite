@@ -17,9 +17,24 @@ export function LayoutShell({
 }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
+  // Schwebenden Anruf-Button auf der Karriereseite ausblenden (eigener Bewerbungs-Flow)
+  const hidePhoneButton = pathname.startsWith("/karriere");
+  // Fokussierter Bewerbungs-Funnel: ohne Navigation/Footer/Anruf-Button (weniger Ablenkung)
+  const isFocusedFunnel = pathname === "/karriere/bewerben";
 
   if (isAdmin) {
     return <>{children}</>;
+  }
+
+  if (isFocusedFunnel) {
+    return (
+      <>
+        <main className="flex-1">{children}</main>
+        <PageTracker />
+        <MetaPixel />
+        <CookieBanner />
+      </>
+    );
   }
 
   return (
@@ -27,7 +42,7 @@ export function LayoutShell({
       <Navigation />
       <main className="flex-1">{children}</main>
       <Footer />
-      <PhoneButton />
+      {!hidePhoneButton && <PhoneButton />}
       <PageTracker />
       <MetaPixel />
       <CookieBanner />

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MapPin,
@@ -13,7 +14,6 @@ import {
   Lightning,
   Wrench,
   Money,
-  Clock,
   Student,
   Car,
   Heart,
@@ -23,10 +23,7 @@ import {
   ShieldCheck,
   ChatCircle,
   ArrowRight,
-  ArrowLeft,
   Phone,
-  Spinner,
-  Play,
   CalendarCheck,
   Plus,
   Minus,
@@ -49,36 +46,21 @@ const PHONE = "+436645319079";
 const PHONE_DISPLAY = "+43 664 531 90 79";
 // Arbeitsstandorte – Steiermark: Scheifling, Murau · Kärnten: Feldkirchen
 const STANDORTE = ["Scheifling", "Murau", "Feldkirchen"];
+const STANDORT_TEXT = "Scheifling & Murau (Steiermark) · Feldkirchen (Kärnten)";
+const BEWERBEN_URL = "/karriere/bewerben";
 // WhatsApp-Direktbewerbung auf die Firmennummer (mobil-first Zielgruppe)
 const WA_APPLY = `https://wa.me/436645319079?text=${encodeURIComponent(
   "Hallo, ich interessiere mich für die Elektriker-Stelle bei ET König."
 )}`;
 
-// Echte Ansprechperson einblenden, sobald Name/Direktnummer vorliegen.
-const SHOW_CONTACT_PERSON = false;
+const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1";
 
 // ─── TASKS DATA (icon-basiert, keine Stock-/KI-Bilder) ───
 const tasks = [
-  {
-    icon: SolarPanel,
-    title: "Photovoltaik-Anlagen",
-    description: "Vom Wechselrichter bis zum Zählerschrank: AC-Verkabelung, Netzanschluss und saubere Dokumentation.",
-  },
-  {
-    icon: BatteryCharging,
-    title: "Speichersysteme",
-    description: "Moderne Batteriespeicher installieren, konfigurieren und in Betrieb nehmen.",
-  },
-  {
-    icon: Lightning,
-    title: "Verteiler & Elektrotechnik",
-    description: "Verteiler modernisieren, Zählerschränke umbauen und Anlagen normgerecht erweitern.",
-  },
-  {
-    icon: Wrench,
-    title: "Allgemeine Elektroinstallation",
-    description: "Neubau & Sanierung – von der Rohinstallation bis zur Endmontage: Leitungen, Schalter, Licht.",
-  },
+  { icon: SolarPanel, title: "Photovoltaik-Anlagen", description: "Vom Wechselrichter bis zum Zählerschrank: AC-Verkabelung, Netzanschluss und saubere Dokumentation." },
+  { icon: BatteryCharging, title: "Speichersysteme", description: "Moderne Batteriespeicher installieren, konfigurieren und in Betrieb nehmen." },
+  { icon: Lightning, title: "Verteiler & Elektrotechnik", description: "Verteiler modernisieren, Zählerschränke umbauen und Anlagen normgerecht erweitern." },
+  { icon: Wrench, title: "Allgemeine Elektroinstallation", description: "Neubau & Sanierung – von der Rohinstallation bis zur Endmontage: Leitungen, Schalter, Licht." },
 ];
 
 // ─── ECHTE ARBEITSFOTOS (Aufgaben-Abschnitt) ───
@@ -94,7 +76,7 @@ const highlights = [
   { icon: House, title: "Hauptsächlich Arbeit in der Region – am Abend bist du zuhause. Keine Wochen-Montage.", label: "Feierabend zuhause", emphasized: false },
 ];
 
-// ─── BENEFITS DATA (jede Karte ein eigenes Argument, keine Doppelung der Highlights) ───
+// ─── BENEFITS DATA ───
 const benefits = [
   { icon: Money, title: "Faires, transparentes Gehalt", description: "Klare Gehaltsstruktur ohne Verhandlungspoker – ab € 2.300 netto (ca. € 3.250 brutto) und mehr, je nach Erfahrung. Was du leistest, wird fair entlohnt." },
   { icon: ShieldCheck, title: "Sicherer Arbeitsplatz", description: "Über 25 Jahre am Markt, volle Auftragsbücher: Bei uns hast du einen langfristigen, unbefristeten Job in einer krisensicheren Branche." },
@@ -148,34 +130,8 @@ const faqs = [
   { q: "Was, wenn ich nicht alle Anforderungen erfülle?", a: "Bewirb dich trotzdem. Bei uns zählt deine Motivation mehr als die perfekte Checkliste – vieles bringen wir dir bei." },
   { q: "Wie läuft das Bewerbungsgespräch ab?", a: "Unkompliziert: ein lockeres Kennenlernen, oft direkt beim Chef. Bei gegenseitigem Interesse kannst du einen Schnuppertag machen und sehen, wie wir arbeiten." },
   { q: "Muss ich auf wochenlange Montagen?", a: "Nein. Wir arbeiten hauptsächlich in der Region – am Abend bist du zuhause bei deiner Familie." },
-  { q: "Kann ich mich erst mal unverbindlich erkundigen?", a: `Klar. Ruf einfach unter ${PHONE_DISPLAY} an oder schreib uns kurz per WhatsApp – ganz ohne förmliche Bewerbung.` },
+  { q: "Kann ich mich erst mal unverbindlich erkundigen?", a: "Klar. Schreib uns einfach kurz per WhatsApp oder über das Formular – ganz ohne förmliche Bewerbung." },
 ];
-
-// ─── QUIZ STEPS ───
-const quizSteps = [
-  {
-    icon: Briefcase,
-    question: "Wie lange arbeitest du schon als Elektriker?",
-    options: ["Berufseinsteiger (0-1 Jahre)", "2-5 Jahre", "5-10 Jahre", "Mehr als 10 Jahre"],
-  },
-  {
-    icon: Clock,
-    question: "Was ist deine aktuelle Situation?",
-    options: ["Angestellt, aber wechselbereit", "Aktiv auf Jobsuche", "Derzeit nicht beschäftigt", "In Ausbildung/Lehre"],
-  },
-  {
-    icon: Lightning,
-    question: "Hast du bereits Erfahrung mit PV-Anlagen?",
-    options: ["Ja, ich habe Erfahrung", "Nein, aber ich bin offen dafür"],
-  },
-  {
-    icon: CalendarCheck,
-    question: "Wann könntest du frühestens starten?",
-    options: ["Sofort verfügbar", "In 2 Wochen", "In 1 Monat", "In 3+ Monaten"],
-  },
-];
-
-const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1";
 
 // ─── FAQ ITEM ───
 function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
@@ -210,199 +166,33 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-// ─── APPLICATION FORM COMPONENT ───
-function ApplicationForm() {
-  const [started, setStarted] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
-  const [contactData, setContactData] = useState({ vorname: "", nachname: "", telefon: "", email: "", alter: "" });
-  const [consent, setConsent] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [direction, setDirection] = useState(1);
-
-  const totalSteps = quizSteps.length + 1;
-  const isContactStep = currentStep === quizSteps.length;
-  const progress = ((currentStep + 1) / totalSteps) * 100;
-  const isContactValid =
-    contactData.vorname.trim() !== "" &&
-    contactData.nachname.trim() !== "" &&
-    contactData.telefon.trim() !== "" &&
-    contactData.email.trim() !== "" &&
-    consent;
-
-  const selectOption = (value: string) => {
-    setAnswers({ ...answers, [currentStep]: value });
-    setTimeout(() => {
-      if (currentStep < totalSteps - 1) {
-        setDirection(1);
-        setCurrentStep(currentStep + 1);
-      }
-    }, 300);
-  };
-
-  const goBack = () => {
-    if (currentStep > 0) { setDirection(-1); setCurrentStep(currentStep - 1); }
-    else { setStarted(false); }
-  };
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          category: "Bewerbung",
-          name: contactData.vorname + " " + contactData.nachname,
-          email: contactData.email,
-          phone: contactData.telefon,
-          message: contactData.alter ? `Alter: ${contactData.alter}` : null,
-          answers: {
-            "Erfahrung": answers[0] || "",
-            "Aktuelle Situation": answers[1] || "",
-            "PV-Erfahrung": answers[2] || "",
-            "Frühester Start": answers[3] || "",
-          },
-        }),
-      });
-    } catch (e) {
-      console.error("Bewerbung Fehler:", e);
-    }
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-  };
-
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? 150 : -150, opacity: 0 }),
-    center: { x: 0, opacity: 1 },
-    exit: (dir: number) => ({ x: dir > 0 ? -150 : 150, opacity: 0 }),
-  };
-
-  if (isSubmitted) {
-    return (
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success/10 mb-5">
-          <CheckCircle size={32} weight="fill" className="text-success" />
-        </div>
-        <h3 className="text-2xl font-bold mb-3">Vielen Dank für deine Bewerbung!</h3>
-        <p className="text-muted">Wir haben deine Bewerbung erhalten – eine Bestätigung ist per E-Mail unterwegs. Wir melden uns innerhalb von 2-3 Werktagen bei dir.</p>
-      </motion.div>
-    );
-  }
-
-  if (!started) {
-    return (
-      <div className="text-center py-8">
-        <h3 className="text-2xl font-bold mb-3">Bereit für den nächsten Karriereschritt?</h3>
-        <p className="text-muted mb-6">Starte jetzt deine Bewerbung. In nur 2 Minuten – kein Lebenslauf nötig.</p>
-        <button
-          onClick={() => setStarted(true)}
-          className={`inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}
-        >
-          <Play size={16} weight="fill" />
-          Bewerbung starten
-        </button>
-        <p className="text-xs text-muted mt-3">4 kurze Fragen · Kein Lebenslauf nötig</p>
-        <div className="mt-5 pt-5 border-t border-border">
-          <a href={WA_APPLY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[#25D366] hover:underline">
-            <WhatsappLogo size={18} weight="fill" /> Lieber kurz per WhatsApp melden
-          </a>
-        </div>
-      </div>
-    );
-  }
-
+// ─── INLINE BEWERBEN-CTA ───
+function ApplyCta({ label = "In 2 Minuten bewerben" }: { label?: string }) {
   return (
-    <div>
-      {/* Progress */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-xs text-muted">Schritt {currentStep + 1} von {totalSteps}</span>
-          <span className="text-xs text-muted font-mono">{Math.round(progress)}%</span>
-        </div>
-        <div className="h-1.5 bg-border rounded-full overflow-hidden">
-          <motion.div className="h-full bg-primary rounded-full" animate={{ width: `${progress}%` }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }} />
-        </div>
+    <FadeIn>
+      <div className="mt-12 flex justify-center">
+        <Link href={BEWERBEN_URL} className={`inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
+          {label} <ArrowRight size={16} weight="bold" />
+        </Link>
       </div>
-
-      <AnimatePresence mode="wait" custom={direction}>
-        {!isContactStep ? (
-          <motion.div key={currentStep} custom={direction} variants={slideVariants}
-            initial="enter" animate="center" exit="exit"
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}>
-            <h3 className="text-xl font-bold mb-5">{quizSteps[currentStep].question}</h3>
-            <div className="space-y-2">
-              {quizSteps[currentStep].options.map((opt) => (
-                <button key={opt} onClick={() => selectOption(opt)}
-                  className={`w-full text-left px-4 py-3 rounded-xl border-2 transition-all text-sm font-medium ${FOCUS_RING} ${
-                    answers[currentStep] === opt
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-primary/30"
-                  }`}>
-                  {opt}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div key="contact" custom={direction} variants={slideVariants}
-            initial="enter" animate="center" exit="exit"
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}>
-            <h3 className="text-xl font-bold mb-2">Fast geschafft!</h3>
-            <p className="text-muted text-sm mb-5">Wie erreichen wir dich?</p>
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-3">
-                <input type="text" placeholder="Vorname" value={contactData.vorname}
-                  onChange={(e) => setContactData({ ...contactData, vorname: e.target.value })}
-                  className="px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-                <input type="text" placeholder="Nachname" value={contactData.nachname}
-                  onChange={(e) => setContactData({ ...contactData, nachname: e.target.value })}
-                  className="px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-              </div>
-              <input type="tel" placeholder="Telefon (z.B. +43 664 123 4567)" value={contactData.telefon}
-                onChange={(e) => setContactData({ ...contactData, telefon: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-              <input type="email" placeholder="E-Mail (z.B. deine@email.at)" value={contactData.email}
-                onChange={(e) => setContactData({ ...contactData, email: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-              <input type="number" placeholder="Alter (optional)" min={16} max={99} value={contactData.alter}
-                onChange={(e) => setContactData({ ...contactData, alter: e.target.value })}
-                className="w-full px-4 py-3 rounded-xl border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />
-              <label className="flex items-start gap-2.5 pt-1 cursor-pointer">
-                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 flex-shrink-0 accent-[#E88B00]" />
-                <span className="text-xs text-muted leading-relaxed">
-                  Ich stimme zu, dass ET König meine Daten zur Bearbeitung meiner Bewerbung verwendet. Mehr in der{" "}
-                  <a href="/datenschutz" className="text-primary underline">Datenschutzerklärung</a>.
-                </span>
-              </label>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Navigation */}
-      <div className="flex items-center justify-between mt-6">
-        <button onClick={goBack} className={`inline-flex items-center gap-2 min-h-[44px] px-2 -ml-2 text-sm text-muted hover:text-foreground rounded-lg ${FOCUS_RING}`}>
-          <ArrowLeft size={14} weight="bold" /> Zurück
-        </button>
-        {isContactStep && (
-          <button onClick={handleSubmit}
-            disabled={!isContactValid || isSubmitting}
-            className={`inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all disabled:opacity-30 ${FOCUS_RING}`}>
-            {isSubmitting ? <><Spinner size={14} className="animate-spin" /> Wird gesendet...</>
-              : <>Bewerbung absenden <ArrowRight size={14} weight="bold" /></>}
-          </button>
-        )}
-      </div>
-    </div>
+    </FadeIn>
   );
 }
 
 // ─── MAIN PAGE ───
 export default function KarriereClient() {
+  const [hideBar, setHideBar] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 160;
+      setHideBar(nearBottom);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       {/* Hero */}
@@ -416,8 +206,8 @@ export default function KarriereClient() {
           <FadeIn>
             <div className="flex flex-wrap gap-2 mb-5">
               {[
-                { icon: MapPin, text: STANDORTE.join(" · ") },
                 { icon: Briefcase, text: "Vollzeit" },
+                { icon: CheckCircle, text: "Ab sofort" },
                 { icon: Users, text: "Familiäres Team" },
               ].map((badge) => {
                 const Icon = badge.icon;
@@ -435,25 +225,28 @@ export default function KarriereClient() {
             </h1>
           </FadeIn>
           <FadeIn delay={0.18}>
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-3">
               <span className="text-2xl sm:text-3xl font-bold text-primary">{GEHALT_KURZ}</span>
               <span className="text-sm text-white/70">{GEHALT_QUALIFIER}</span>
             </div>
           </FadeIn>
           <FadeIn delay={0.24}>
+            <div className="flex items-center gap-2 text-white mb-5">
+              <MapPin size={18} weight="fill" className="text-primary flex-shrink-0" />
+              <span className="text-sm sm:text-base font-semibold">{STANDORT_TEXT}</span>
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.3}>
             <p className="text-base sm:text-lg text-white/80 max-w-xl mb-6">
               Wir suchen ab sofort einen engagierten <strong className="text-white">Elektriker (m/w/d)</strong> für
               vielseitige Projekte – von Photovoltaik über Speicherlösungen bis hin zu klassischen Elektroinstallationen.
             </p>
           </FadeIn>
-          <FadeIn delay={0.32}>
+          <FadeIn delay={0.36}>
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              <a href="#bewerbung" className={`w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
+              <Link href={BEWERBEN_URL} className={`w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
                 In 2 Minuten bewerben <ArrowRight size={16} weight="bold" />
-              </a>
-              <a href={`tel:${PHONE}`} className={`w-full sm:w-auto justify-center inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white/90 border border-white/20 rounded-full hover:bg-white/10 transition-all ${FOCUS_RING}`}>
-                <Phone size={16} weight="fill" /> Anrufen
-              </a>
+              </Link>
               <div className="hidden sm:block">
                 <ShareJob variant="hero" />
               </div>
@@ -589,6 +382,8 @@ export default function KarriereClient() {
             );
           })}
         </div>
+
+        <ApplyCta />
       </Section>
 
       {/* Zahlen / Vertrauen */}
@@ -646,6 +441,8 @@ export default function KarriereClient() {
             </FadeIn>
           ))}
         </div>
+
+        <ApplyCta label="Klingt nach dir? Jetzt bewerben" />
       </Section>
 
       {/* Anforderungen */}
@@ -716,41 +513,21 @@ export default function KarriereClient() {
         </div>
       </Section>
 
-      {/* Bewerbungsformular */}
+      {/* Bewerben-CTA (führt auf die fokussierte Bewerbungsseite) */}
       <Section className="bg-background-alt" id="bewerbung">
-        <div className="max-w-xl mx-auto">
-          <FadeIn>
-            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">Jetzt bewerben</p>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-center">
-              Bereit für deine neue Herausforderung?
-            </h2>
-            <p className="text-base text-muted text-center mb-8">
-              Füll einfach das kurze Formular aus – kein langes Anschreiben, kein Lebenslauf nötig. Wir melden uns innerhalb von 2-3 Werktagen!
+        <FadeIn>
+          <div className="max-w-2xl mx-auto text-center rounded-3xl border border-border/60 bg-white p-8 sm:p-12 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
+            <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Jetzt bewerben</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Bereit für deine neue Herausforderung?</h2>
+            <p className="text-base text-muted mb-7">
+              Kein Anschreiben, kein Lebenslauf nötig – in 2 Minuten erledigt. Wir melden uns innerhalb von 2-3 Werktagen.
             </p>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="rounded-2xl border border-border/60 bg-white p-6 sm:p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
-              <ApplicationForm />
-            </div>
-          </FadeIn>
-
-          {/* Ansprechperson (Platzhalter – echte Person eintragen, dann SHOW_CONTACT_PERSON = true) */}
-          {SHOW_CONTACT_PERSON && (
-            <FadeIn delay={0.2}>
-              <div className="mt-6 flex items-center gap-4 p-5 rounded-2xl bg-white border border-border/60">
-                <div className="relative w-14 h-14 rounded-full overflow-hidden bg-background-alt flex-shrink-0">
-                  {/* <Image src="/karriere/ansprechperson.jpg" alt="[Name]" fill className="object-cover" /> */}
-                </div>
-                <div>
-                  <p className="text-xs text-muted mb-0.5">Deine Ansprechperson</p>
-                  <p className="text-sm font-bold">[Name]</p>
-                  <a href={`tel:${PHONE}`} className="text-sm text-primary font-medium">{PHONE_DISPLAY}</a>
-                </div>
-              </div>
-            </FadeIn>
-          )}
-        </div>
+            <Link href={BEWERBEN_URL} className={`inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
+              In 2 Minuten bewerben <ArrowRight size={18} weight="bold" />
+            </Link>
+            <p className="text-xs text-muted mt-4">4 kurze Fragen · Kein Lebenslauf nötig</p>
+          </div>
+        </FadeIn>
       </Section>
 
       {/* Empfehlungs-Sektion: Job weiterschicken */}
@@ -786,9 +563,9 @@ export default function KarriereClient() {
               ))}
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#bewerbung" className={`inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
+              <Link href={BEWERBEN_URL} className={`inline-flex items-center gap-2 px-8 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all ${FOCUS_RING}`}>
                 In 2 Minuten bewerben <ArrowRight size={16} weight="bold" />
-              </a>
+              </Link>
               <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors">
                 <Phone size={16} weight="light" /> {PHONE_DISPLAY}
               </a>
@@ -798,15 +575,12 @@ export default function KarriereClient() {
       </Section>
 
       {/* Sticky Mobile Apply Bar */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur border-t border-border px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2.5">
-        <a href="#bewerbung" className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-primary rounded-full active:scale-[0.98] transition-all">
+      <div className={`md:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur border-t border-border px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex gap-2.5 transition-transform duration-300 ${hideBar ? "translate-y-full" : "translate-y-0"}`}>
+        <Link href={BEWERBEN_URL} className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-primary rounded-full active:scale-[0.98] transition-all">
           Jetzt bewerben <ArrowRight size={16} weight="bold" />
-        </a>
+        </Link>
         <a href={WA_APPLY} target="_blank" rel="noopener noreferrer" aria-label="Per WhatsApp bewerben" className="inline-flex items-center justify-center w-12 h-12 flex-shrink-0 rounded-full bg-[#25D366] text-white active:scale-95 transition-all">
           <WhatsappLogo size={20} weight="fill" />
-        </a>
-        <a href={`tel:${PHONE}`} aria-label="Anrufen" className="inline-flex items-center justify-center w-12 h-12 flex-shrink-0 rounded-full border border-border text-foreground active:scale-95 transition-all">
-          <Phone size={20} weight="fill" />
         </a>
       </div>
       <div className="h-20 md:hidden" aria-hidden />
