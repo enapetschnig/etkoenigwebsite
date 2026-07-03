@@ -45,7 +45,7 @@ const PHONE = "+436645319079";
 const PHONE_DISPLAY = "+43 664 531 90 79";
 // Arbeitsstandorte – Steiermark: Scheifling, Murau · Kärnten: Feldkirchen
 const STANDORTE = ["Scheifling", "Murau", "Feldkirchen"];
-const STANDORT_TEXT = "Scheifling & Murau (Steiermark) · Feldkirchen (Kärnten)";
+const STANDORT_TEXT = "Standort frei wählbar: Scheifling & Murau (Steiermark) oder Feldkirchen (Kärnten)";
 const BEWERBEN_URL = "/karriere/bewerben";
 
 const FOCUS_RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-1";
