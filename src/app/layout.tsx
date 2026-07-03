@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -39,6 +39,11 @@ export const metadata: Metadata = {
     locale: "de_AT",
     siteName: "ET König GmbH",
   },
+};
+
+// viewport-fit=cover, damit env(safe-area-inset-*) auf iPhones greift (Sticky-Bars etc.)
+export const viewport: Viewport = {
+  viewportFit: "cover",
 };
 
 export default async function RootLayout({

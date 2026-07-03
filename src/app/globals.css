@@ -18,6 +18,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Verhindert, dass Anchor-Sprünge (#bewerbung etc.) unter der fixen Navbar landen */
+  scroll-padding-top: 90px;
 }
 
 body {
