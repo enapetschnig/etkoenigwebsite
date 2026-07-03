@@ -38,8 +38,8 @@ import { ShareJob } from "@/components/share-job";
 // ─────────────────────────────────────────────────────────────
 const GEHALT_KURZ = "ab € 2.300 netto"; // Hero-Großzahl
 const GEHALT_BRUTTO = "ca. € 3.250 brutto"; // Umrechnung AT 2025 (alleinstehend, 14×) – rechtlich transparent
-const GEHALT_QUALIFIER = `pro Monat (${GEHALT_BRUTTO}) – abhängig von Erfahrung & Qualifikation`;
-const GEHALT_LANG = `${GEHALT_KURZ}/Monat (${GEHALT_BRUTTO}) – abhängig von Erfahrung & Qualifikation`;
+const GEHALT_QUALIFIER = `pro Monat (${GEHALT_BRUTTO}) · Bereitschaft zur Überzahlung je nach Erfahrung & Qualifikation`;
+const GEHALT_LANG = `${GEHALT_KURZ}/Monat (${GEHALT_BRUTTO}) · Bereitschaft zur Überzahlung je nach Erfahrung & Qualifikation`;
 
 const PHONE = "+436645319079";
 const PHONE_DISPLAY = "+43 664 531 90 79";
@@ -99,7 +99,7 @@ const busPerks = [
 
 // ─── TEAM & KULTUR (echte Fotos) ───
 const teamPhotos = [
-  { src: "/karriere/team-grill.jpg", alt: "Der Chef grillt für das Team bei ET König", caption: "Beim Betriebsfest steht der Chef selbst am Griller." },
+  { src: "/karriere/team-grill.jpg", alt: "Der Chef grillt für das Team bei ET König", caption: "Im Sommer grillt der Chef schon mal persönlich für die Mannschaft." },
   { src: "/karriere/team-tisch.jpg", alt: "Gemeinsame Runde des ET König Teams", caption: "Gemeinsame Runde nach getaner Arbeit – Zusammenhalt statt Einzelkämpfer." },
 ];
 
@@ -194,10 +194,12 @@ export default function KarriereClient() {
       <section data-nav-dark className="relative min-h-[70vh] md:min-h-[80vh] flex items-end pb-12 sm:pb-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image src="/karriere/hero-team.jpg" alt="ET König Elektriker-Team" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/60 to-dark/30" />
+          {/* Verläufe: unten für die Textbasis, links für die (linksbündige) Schrift */}
+          <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/75 to-dark/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-dark/85 via-dark/35 to-transparent" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 w-full">
+        <div className="relative z-10 mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 w-full" style={{ textShadow: "0 1px 14px rgba(0,0,0,0.45)" }}>
           <FadeIn>
             <div className="flex flex-wrap gap-2 mb-5">
               {[
@@ -416,8 +418,8 @@ export default function KarriereClient() {
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Team & Kultur</p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">Ein bodenständiges Team – und der beste Chef</h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Wir sind ein bodenständiges Team aus der Steiermark und Kärnten – ehrlich, handfest, ohne Allüren. Beim
-            Betriebsfest steht der Chef selbst am Griller, und für jedes Anliegen – ob beruflich oder privat – hat er
+            Wir sind ein bodenständiges Team aus der Steiermark und Kärnten – ehrlich, handfest, ohne Allüren. Im
+            Sommer steht der Chef auch mal selbst am Griller, und für jedes Anliegen – ob beruflich oder privat – hat er
             ein offenes Ohr. Bei uns wirst du gehört, nicht verwaltet. Gemeinsame Feste, ein Bier nach Feierabend und
             echter Zusammenhalt gehören einfach dazu.
           </p>
