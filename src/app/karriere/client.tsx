@@ -550,8 +550,10 @@ export default function KarriereClient() {
           <div className="text-center max-w-xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-3">Dein zukünftiger Arbeitsplatz</h2>
             <p className="text-muted mb-5">
-              Du arbeitest an einem unserer Standorte in der Steiermark und Kärnten – hauptsächlich in der Region, mit kurzen Wegen und ohne wochenlange Montagen.
+              Du suchst dir selbst aus, von welchem Standort aus du arbeitest – in Scheifling, in Murau oder in Feldkirchen.
+              Hauptsächlich in der Region, mit kurzen Wegen und ohne wochenlange Montagen.
             </p>
+            <p className="text-sm font-semibold text-foreground mb-3">Such dir deinen Standort aus:</p>
             <div className="flex flex-wrap items-center justify-center gap-2.5 mb-7">
               {STANDORTE.map((ort) => (
                 <span key={ort} className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-foreground text-sm font-semibold rounded-full border border-primary/20 shadow-sm">
