@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Klimaanlagen in der Steiermark & Kärnten | ET König",
     description:
-      "Endlich wieder schlafen — auch wenn draußen 35 Grad sind. Klimaanlagen vom Fachbetrieb, kombinierbar mit Ihrer PV-Anlage. Kostenlose Beratung.",
+      "Endlich wieder schlafen — auch wenn die Hitze da ist. Klimaanlagen vom Fachbetrieb, ideal zusammen mit Ihrer PV-Anlage. Kostenlose Beratung.",
     type: "website",
     locale: "de_AT",
   },

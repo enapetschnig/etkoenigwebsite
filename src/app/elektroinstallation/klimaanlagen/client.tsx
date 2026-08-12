@@ -46,7 +46,7 @@ const painPoints = [
   {
     icon: Moon,
     title: "Am Morgen schon müde",
-    text: "Statt ausgeruht aufzuwachen, starten Sie müde in den Tag. Und das die ganze Hitzewelle lang.",
+    text: "Statt ausgeruht aufzuwachen, starten Sie müde in den Tag. Und das jetzt schon seit Wochen.",
   },
   {
     icon: House,
@@ -172,7 +172,7 @@ const faqs = [
   },
   {
     q: "Wann soll ich mich am besten melden?",
-    a: "Am besten, bevor die nächste Hitzewelle kommt. Sobald es richtig heiß wird, sind die Termine meist innerhalb weniger Tage vergeben und es dauert länger. Wer im Frühjahr oder im Herbst plant, bekommt seinen Wunschtermin.",
+    a: "Am besten jetzt. Wenn es so heiß ist wie gerade, wollen alle gleichzeitig eine Klimaanlage und die Termine sind schnell vergeben. Je früher Ihre Anfrage bei uns liegt, desto eher kommen wir zu Ihnen — und desto mehr haben Sie noch heuer davon.",
   },
 ];
 
@@ -245,7 +245,7 @@ export default function KlimaanlagenClient() {
 
           <FadeIn delay={0.08}>
             <h1 className="text-3xl sm:text-4xl lg:text-[3.4rem] font-bold tracking-tight text-white leading-[1.08] mb-5 max-w-3xl">
-              Endlich wieder schlafen — auch wenn draußen 35 Grad sind.
+              Endlich wieder schlafen — auch wenn die Hitze da ist.
             </h1>
           </FadeIn>
 
@@ -339,7 +339,8 @@ export default function KlimaanlagenClient() {
               vor.
             </p>
             <p className="text-foreground font-semibold leading-relaxed">
-              Die nächste Hitzewelle kommt bestimmt. Die Frage ist nur, wie Sie sie verbringen.
+              Und der Sommer ist noch lange nicht vorbei. Die Frage ist nur, wie Sie die
+              nächsten heißen Wochen verbringen.
             </p>
           </FadeIn>
 
@@ -563,11 +564,11 @@ export default function KlimaanlagenClient() {
             <Wind size={30} weight="duotone" className="text-primary flex-shrink-0" />
             <div className="flex-1">
               <p className="text-sm sm:text-base font-bold mb-1">
-                Früh planen zahlt sich aus
+                Jetzt ist die Hitze da — und die Termine werden knapp
               </p>
               <p className="text-sm text-muted">
-                Sobald es richtig heiß wird, sind die Termine meist innerhalb weniger Tage
-                vergeben. Wer früher dran ist, bekommt seinen Wunschtermin.
+                Genau in diesen Wochen wollen alle eine Klimaanlage. Je früher Sie sich melden,
+                desto eher kommen wir zu Ihnen.
               </p>
             </div>
             <Link
