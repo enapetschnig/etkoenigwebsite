@@ -12,13 +12,13 @@ import {
   Question,
   SolarPanel,
   X,
+  Lightbulb,
   ClipboardText,
   Lightning,
   CalendarBlank,
   CalendarCheck,
   Star,
   CheckCircle,
-  Phone,
 } from "@phosphor-icons/react";
 import { QuizForm } from "@/components/quiz-form";
 import type { QuizStep } from "@/components/quiz-form";
@@ -48,9 +48,9 @@ const steps: QuizStep[] = [
     question: "Haben Sie bereits eine PV-Anlage?",
     options: [
       { label: "Ja, PV-Anlage vorhanden", icon: SolarPanel, value: "pv-vorhanden" },
-      { label: "Nein, keine PV-Anlage", icon: X, value: "keine-pv" },
+      { label: "Noch nicht – aber ich hätte Interesse", icon: Lightbulb, value: "pv-interesse" },
       { label: "PV ist gerade in Planung", icon: ClipboardText, value: "pv-geplant" },
-      { label: "Weiß ich nicht", icon: Question, value: "unbekannt" },
+      { label: "Nein, ist kein Thema für mich", icon: X, value: "keine-pv" },
     ],
   },
   {
@@ -124,22 +124,10 @@ export default function KlimaQuizClient() {
         submitLabel="Kostenlose Beratung anfordern"
         successTitle="Danke — wir melden uns!"
         successText={
-          <>
-            <p className="mb-4">
-              Ihre Klimaanlagen-Anfrage ist bei uns eingegangen. Wir melden uns innerhalb von 24
-              Stunden bei Ihnen und besprechen, welche Lösung für Ihr Zuhause passt.
-            </p>
-            <p className="text-sm">
-              Es eilt? Rufen Sie uns einfach direkt an:{" "}
-              <a
-                href="tel:+436645319079"
-                className="font-semibold text-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
-              >
-                <Phone size={14} weight="fill" className="text-primary" />
-                +43 664 531 90 79
-              </a>
-            </p>
-          </>
+          <p>
+            Ihre Anfrage ist bei uns eingegangen. Wir melden uns innerhalb von 24 Stunden bei
+            Ihnen und besprechen in Ruhe, was bei Ihnen zuhause Sinn macht.
+          </p>
         }
         onSubmitted={handleSubmitted}
       />

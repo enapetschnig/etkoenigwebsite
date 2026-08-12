@@ -79,7 +79,7 @@ const services = [
   },
   {
     title: "Klimaanlagen",
-    description: "Endlich wieder gut schlafen: Beratung, Kühllastberechnung und Montage von Split-Klimaanlagen – ideal kombinierbar mit Ihrer PV-Anlage.",
+    description: "Endlich wieder gut schlafen: Beratung, Montage und Wartung von Klimaanlagen – für einen Raum oder das ganze Haus, ideal zusammen mit Ihrer PV-Anlage.",
     icon: Snowflake,
     href: "/elektroinstallation/klimaanlagen",
     image: "/klimaanlagen.jpg",

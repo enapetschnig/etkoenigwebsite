@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -23,10 +23,8 @@ import {
   CaretRight,
   Plus,
   Minus,
-  Question,
   Wrench,
   ClipboardText,
-  Ruler,
   ShieldCheck,
   House,
   Clock,
@@ -36,8 +34,6 @@ import { Section, FadeIn, CountUp } from "@/components/section";
 import { KlimaPixel } from "@/components/klima-pixel";
 
 const ANFRAGE_HREF = "/anfrage/klimaanlage";
-const TELEFON = "+43 664 531 90 79";
-const TELEFON_HREF = "tel:+436645319079";
 
 /* ---------------------------------------------------------------- Daten */
 
@@ -45,81 +41,81 @@ const painPoints = [
   {
     icon: ThermometerHot,
     title: "28 Grad im Schlafzimmer",
-    text: "Das Fenster ist offen – aber es kühlt einfach nicht ab. Sie schwitzen, wälzen sich und schlafen schlecht.",
+    text: "Das Fenster ist offen – aber es wird einfach nicht kühler. Sie schwitzen und schlafen schlecht.",
   },
   {
     icon: Moon,
-    title: "Morgens schon gerädert",
-    text: "Statt erholt aufzuwachen, starten Sie müde in den Tag. Und das über die gesamte Hitzewelle hinweg.",
+    title: "Am Morgen schon müde",
+    text: "Statt ausgeruht aufzuwachen, starten Sie müde in den Tag. Und das die ganze Hitzewelle lang.",
   },
   {
     icon: House,
-    title: "Das Haus staut die Hitze",
-    text: "Hat sich das Gebäude einmal richtig aufgeheizt, hält sich diese Hitze oft über Tage – auch nachts.",
+    title: "Das Haus speichert die Hitze",
+    text: "Hat sich das Haus einmal richtig aufgeheizt, bleibt diese Hitze oft tagelang drinnen – auch nachts.",
   },
   {
     icon: Fan,
-    title: "Ventilator reicht nicht",
-    text: "Ein Ventilator schiebt nur warme Luft im Kreis. Er kühlt den Raum nicht – er macht ihn nur lauter.",
+    title: "Der Ventilator hilft nicht",
+    text: "Ein Ventilator schiebt nur die warme Luft im Kreis. Kühler wird der Raum davon nicht.",
   },
 ];
 
 const leistungen = [
   {
     icon: ClipboardText,
-    title: "Kostenlose Beratung vor Ort",
-    text: "Wir schauen uns Ihre Räume an, hören zu, wo es am schlimmsten ist – und sagen ehrlich, was Sinn macht und was nicht.",
-  },
-  {
-    icon: Ruler,
-    title: "Kühllast-Berechnung & Auslegung",
-    text: "Raumgröße, Fensterflächen, Ausrichtung, Dämmung: Wir legen die Anlage exakt aus. Nicht zu klein, nicht unnötig groß.",
+    title: "Kostenlose Beratung bei Ihnen zuhause",
+    text: "Wir schauen uns Ihre Räume an, hören zu, wo es am schlimmsten ist – und sagen ehrlich, was bei Ihnen Sinn macht.",
   },
   {
     icon: Snowflake,
-    title: "Single- & Multi-Split-Anlagen",
-    text: "Ein Schlafzimmer oder das ganze Haus – von der einzelnen Inneneinheit bis zur Multi-Split-Anlage für mehrere Räume.",
+    title: "Das passende Gerät für Ihre Räume",
+    text: "Wir suchen ein Gerät aus, das zu Ihrem Raum passt: stark genug, damit es wirklich kühl wird, und trotzdem sparsam und leise.",
+  },
+  {
+    icon: House,
+    title: "Ein Zimmer oder das ganze Haus",
+    text: "Nur das Schlafzimmer oder mehrere Räume auf einmal – beides ist möglich. Jeder Raum lässt sich einzeln einstellen.",
   },
   {
     icon: Plug,
-    title: "Kältetechnik + Elektro aus einer Hand",
-    text: "Kältekreislauf, Kondensatablauf, eigener Stromkreis, Absicherung: Alles von einem Betrieb. Keine Schnittstellen, keine Ausreden.",
+    title: "Montage und Strom von uns",
+    text: "Gerät montieren, Leitungen verlegen, Stromanschluss herstellen und anschließen: Das macht alles unser eigenes Team.",
   },
   {
     icon: SolarPanel,
-    title: "Kopplung mit Ihrer PV-Anlage",
-    text: "Wir binden die Klimaanlage so ein, dass sie bevorzugt mit Ihrem eigenen Sonnenstrom läuft – statt ihn billig einzuspeisen.",
+    title: "Zusammen mit Ihrer PV-Anlage",
+    text: "Wir schließen die Klimaanlage so an, dass sie möglichst mit Ihrem eigenen Sonnenstrom läuft – statt ihn billig ins Netz zu schicken.",
   },
   {
     icon: Wrench,
-    title: "Wartung & Service",
-    text: "Regelmäßige Wartung hält die Effizienz oben und die Stromkosten unten. Und wenn etwas ist, sind wir in der Region.",
+    title: "Wartung und Service",
+    text: "Eine gewartete Anlage kühlt besser und braucht weniger Strom. Und wenn einmal etwas ist, sind wir in der Nähe.",
   },
 ];
 
 const ablauf = [
   {
     num: "01",
-    title: "Anfrage in 60 Sekunden",
-    text: "Vier kurze Fragen zu Ihrem Haus – danach wissen wir, worum es geht.",
+    title: "Anfrage in einer Minute",
+    text: "Vier kurze Fragen zu Ihrem Zuhause – mehr braucht es fürs Erste nicht.",
     icon: ClipboardText,
   },
   {
     num: "02",
-    title: "Rückruf & Beratung",
-    text: "Wir melden uns innerhalb von 24 Stunden und klären am Telefon die wichtigsten Punkte.",
+    title: "Wir melden uns bei Ihnen",
+    text: "Innerhalb von 24 Stunden rufen wir zurück und klären die wichtigsten Fragen.",
     icon: Phone,
   },
   {
     num: "03",
-    title: "Vor-Ort-Termin & Fixpreis",
-    text: "Wir schauen uns die Räume an und Sie bekommen ein Angebot zum Fixpreis – ohne versteckte Kosten.",
-    icon: Ruler,
+    title: "Termin bei Ihnen zuhause",
+    text: "Wir schauen uns die Räume an. Danach bekommen Sie ein Angebot zum Fixpreis.",
+    icon: House,
   },
   {
     num: "04",
-    title: "Montage & Inbetriebnahme",
-    text: "Meist an einem Tag erledigt. Wir übergeben die Anlage fertig eingestellt und erklären alles.",
+    title: "Montage und Übergabe",
+    text: "Meist an einem Tag erledigt. Wir übergeben die Anlage fertig eingestellt und erklären Ihnen alles.",
     icon: Snowflake,
   },
 ];
@@ -127,95 +123,56 @@ const ablauf = [
 const whyUs = [
   {
     num: "01",
-    title: "Aus der Region, für die Region",
-    text: "Scheifling, Murau und Feldkirchen – wir sind in der Steiermark und in Kärnten zuhause. Kurze Wege, echte Ansprechpartner, kein Callcenter.",
+    title: "Wir sind aus der Region",
+    text: "Scheifling, Murau und Feldkirchen – wir sind in der Steiermark und in Kärnten zuhause. Kurze Wege und ein Ansprechpartner, den Sie kennen. Kein Callcenter.",
     icon: MapPin,
   },
   {
     num: "02",
-    title: "Elektro, Kälte & PV im selben Haus",
-    text: "Über 95 Mitarbeiter, eigene Elektro-, HLS- und PV-Teams. Ihre Klimaanlage wird nicht an drei Firmen weitergereicht.",
+    title: "Alles aus dem eigenen Haus",
+    text: "Über 95 Mitarbeiter mit eigenen Teams für Elektro, Haustechnik und Photovoltaik. Ihre Klimaanlage wird nicht an drei Firmen weitergereicht.",
     icon: Users,
   },
   {
     num: "03",
     title: "Fixpreis statt Überraschung",
-    text: "Sie bekommen einen Preis – und der hält. Keine Nachträge, keine Kleingedruckten, keine bösen Überraschungen am Ende.",
+    text: "Sie bekommen einen Preis – und der hält. Keine Nachträge, kein Kleingedrucktes, keine böse Überraschung am Ende.",
     icon: CurrencyEur,
-  },
-];
-
-const pakete = [
-  {
-    titel: "Ein Raum",
-    subtitel: "Single-Split-Anlage",
-    beschreibung:
-      "Die klassische Lösung fürs Schlafzimmer oder das Büro. Eine Inneneinheit, eine Außeneinheit.",
-    punkte: [
-      "Ideal für 1 Raum bis ca. 35 m²",
-      "Montage meist an einem Tag",
-      "Kühlen im Sommer, zuheizen in der Übergangszeit",
-    ],
-    highlight: false,
-  },
-  {
-    titel: "Zwei bis drei Räume",
-    subtitel: "Multi-Split-Anlage",
-    beschreibung:
-      "Schlafzimmer, Wohnzimmer, Kinderzimmer – mehrere Inneneinheiten an einer gemeinsamen Außeneinheit.",
-    punkte: [
-      "Nur eine Außeneinheit für alle Räume",
-      "Jeder Raum einzeln regelbar",
-      "Am häufigsten nachgefragt",
-    ],
-    highlight: true,
-  },
-  {
-    titel: "Ganzes Haus",
-    subtitel: "Komplettlösung",
-    beschreibung:
-      "Mehrere Etagen, Wintergarten oder Gewerbeobjekt – wir planen das Gesamtkonzept inkl. PV-Anbindung.",
-    punkte: [
-      "Individuelle Planung & Kühllastberechnung",
-      "Auch für Büro, Ordination & Gastro",
-      "Optional Smart-Home-/KNX-Anbindung",
-    ],
-    highlight: false,
   },
 ];
 
 const faqs = [
   {
-    q: "Was kostet eine Klimaanlage inklusive Montage?",
-    a: "Als grobe Orientierung: Eine Single-Split-Anlage für einen Raum liegt komplett montiert meist im Bereich von rund 2.500 bis 3.500 €. Eine Multi-Split-Anlage für zwei bis drei Räume bewegt sich typischerweise zwischen etwa 5.000 und 9.000 €. Der tatsächliche Preis hängt von Gerät, Leitungslängen, Montagesituation und der nötigen Kühlleistung ab. Nach einem kurzen Vor-Ort-Termin bekommen Sie von uns ein verbindliches Fixpreis-Angebot – kostenlos und unverbindlich.",
+    q: "Was kostet eine Klimaanlage?",
+    a: "Das hängt davon ab, wie viele Räume Sie kühlen wollen, wie groß sie sind und wie aufwendig die Montage bei Ihnen ist. Deshalb nennen wir hier bewusst keine Fantasiepreise. Wir schauen uns Ihr Zuhause an und Sie bekommen danach ein Angebot zum Fixpreis. Beratung und Angebot sind kostenlos und unverbindlich.",
   },
   {
-    q: "Wie viel Strom verbraucht eine Klimaanlage wirklich?",
-    a: "Moderne Split-Geräte mit Inverter-Technik sind sehr effizient: Aus 1 kWh Strom machen sie – je nach Gerät und Bedingungen – etwa 3 bis 5 kWh Kühlleistung. Für ein Schlafzimmer bedeutet das im Betrieb oft nur ein paar hundert Watt. Wer eine PV-Anlage hat, deckt den Kühlbetrieb im Sommer weitgehend mit dem eigenen Sonnenstrom ab – genau dann, wenn die Anlage am meisten produziert.",
+    q: "Wie viel Strom braucht eine Klimaanlage?",
+    a: "Weniger, als die meisten denken. Moderne Geräte sind sehr sparsam: Aus einer Einheit Strom machen sie ein Mehrfaches an Kühlung. Für ein Schlafzimmer reicht im laufenden Betrieb oft schon wenig Leistung aus. Wer eine PV-Anlage hat, deckt das im Sommer meist mit dem eigenen Strom vom Dach ab.",
   },
   {
-    q: "Ich habe eine PV-Anlage. Zahlt sich eine Klimaanlage dann besonders aus?",
-    a: "Ja, und zwar aus einem einfachen Grund: Ihre PV-Anlage produziert genau dann am meisten, wenn sich Ihr Haus am stärksten aufheizt. Statt den Überschuss zu einem niedrigen Tarif einzuspeisen – oder ihn gar nicht einspeisen zu dürfen – nutzen Sie ihn direkt zum Kühlen. Der Sonnenstrom bleibt im Haus und sorgt für angenehme Temperaturen, statt für ein paar Cent ins Netz zu gehen.",
+    q: "Ich habe eine PV-Anlage. Zahlt sich das dann besonders aus?",
+    a: "Ja. Ihre PV-Anlage produziert genau dann am meisten Strom, wenn sich Ihr Haus am stärksten aufheizt. Statt diesen Strom für wenig Geld ins Netz zu schicken – oder ihn gar nicht einspeisen zu dürfen – kühlen Sie damit Ihr Zuhause. Der Strom bleibt im Haus und Sie haben etwas davon.",
   },
   {
-    q: "Kann die Klimaanlage im Winter auch heizen?",
-    a: "Die meisten modernen Split-Geräte sind reversibel und können auch heizen. In der Übergangszeit – Frühling und Herbst – ist das oft die günstigste Art, einzelne Räume schnell warm zu bekommen, ohne die ganze Heizung hochzufahren. Als alleinige Hauptheizung im Winter ersetzt sie aber keine ordentlich geplante Wärmepumpe. Auch dazu beraten wir Sie gerne, denn Heizung und Wärmepumpen machen wir ebenfalls selbst.",
+    q: "Kann die Anlage im Winter auch heizen?",
+    a: "Die meisten Geräte können beides. Im Frühling und Herbst ist das oft die günstigste Art, einen einzelnen Raum schnell warm zu bekommen, ohne die ganze Heizung aufzudrehen. Als einzige Heizung für den Winter ersetzt sie aber keine richtige Wärmepumpe. Auch dazu beraten wir Sie gerne – Heizungen und Wärmepumpen machen wir ebenfalls selbst.",
   },
   {
-    q: "Ist eine Klimaanlage nicht laut?",
-    a: "Aktuelle Inneneinheiten liegen im Nachtbetrieb bei etwa 19 bis 25 dB(A) – das ist leiser als ein Kühlschrank und im Schlafzimmer praktisch nicht störend. Wichtig ist die richtige Auslegung und die richtige Platzierung: Eine zu klein dimensionierte Anlage läuft ständig auf Volllast und wird dadurch hörbar. Genau deshalb rechnen wir die Kühllast vorher aus.",
+    q: "Ist so eine Klimaanlage nicht laut?",
+    a: "Nein. Die Geräte im Raum sind im Nachtbetrieb ungefähr so leise wie ein Kühlschrank – im Schlafzimmer stört das nicht. Wichtig ist nur, dass das Gerät zum Raum passt. Ein zu schwaches Gerät läuft dauernd auf Vollgas und wird dadurch hörbar. Genau deshalb schauen wir uns die Räume vorher an.",
   },
   {
-    q: "Brauche ich eine Genehmigung oder eine Zustimmung?",
-    a: "Im eigenen Einfamilienhaus ist in der Regel keine Baubewilligung nötig. Bei Wohnungen, Reihenhäusern und Mehrparteienhäusern kann für die Außeneinheit an der Fassade die Zustimmung der Eigentümergemeinschaft erforderlich sein, in Ortsbildschutzzonen gelten teils zusätzliche Auflagen. Wir sagen Ihnen bei der Beratung, was in Ihrem konkreten Fall zu beachten ist.",
+    q: "Brauche ich eine Genehmigung?",
+    a: "Im eigenen Einfamilienhaus in der Regel nicht. Bei Wohnungen und Mehrparteienhäusern brauchen Sie für das Gerät an der Außenwand meist die Zustimmung der anderen Eigentümer. In manchen Ortsteilen gibt es zusätzliche Auflagen zum Ortsbild. Was bei Ihnen gilt, sagen wir Ihnen bei der Beratung.",
   },
   {
     q: "Wie lange dauert die Montage?",
-    a: "Eine Single-Split-Anlage ist meist an einem Tag fertig montiert und in Betrieb. Bei Multi-Split-Anlagen mit mehreren Innengeräten rechnen wir je nach Aufwand mit ein bis zwei Tagen. Wir arbeiten sauber, decken ab und räumen hinter uns auf – Sie können den Raum am selben Abend nutzen.",
+    a: "Für einen Raum sind wir meist an einem Tag fertig – am Abend läuft die Anlage schon. Bei mehreren Räumen dauert es je nach Aufwand ein bis zwei Tage. Wir decken ab, arbeiten sauber und räumen hinter uns wieder auf.",
   },
   {
-    q: "Wann sollte ich mich melden?",
-    a: "Am besten, bevor die nächste Hitzewelle da ist. Sobald es richtig heiß wird, sind die Termine erfahrungsgemäß innerhalb weniger Tage vergeben und die Wartezeiten steigen. Wer im Frühjahr oder Herbst plant, bekommt den Wunschtermin – und geht entspannt in den Sommer.",
+    q: "Wann soll ich mich am besten melden?",
+    a: "Am besten, bevor die nächste Hitzewelle kommt. Sobald es richtig heiß wird, sind die Termine meist innerhalb weniger Tage vergeben und es dauert länger. Wer im Frühjahr oder im Herbst plant, bekommt seinen Wunschtermin.",
   },
 ];
 
@@ -253,84 +210,6 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-/**
- * Eigener, dauerhaft sichtbarer Call-to-Action für die Klimaanlagen-Seite.
- * Ersetzt auf dieser Seite den globalen Anruf-Button (siehe layout-shell)
- * und blendet sich ein, sobald der Hero durchgescrollt ist.
- */
-function KlimaStickyCta() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 500);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <>
-          {/* Mobile: volle Leiste am unteren Rand */}
-          <motion.div
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 80, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 28 }}
-            className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-xl border-t border-border shadow-[0_-4px_24px_rgba(0,0,0,0.08)]"
-            style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
-          >
-            <div className="flex items-center gap-2 p-3">
-              <a
-                href={TELEFON_HREF}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-foreground border border-border rounded-full active:scale-[0.98] transition-all"
-                aria-label={`Jetzt anrufen: ${TELEFON}`}
-              >
-                <Phone size={18} weight="fill" className="text-primary" />
-                Anrufen
-              </a>
-              <Link
-                href={ANFRAGE_HREF}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-white bg-primary rounded-full active:scale-[0.98] transition-all"
-              >
-                Kostenlose Beratung
-                <ArrowRight size={16} weight="bold" />
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Desktop: schwebende Karte rechts unten */}
-          <motion.div
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 40, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 28 }}
-            className="hidden md:flex fixed bottom-5 right-5 z-40 items-center gap-3 rounded-2xl bg-white border border-border/70 shadow-[0_12px_40px_rgba(0,0,0,0.12)] p-3 pl-4"
-          >
-            <div className="pr-1">
-              <p className="text-sm font-bold leading-tight">Klimaanlage geplant?</p>
-              <a
-                href={TELEFON_HREF}
-                className="text-xs text-muted hover:text-primary transition-colors"
-              >
-                {TELEFON}
-              </a>
-            </div>
-            <Link
-              href={ANFRAGE_HREF}
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all whitespace-nowrap"
-            >
-              Kostenlose Beratung
-              <ArrowRight size={14} weight="bold" />
-            </Link>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
-}
-
 /* ----------------------------------------------------------------- Seite */
 
 export default function KlimaanlagenClient() {
@@ -347,7 +226,7 @@ export default function KlimaanlagenClient() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/klimaanlage-hero.jpg"
-            alt="Klimatisiertes Wohnzimmer an einem heißen Sommertag – Klimaanlage von ET König"
+            alt="Angenehm gekühltes Wohnzimmer an einem heißen Sommertag – Klimaanlage von ET König"
             fill
             priority
             className="object-cover"
@@ -372,27 +251,20 @@ export default function KlimaanlagenClient() {
 
           <FadeIn delay={0.16}>
             <p className="text-base sm:text-lg text-white/75 max-w-xl mb-7 leading-relaxed">
-              Wir planen und montieren Ihre Klimaanlage — vom einzelnen Schlafzimmer bis zum
-              ganzen Haus. Kältetechnik, Elektro und PV-Anbindung komplett aus einer Hand.
+              Wir bauen Ihnen die passende Klimaanlage ein — nur fürs Schlafzimmer oder gleich
+              fürs ganze Haus. Montage und Strom kommen bei uns aus einer Hand.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.24}>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8">
+            <div className="mb-8">
               <Link
                 href={ANFRAGE_HREF}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all shadow-lg shadow-primary/25"
               >
-                Kostenlose Klima-Beratung sichern
+                Kostenlose Beratung anfordern
                 <ArrowRight size={18} weight="bold" />
               </Link>
-              <a
-                href={TELEFON_HREF}
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 text-base font-semibold text-white border border-white/25 rounded-full hover:bg-white/10 active:scale-[0.98] transition-all"
-              >
-                <Phone size={18} weight="light" />
-                {TELEFON}
-              </a>
             </div>
           </FadeIn>
 
@@ -408,11 +280,11 @@ export default function KlimaanlagenClient() {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle size={15} weight="fill" className="text-primary" />
-                Fixpreis-Angebot
+                Beratung kostenlos
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle size={15} weight="fill" className="text-primary" />
-                Antwort innerhalb von 24 Stunden
+                Wir melden uns innerhalb von 24 Stunden
               </span>
             </div>
           </FadeIn>
@@ -458,13 +330,13 @@ export default function KlimaanlagenClient() {
               Sie liegen nachts wach, weil das Schlafzimmer 28 Grad hat.
             </h2>
             <p className="text-muted leading-relaxed mb-4">
-              Das Fenster ist offen, aber es kühlt einfach nicht ab. Sie schwitzen, schlafen
-              schlecht und fühlen sich am nächsten Morgen alles andere als erholt.
+              Das Fenster ist offen, aber es wird einfach nicht kühler. Sie schwitzen, schlafen
+              schlecht und sind am nächsten Morgen alles andere als ausgeruht.
             </p>
             <p className="text-muted leading-relaxed mb-4">
-              Und wenn sich das Haus einmal richtig aufgeheizt hat, zieht sich diese Hitze oft
-              über Tage. Irgendwann sind Sie einfach nur noch genervt — und der Sommer kommt
-              Ihnen plötzlich ewig vor.
+              Und wenn sich das Haus einmal richtig aufgeheizt hat, bleibt diese Hitze oft
+              tagelang. Irgendwann sind Sie nur noch genervt — und der Sommer kommt Ihnen ewig
+              vor.
             </p>
             <p className="text-foreground font-semibold leading-relaxed">
               Die nächste Hitzewelle kommt bestimmt. Die Frage ist nur, wie Sie sie verbringen.
@@ -514,21 +386,21 @@ export default function KlimaanlagenClient() {
               Sie kommen heim — und Ihr Haus ist angenehm kühl.
             </h2>
             <p className="text-muted leading-relaxed mb-4">
-              Abends legen Sie sich ins Bett, Ihr Schlafzimmer hat entspannte 20 Grad und Sie
-              können endlich wieder richtig gut schlafen. Ihr Zuhause wird selbst an den heißesten
-              Tagen zum kühlen Rückzugsort für Sie und Ihre Familie.
+              Am Abend legen Sie sich ins Bett, Ihr Schlafzimmer hat entspannte 20 Grad und Sie
+              schlafen endlich wieder richtig gut. Ihr Zuhause wird auch an den heißesten Tagen zu
+              dem Ort, an dem Sie und Ihre Familie zur Ruhe kommen.
             </p>
             <p className="text-muted leading-relaxed mb-7">
-              Genau das ist mit einer modernen Klimaanlage möglich. Sie ist damit nicht nur Luxus,
-              sondern eine Investition in Ihren Schlaf, Ihr Wohlbefinden und Ihre Lebensqualität.
+              Genau das kann eine Klimaanlage. Sie ist damit kein Luxus, sondern etwas, das Sie
+              jeden Tag spüren: besserer Schlaf und mehr Lebensqualität.
             </p>
 
             <div className="space-y-3 mb-8">
               {[
-                "Erholsamer Schlaf auch in Tropennächten",
-                "Kühler Rückzugsort für die ganze Familie",
-                "Leise im Betrieb — leiser als ein Kühlschrank",
-                "Im Frühling und Herbst auch zum Heizen nutzbar",
+                "Gut schlafen, auch wenn es draußen heiß bleibt",
+                "Ein kühler Rückzugsort für die ganze Familie",
+                "Leise – im Schlafzimmer stört das Gerät nicht",
+                "Im Frühling und Herbst können Sie damit auch heizen",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
                   <CheckCircle size={20} weight="fill" className="text-primary flex-shrink-0" />
@@ -554,19 +426,19 @@ export default function KlimaanlagenClient() {
           <FadeIn>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/15 text-primary text-sm font-semibold rounded-full mb-4">
               <SolarPanel size={15} weight="fill" />
-              Für PV-Besitzer besonders interessant
+              Besonders interessant mit PV-Anlage
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5 leading-[1.15]">
               Kühlen mit Ihrem eigenen Sonnenstrom.
             </h2>
             <p className="text-muted leading-relaxed mb-4">
-              Gerade im Sommer produziert Ihre PV-Anlage ordentlich Strom — aber für den
-              Überschuss bekommen Sie beim Einspeisen je nach Vertrag deutlich weniger als noch
-              vor einigen Jahren. Teilweise darf man gar nicht mehr einspeisen.
+              Gerade im Sommer produziert Ihre PV-Anlage viel Strom. Für den Strom, den Sie ins
+              Netz schicken, bekommen Sie aber je nach Vertrag deutlich weniger als noch vor ein
+              paar Jahren. Teilweise darf man gar nicht mehr einspeisen.
             </p>
             <p className="text-muted leading-relaxed mb-6">
-              Warum den wertvollen Sonnenstrom also nicht sinnvoll selbst nutzen? Genau hier wird
-              eine Klimaanlage besonders spannend.
+              Warum diesen Strom also nicht selbst nutzen? Genau da kommt die Klimaanlage ins
+              Spiel.
             </p>
 
             <div className="rounded-2xl bg-white border border-border/60 p-6 mb-7">
@@ -576,7 +448,7 @@ export default function KlimaanlagenClient() {
                 </div>
                 <div>
                   <p className="text-sm font-bold mb-1">
-                    Wann produziert Ihre PV-Anlage am meisten Strom?
+                    Wann macht Ihre PV-Anlage am meisten Strom?
                   </p>
                   <p className="text-sm text-muted">Wenn die Sonne scheint.</p>
                 </div>
@@ -597,15 +469,15 @@ export default function KlimaanlagenClient() {
             </div>
 
             <p className="text-foreground font-semibold leading-relaxed mb-7">
-              Ihr Sonnenstrom bleibt im Haus und sorgt für angenehme Temperaturen — statt für ein
-              paar Cent ins Netz zu gehen.
+              Ihr Sonnenstrom bleibt im Haus und macht es angenehm kühl — statt für ein paar Cent
+              ins Netz zu gehen.
             </p>
 
             <Link
               href={ANFRAGE_HREF}
               className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
             >
-              PV + Klimaanlage prüfen lassen
+              PV und Klimaanlage prüfen lassen
               <ArrowRight size={16} weight="bold" />
             </Link>
           </FadeIn>
@@ -614,7 +486,7 @@ export default function KlimaanlagenClient() {
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
               <Image
                 src="/klimaanlage-pv.jpg"
-                alt="Einfamilienhaus mit Photovoltaikanlage und Klimaanlagen-Außeneinheit in der Steiermark"
+                alt="Einfamilienhaus mit Photovoltaikanlage und Klimaanlage in der Steiermark"
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -628,14 +500,14 @@ export default function KlimaanlagenClient() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-            Unsere Leistung
+            Was wir für Sie machen
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
             Alles aus einer Hand — von der Beratung bis zur Wartung
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Klimatechnik ist Kälte- und Elektroarbeit zugleich. Bei uns kommt beides aus demselben
-            Haus — das spart Ihnen Koordination, Zeit und Diskussionen.
+            Bei einer Klimaanlage braucht es zwei Handwerker: einen für das Gerät und einen für
+            den Strom. Bei uns kommt beides aus demselben Haus — Sie müssen nichts koordinieren.
           </p>
         </FadeIn>
 
@@ -657,81 +529,8 @@ export default function KlimaanlagenClient() {
         </div>
       </Section>
 
-      {/* Welche Lösung passt */}
-      <Section className="bg-background-alt">
-        <FadeIn>
-          <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
-            Welche Lösung passt zu Ihnen?
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Von einem Raum bis zum ganzen Haus
-          </h2>
-          <p className="text-base text-muted max-w-2xl mb-10">
-            Welche Variante bei Ihnen Sinn macht, hängt von Ihren Räumen ab. Das klären wir in der
-            kostenlosen Beratung — ehrlich und ohne Verkaufsdruck.
-          </p>
-        </FadeIn>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {pakete.map((p, i) => (
-            <FadeIn key={p.titel} delay={i * 0.08}>
-              <div
-                className={`relative h-full rounded-2xl border p-7 flex flex-col ${
-                  p.highlight
-                    ? "border-primary/40 bg-white shadow-[0_12px_40px_rgba(232,139,0,0.12)]"
-                    : "border-border/60 bg-white"
-                }`}
-              >
-                {p.highlight && (
-                  <span className="absolute -top-3 left-7 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary text-white text-[11px] font-bold uppercase tracking-wider">
-                    <Star size={11} weight="fill" />
-                    Am beliebtesten
-                  </span>
-                )}
-                <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">
-                  {p.subtitel}
-                </p>
-                <h3 className="text-xl font-bold mb-3">{p.titel}</h3>
-                <p className="text-sm text-muted leading-relaxed mb-5">{p.beschreibung}</p>
-                <ul className="space-y-2.5 mb-6">
-                  {p.punkte.map((punkt) => (
-                    <li key={punkt} className="flex items-start gap-2.5 text-sm">
-                      <CheckCircle
-                        size={17}
-                        weight="fill"
-                        className="text-primary mt-0.5 flex-shrink-0"
-                      />
-                      <span>{punkt}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={ANFRAGE_HREF}
-                  className={`mt-auto inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-full active:scale-[0.98] transition-all ${
-                    p.highlight
-                      ? "text-white bg-primary hover:bg-primary-hover"
-                      : "text-foreground border border-border hover:bg-background-alt"
-                  }`}
-                >
-                  Beratung anfragen
-                  <ArrowRight size={14} weight="bold" />
-                </Link>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-
-        <FadeIn delay={0.25}>
-          <p className="text-xs text-muted mt-6 max-w-2xl">
-            Konkrete Preise hängen von Gerät, Kühlleistung, Leitungslängen und Montagesituation ab.
-            Sie bekommen nach dem Vor-Ort-Termin ein verbindliches Fixpreis-Angebot — kostenlos und
-            unverbindlich.
-          </p>
-        </FadeIn>
-      </Section>
-
       {/* Ablauf */}
-      <Section>
+      <Section className="bg-background-alt">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
             So läuft es ab
@@ -764,11 +563,11 @@ export default function KlimaanlagenClient() {
             <Wind size={30} weight="duotone" className="text-primary flex-shrink-0" />
             <div className="flex-1">
               <p className="text-sm sm:text-base font-bold mb-1">
-                Vor der nächsten Hitzewelle planen zahlt sich aus
+                Früh planen zahlt sich aus
               </p>
               <p className="text-sm text-muted">
-                Sobald es richtig heiß wird, sind die Montagetermine erfahrungsgemäß innerhalb
-                weniger Tage vergeben. Wer früher plant, bekommt den Wunschtermin.
+                Sobald es richtig heiß wird, sind die Termine meist innerhalb weniger Tage
+                vergeben. Wer früher dran ist, bekommt seinen Wunschtermin.
               </p>
             </div>
             <Link
@@ -782,7 +581,7 @@ export default function KlimaanlagenClient() {
       </Section>
 
       {/* Warum wir */}
-      <Section className="bg-background-alt">
+      <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
             Warum mit uns?
@@ -813,7 +612,7 @@ export default function KlimaanlagenClient() {
       </Section>
 
       {/* FAQ */}
-      <Section id="faq">
+      <Section className="bg-background-alt" id="faq">
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">
             Fragen & Antworten
@@ -822,8 +621,7 @@ export default function KlimaanlagenClient() {
             Häufige Fragen zur Klimaanlage
           </h2>
           <p className="text-base text-muted max-w-2xl mb-10">
-            Was Kunden uns am häufigsten fragen, bevor sie sich entscheiden. Bleibt eine Frage
-            offen, rufen Sie uns einfach an.
+            Das fragen uns Kunden am häufigsten, bevor sie sich entscheiden.
           </p>
         </FadeIn>
 
@@ -834,22 +632,24 @@ export default function KlimaanlagenClient() {
         </div>
 
         <FadeIn delay={0.3}>
-          <p className="text-center text-sm text-muted mt-8">
-            <Question size={16} weight="bold" className="inline mr-1 text-primary" />
-            Weitere Fragen? Rufen Sie uns an unter{" "}
-            <a
-              href={TELEFON_HREF}
-              className="font-semibold text-foreground hover:text-primary transition-colors"
+          <div className="text-center mt-10">
+            <p className="text-sm text-muted mb-4">
+              Ihre Frage war nicht dabei? Schreiben Sie sie einfach in die Anfrage — wir melden
+              uns bei Ihnen.
+            </p>
+            <Link
+              href={ANFRAGE_HREF}
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all"
             >
-              {TELEFON}
-            </a>
-            .
-          </p>
+              Kostenlose Beratung anfordern
+              <ArrowRight size={16} weight="bold" />
+            </Link>
+          </div>
         </FadeIn>
       </Section>
 
       {/* Google Bewertungen */}
-      <Section className="bg-background-alt">
+      <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3 text-center">
             Google Bewertungen
@@ -870,31 +670,23 @@ export default function KlimaanlagenClient() {
               Kostenlos & unverbindlich
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4 leading-[1.15]">
-              Wissen Sie, welche Lösung für Ihr Haus Sinn macht?
+              Sie wissen nicht, was bei Ihnen Sinn macht?
             </h2>
             <p className="text-muted mb-2">
-              Wir schauen uns Ihre Situation an und zeigen Ihnen, welche Möglichkeiten Sie haben —
-              inklusive Preis.
+              Dann schauen wir uns Ihr Zuhause an und sagen Ihnen ehrlich, welche Möglichkeiten
+              Sie haben — und was es kostet.
             </p>
             <p className="text-muted mb-8">
               Vier kurze Fragen, dann melden wir uns innerhalb von 24 Stunden bei Ihnen.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href={ANFRAGE_HREF}
-                className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
-              >
-                Kostenlose Klima-Beratung sichern
-                <ArrowRight size={18} weight="bold" />
-              </Link>
-              <a
-                href={TELEFON_HREF}
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground transition-colors"
-              >
-                <Phone size={16} weight="light" /> {TELEFON}
-              </a>
-            </div>
+            <Link
+              href={ANFRAGE_HREF}
+              className="inline-flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-primary rounded-full hover:bg-primary-hover active:scale-[0.98] transition-all shadow-lg shadow-primary/20"
+            >
+              Kostenlose Beratung anfordern
+              <ArrowRight size={18} weight="bold" />
+            </Link>
 
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-7 text-sm text-muted">
               <span className="inline-flex items-center gap-1.5">
@@ -926,8 +718,6 @@ export default function KlimaanlagenClient() {
           </nav>
         </div>
       </div>
-
-      <KlimaStickyCta />
     </>
   );
 }

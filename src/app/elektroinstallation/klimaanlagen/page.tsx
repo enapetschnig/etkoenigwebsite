@@ -4,7 +4,7 @@ import KlimaanlagenClient from "./client";
 export const metadata: Metadata = {
   title: "Klimaanlagen in der Steiermark & Kärnten – Montage & Beratung",
   description:
-    "Klimaanlage vom Fachbetrieb: Beratung, Kühllastberechnung, Montage und Wartung in Murau, Scheifling & Feldkirchen. Single- und Multi-Split-Anlagen, ideal kombinierbar mit Ihrer PV-Anlage. Kostenlose Beratung zum Fixpreis-Angebot.",
+    "Klimaanlage vom Fachbetrieb: Beratung, Montage und Wartung in Murau, Scheifling & Feldkirchen. Für einen Raum oder das ganze Haus – ideal zusammen mit Ihrer PV-Anlage. Beratung kostenlos, Angebot zum Fixpreis.",
   keywords: [
     "Klimaanlage Steiermark",
     "Klimaanlage Kärnten",
