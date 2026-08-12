@@ -179,7 +179,7 @@ export default function HomeClient() {
             },
             {
               title: "Elektroinstallation",
-              desc: "Sichere und normgerechte Elektroinstallationen – KNX, Blitzschutz und mehr.",
+              desc: "Sichere und normgerechte Elektroinstallationen – KNX, Blitzschutz, Wallbox und Klimaanlagen.",
               icon: Lightning,
               href: "/elektroinstallation",
               cta: "Mehr erfahren",

@@ -38,6 +38,7 @@ const leistungen = [
   { href: "/photovoltaik", label: "Photovoltaik" },
   { href: "/hls-installationen", label: "HLS-Installationen" },
   { href: "/elektroinstallation", label: "Elektroinstallation" },
+  { href: "/elektroinstallation/klimaanlagen", label: "Klimaanlagen" },
   { href: "/fachhandel", label: "Fachhandel" },
   { href: "/dachdeckerei", label: "Dachdeckerei" },
   { href: "/mietpark", label: "Mietpark" },

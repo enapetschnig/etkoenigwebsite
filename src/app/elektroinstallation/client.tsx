@@ -16,6 +16,7 @@ import {
   Phone,
   Plug,
   ChargingStation,
+  Snowflake,
 } from "@phosphor-icons/react";
 import { Section, FadeIn, CountUp } from "@/components/section";
 
@@ -75,6 +76,13 @@ const services = [
     icon: ChargingStation,
     href: "/elektroinstallation/wallbox",
     image: "/karriere/battery-storage.jpg",
+  },
+  {
+    title: "Klimaanlagen",
+    description: "Endlich wieder gut schlafen: Beratung, Kühllastberechnung und Montage von Split-Klimaanlagen – ideal kombinierbar mit Ihrer PV-Anlage.",
+    icon: Snowflake,
+    href: "/elektroinstallation/klimaanlagen",
+    image: "/klimaanlagen.jpg",
   },
 ];
 
@@ -229,9 +237,14 @@ export default function ElektroOverviewClient() {
       <Section>
         <FadeIn>
           <p className="text-sm font-medium text-primary uppercase tracking-wider mb-3">Unsere Bereiche</p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
-            7 Fachbereiche – ein Ansprechpartner
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            8 Fachbereiche – ein Ansprechpartner
           </h2>
+          <p className="text-base text-muted max-w-2xl mb-8">
+            Von der Blitzschutzanlage über Smart Home und Wallbox bis zur Klimaanlage: Sie haben
+            für alles einen Ansprechpartner – und müssen nichts zwischen mehreren Firmen
+            koordinieren.
+          </p>
         </FadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">

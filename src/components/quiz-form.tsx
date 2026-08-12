@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle, Spinner } from "@phosphor-icons/react";
-import type { ComponentType } from "react";
+import type { ComponentType, ReactNode } from "react";
 import type { IconProps } from "@phosphor-icons/react";
 
 export interface QuizOption {
@@ -22,9 +22,32 @@ interface QuizFormProps {
   title: string;
   targetEmail: string;
   category: string;
+  /** Optionaler Kopfbereich über dem Fortschrittsbalken (Headline, Trust-Elemente). */
+  header?: ReactNode;
+  /** Optionale Überschrift auf der Danke-Seite. */
+  successTitle?: string;
+  /** Optionaler Text auf der Danke-Seite. */
+  successText?: ReactNode;
+  /** Beschriftung des Absende-Buttons. */
+  submitLabel?: string;
+  /**
+   * Wird genau einmal aufgerufen, wenn die Anfrage erfolgreich gespeichert
+   * wurde. Hier gehört das Conversion-Tracking hin (z.B. Meta-Lead-Event) –
+   * damit zählt nur eine wirklich abgeschickte Anfrage als Lead.
+   */
+  onSubmitted?: () => void;
 }
 
-export function QuizForm({ steps, title, category }: QuizFormProps) {
+export function QuizForm({
+  steps,
+  title,
+  category,
+  header,
+  successTitle,
+  successText,
+  submitLabel = "Anfrage absenden",
+  onSubmitted,
+}: QuizFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [direction, setDirection] = useState(1);
@@ -74,6 +97,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    let succeeded = false;
 
     try {
       const answerMap: Record<string, string> = {};
@@ -83,7 +107,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
       });
       if (contactData.plz) answerMap["Postleitzahl"] = contactData.plz;
 
-      await fetch("/api/inquiries", {
+      const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -95,12 +119,16 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
           answers: answerMap,
         }),
       });
+      succeeded = res.ok;
     } catch (e) {
       console.error("Submission error:", e);
     }
 
     setIsSubmitting(false);
     setIsSubmitted(true);
+
+    // Conversion-Tracking erst nach erfolgreicher Speicherung.
+    if (succeeded) onSubmitted?.();
   };
 
   const slideVariants = {
@@ -133,10 +161,16 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-success/10 mb-6">
             <CheckCircle size={32} weight="fill" className="text-success" />
           </div>
-          <h2 className="text-2xl font-bold tracking-tight mb-3">Vielen Dank!</h2>
-          <p className="text-muted leading-relaxed">
-            Ihre {title}-Anfrage wurde erfolgreich übermittelt. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight mb-3">
+            {successTitle || "Vielen Dank!"}
+          </h2>
+          <div className="text-muted leading-relaxed">
+            {successText || (
+              <p>
+                Ihre {title}-Anfrage wurde erfolgreich übermittelt. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+              </p>
+            )}
+          </div>
         </motion.div>
       </div>
     );
@@ -144,6 +178,8 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
 
   return (
     <div className="min-h-[80vh] flex flex-col pt-24">
+      {header && <div className="mx-auto w-full max-w-2xl px-4 mb-8">{header}</div>}
+
       {/* Progress Bar */}
       <div className="mx-auto w-full max-w-2xl px-4 mb-12">
         <div className="flex items-center justify-between mb-2">
@@ -355,7 +391,7 @@ export function QuizForm({ steps, title, category }: QuizFormProps) {
                   </>
                 ) : (
                   <>
-                    Anfrage absenden
+                    {submitLabel}
                     <ArrowRight size={16} weight="bold" />
                   </>
                 )}

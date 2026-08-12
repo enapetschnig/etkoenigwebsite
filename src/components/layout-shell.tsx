@@ -17,8 +17,12 @@ export function LayoutShell({
 }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
-  // Schwebenden Anruf-Button auf der Karriereseite ausblenden (eigener Bewerbungs-Flow)
-  const hidePhoneButton = pathname.startsWith("/karriere");
+  // Schwebenden Anruf-Button ausblenden, wo es einen eigenen Flow/CTA gibt:
+  // Karriere (eigener Bewerbungs-Flow) und Klimaanlagen (eigene Sticky-CTA-Leiste).
+  const hidePhoneButton =
+    pathname.startsWith("/karriere") ||
+    pathname.startsWith("/elektroinstallation/klimaanlagen") ||
+    pathname.startsWith("/anfrage/klimaanlage");
   // Fokussierter Bewerbungs-Funnel: ohne Navigation/Footer/Anruf-Button (weniger Ablenkung)
   const isFocusedFunnel = pathname === "/karriere/bewerben";
 
