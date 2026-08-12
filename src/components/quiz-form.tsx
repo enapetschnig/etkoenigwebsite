@@ -30,12 +30,6 @@ interface QuizFormProps {
   successText?: ReactNode;
   /** Beschriftung des Absende-Buttons. */
   submitLabel?: string;
-  /**
-   * Wird genau einmal aufgerufen, wenn die Anfrage erfolgreich gespeichert
-   * wurde. Hier gehört das Conversion-Tracking hin (z.B. Meta-Lead-Event) –
-   * damit zählt nur eine wirklich abgeschickte Anfrage als Lead.
-   */
-  onSubmitted?: () => void;
 }
 
 export function QuizForm({
@@ -46,7 +40,6 @@ export function QuizForm({
   successTitle,
   successText,
   submitLabel = "Anfrage absenden",
-  onSubmitted,
 }: QuizFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -97,7 +90,6 @@ export function QuizForm({
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    let succeeded = false;
 
     try {
       const answerMap: Record<string, string> = {};
@@ -107,7 +99,7 @@ export function QuizForm({
       });
       if (contactData.plz) answerMap["Postleitzahl"] = contactData.plz;
 
-      const res = await fetch("/api/inquiries", {
+      await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -119,16 +111,12 @@ export function QuizForm({
           answers: answerMap,
         }),
       });
-      succeeded = res.ok;
     } catch (e) {
       console.error("Submission error:", e);
     }
 
     setIsSubmitting(false);
     setIsSubmitted(true);
-
-    // Conversion-Tracking erst nach erfolgreicher Speicherung.
-    if (succeeded) onSubmitted?.();
   };
 
   const slideVariants = {

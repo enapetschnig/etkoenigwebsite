@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import {
   HouseLine,
   Buildings,
@@ -23,7 +22,8 @@ import {
 import { QuizForm } from "@/components/quiz-form";
 import type { QuizStep } from "@/components/quiz-form";
 import { KlimaPixel } from "@/components/klima-pixel";
-import { META_PIXEL_ID_KLIMA, trackMetaEvent } from "@/lib/meta";
+import { MetaEvent } from "@/components/meta-event";
+import { META_PIXEL_ID_KLIMA } from "@/lib/meta";
 
 const steps: QuizStep[] = [
   {
@@ -97,24 +97,19 @@ function QuizHeader() {
 }
 
 export default function KlimaQuizClient() {
-  /**
-   * Conversion-Tracking: Das Lead-Event geht ausschließlich an den
-   * Klimaanlagen-Pixel und wird erst gefeuert, wenn die Anfrage
-   * tatsächlich erfolgreich abgeschickt wurde – nicht schon beim
-   * Aufruf der Seite.
-   */
-  const handleSubmitted = useCallback(() => {
-    trackMetaEvent(META_PIXEL_ID_KLIMA, "Lead", {
-      content_name: "Klimaanlagen-Anfrage",
-      content_category: "Klimaanlagen",
-      currency: "EUR",
-      value: 1,
-    });
-  }, []);
-
   return (
     <>
       <KlimaPixel />
+      {/*
+        Lead-Event beim Aufruf der Seite – bewusst gleich wie bei
+        Photovoltaik und Wallbox. Es geht ausschließlich an den
+        Klimaanlagen-Pixel, nicht an den allgemeinen Website-Pixel.
+      */}
+      <MetaEvent
+        event="Lead"
+        pixelId={META_PIXEL_ID_KLIMA}
+        params={{ content_name: "Klimaanlagen-Anfrage" }}
+      />
       <QuizForm
         steps={steps}
         title="Klimaanlagen"
@@ -129,7 +124,6 @@ export default function KlimaQuizClient() {
             Ihnen und besprechen in Ruhe, was bei Ihnen zuhause Sinn macht.
           </p>
         }
-        onSubmitted={handleSubmitted}
       />
     </>
   );
